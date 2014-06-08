@@ -23,10 +23,7 @@ public class Position {
 
         Position position = (Position) o;
 
-        if (!x.equals(position.x)) return false;
-        if (!y.equals(position.y)) return false;
-
-        return true;
+        return x.equals(position.x) && y.equals(position.y);
     }
 
     @Override
