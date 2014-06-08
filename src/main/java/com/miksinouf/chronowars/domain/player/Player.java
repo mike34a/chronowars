@@ -13,7 +13,8 @@ public class Player {
     private final Tokens tokens;
     private final Board board;
 
-    public Player(String pseudo, Color color, Integer numberOfTokens, Board board) {
+    public Player(String pseudo, Color color, Integer numberOfTokens,
+            Board board) {
         this.pseudo = pseudo;
         this.color = color;
         this.board = board;
@@ -23,9 +24,11 @@ public class Player {
     }
 
     /**
-     *
-     * @param x x
-     * @param y y
+     * 
+     * @param x
+     *            x
+     * @param y
+     *            y
      * @return is state legal
      */
     public boolean set(Integer x, Integer y) {
@@ -37,7 +40,7 @@ public class Player {
 
         return true;
     }
-    
+
     public boolean move(Integer oldX, Integer oldY, Integer newX, Integer newY) {
         try {
             tokens.moveToken(oldX, oldY, Move.DOWN);
@@ -47,7 +50,5 @@ public class Player {
 
         return true;
     }
-
-
 
 }

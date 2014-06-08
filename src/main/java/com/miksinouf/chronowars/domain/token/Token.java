@@ -6,7 +6,8 @@ public class Token {
     private Position position;
     private Integer boardSize;
 
-    public Token(Position position, Integer boardSize) throws IllegalMoveException {
+    public Token(Position position, Integer boardSize)
+            throws IllegalMoveException {
         this.position = position;
         this.boardSize = boardSize;
         assertPositionLegal(position.getX(), position.getY());
@@ -24,7 +25,8 @@ public class Token {
         return position;
     }
 
-    private void assertPositionLegal(int newX, int newY) throws IllegalMoveException {
+    private void assertPositionLegal(int newX, int newY)
+            throws IllegalMoveException {
         if (newX < 0 || newY < 0 || newX >= boardSize || newY >= boardSize) {
             throw new IllegalMoveException();
         }
