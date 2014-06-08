@@ -1,2 +1,6 @@
 .idea
 chronowars.iml
+.classpath
+.project
+.settings
+target
