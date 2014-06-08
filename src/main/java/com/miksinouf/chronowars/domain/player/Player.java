@@ -7,6 +7,7 @@ import com.miksinouf.chronowars.domain.token.Move;
 public class Player {
 
     private final String pseudo;
+    private final String identifier;
     private final Color color;
     private Integer timeBonus;
     private Integer score;
@@ -14,9 +15,10 @@ public class Player {
     private final Board board;
 
     public Player(String pseudo, Color color, Integer numberOfTokens,
-            Board board) {
+                  String identifier, Board board) {
         this.pseudo = pseudo;
         this.color = color;
+        this.identifier = identifier;
         this.board = board;
         this.timeBonus = 0;
         this.score = 0;
