@@ -1,4 +1,4 @@
-package com.miksinouf.chronowars.domain.piece;
+package com.miksinouf.chronowars.domain.token;
 
 public enum Move {
     UP(0, -2),
