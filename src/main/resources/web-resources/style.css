@@ -1,24 +1,37 @@
+html, body {min-height: 100%;}
+
 body {
-background-color: #1E1E16;
+background: #010002;
+background: linear-gradient(#010002, #A79DC9);
 }
 
 table {
  margin-left: 170px;
  margin-top: 50px;
  border: 1px #C2C2A3 solid;
- border-collapse:collapse;
+ border-collapse: separate;
+ -moz-border-radius: 20px;
+ border-radius: 20px;
+ -khtml-border-radius: 20px;
+ -webkit-border-radius: 20px;
+ background-color:#CECEF6;
+ border-spacing : 5px;
 }
 
 th.color1 {
-background-color: #E65C00;
+background-color: #593767;
+
 }
 
 th.color2 {
-background-color: #FF8533;
+background-color: #403542;
 }
 
 th {
-
+-moz-border-radius: 20px;
+border-radius: 20px;
+-khtml-border-radius: 20px;
+-webkit-border-radius: 20px;
 width: 50px;
 height: 50px;
 padding: 5px;
