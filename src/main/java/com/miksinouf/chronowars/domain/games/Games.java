@@ -19,5 +19,4 @@ public class Games {
     public Optional<String> getGameIdentifier(String playerIdentifier) {
         return getGame(playerIdentifier).map(Game::getIdentifier);
     }
-
 }

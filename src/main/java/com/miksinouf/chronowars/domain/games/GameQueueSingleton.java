@@ -41,4 +41,12 @@ public enum GameQueueSingleton {
     public synchronized String nextRandomIdentifier() {
         return new BigInteger(130, secureRandom).toString(32);
     }
+
+    public String setToken(String gameIdentifier, String playerIdentifier, String x, String y) {
+        return null;
+    }
+
+    public Object moveToken(String gameIdentifier, String playerIdentifier, String x, String y, String move) {
+        return null;
+    }
 }
