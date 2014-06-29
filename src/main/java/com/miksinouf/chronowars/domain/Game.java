@@ -13,4 +13,8 @@ public class Game {
 
         this.identifier = GameQueueSingleton.INSTANCE.nextRandomIdentifier();
     }
+
+    public String getIdentifier() {
+        return identifier;
+    }
 }
