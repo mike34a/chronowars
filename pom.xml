@@ -29,6 +29,14 @@
             <version>4.0</version>
         </dependency>
 
+        <!-- Craft Utils -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>17.0</version>
+        </dependency>
+
+
         <!-- Tests -->
         <dependency>
             <groupId>junit</groupId>

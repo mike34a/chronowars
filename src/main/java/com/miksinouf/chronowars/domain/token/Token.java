@@ -28,7 +28,7 @@ public class Token {
     private void assertPositionLegal(int newX, int newY)
             throws IllegalMoveException {
         if (newX < 0 || newY < 0 || newX >= boardSize || newY >= boardSize) {
-            throw new IllegalMoveException();
+            throw new IllegalMoveException(IllegalMoveException.TOKEN_OUT_OF_BOUNDS, position);
         }
     }
 

@@ -28,7 +28,7 @@ public enum GameQueueSingleton {
 
             final Player whitePlayer = new Player(waitingPlayer.get(), board, Color.WHITE);
             final Player blackPlayer = new Player(nickname, Color.BLACK, 8, playerIdentifier, board);
-            final Game nextGame = new Game(whitePlayer, blackPlayer);
+            final Game nextGame = new Game(whitePlayer, blackPlayer, board);
             games.addGame(nextGame);
             
             this.waitingPlayer = Optional.empty();

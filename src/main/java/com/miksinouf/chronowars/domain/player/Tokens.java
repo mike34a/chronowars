@@ -33,7 +33,7 @@ public class Tokens {
         final Token tokenToMove = tokens.stream().
                 filter(token -> token.hasPosition(oldX, oldY)).
                 findFirst().
-                orElseThrow(IllegalMoveException::new);
+                orElseThrow(() -> new IllegalMoveException(IllegalMoveException.TOKEN_OUT_OF_BOUNDS, new Position(oldX + move.dx, oldY + move.dy)));
 
         tokenToMove.move(Move.DOWN);
     }
