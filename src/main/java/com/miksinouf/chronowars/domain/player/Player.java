@@ -1,8 +1,8 @@
 package com.miksinouf.chronowars.domain.player;
 
-import com.miksinouf.chronowars.domain.Board;
-import com.miksinouf.chronowars.domain.token.IllegalMoveException;
-import com.miksinouf.chronowars.domain.token.Move;
+import com.miksinouf.chronowars.domain.board.Board;
+import com.miksinouf.chronowars.domain.board.IllegalMoveException;
+import com.miksinouf.chronowars.domain.board.Move;
 
 public class Player {
 
@@ -22,7 +22,7 @@ public class Player {
         this.board = board;
         this.timeBonus = 0;
         this.score = 0;
-        this.tokens = new Tokens(board.size(), numberOfTokens);
+        this.tokens = new Tokens(board.size(), numberOfTokens, color);
     }
 
     public Player(WaitingPlayer waitingPlayer, Board board, Color color) {
@@ -32,7 +32,7 @@ public class Player {
         this.board = board;
         this.timeBonus = 0;
         this.score = 0;
-        this.tokens = new Tokens(board.size(), 8);
+        this.tokens = new Tokens(board.size(), 8, color);
     }
 
     /**

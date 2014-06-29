@@ -4,15 +4,15 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import org.junit.Test;
 
-import com.miksinouf.chronowars.domain.Position;
-import com.miksinouf.chronowars.domain.token.Move;
+import com.miksinouf.chronowars.domain.board.Move;
+import com.miksinouf.chronowars.domain.board.Position;
 
 public class TokensTest {
 
     @Test
     public void should_add_token() throws Exception {
         //GIVEN
-        final Tokens tokens = new Tokens(5, 2);
+        final Tokens tokens = new Tokens(5, 2, Color.BLACK);
 
         //WHEN
         tokens.addToken(0,0);
@@ -22,7 +22,7 @@ public class TokensTest {
     @Test(expected=TooManyTokensException.class)
     public void should_throw_exception() throws Exception {
         //GIVEN
-        final Tokens tokens = new Tokens(5, 2);
+        final Tokens tokens = new Tokens(5, 2, Color.BLACK);
 
         //WHEN
         tokens.addToken(0,0);
@@ -31,9 +31,9 @@ public class TokensTest {
     }
 
     @Test
-    public void should_move_right_token() throws Exception {
+    public void should_move_the_right_token() throws Exception {
         //GIVEN
-        final Tokens tokens = new Tokens(5, 3);
+        final Tokens tokens = new Tokens(5, 3, Color.BLACK);
         tokens.addToken(0,0);
         tokens.addToken(1,1);
         tokens.addToken(2,2);

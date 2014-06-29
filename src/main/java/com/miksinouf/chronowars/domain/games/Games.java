@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import com.miksinouf.chronowars.domain.Game;
-
 public class Games {
     private final Map<String, Game> games = new HashMap<>();
 

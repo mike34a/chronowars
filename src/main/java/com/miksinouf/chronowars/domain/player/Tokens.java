@@ -1,46 +1,65 @@
 package com.miksinouf.chronowars.domain.player;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Set;
 
-import com.miksinouf.chronowars.domain.Position;
-import com.miksinouf.chronowars.domain.token.IllegalMoveException;
-import com.miksinouf.chronowars.domain.token.Move;
-import com.miksinouf.chronowars.domain.token.Token;
+import com.miksinouf.chronowars.domain.board.IllegalMoveException;
+import com.miksinouf.chronowars.domain.board.Move;
+import com.miksinouf.chronowars.domain.board.Position;
 
 public class Tokens {
 
-    private List<Token> tokens;
+    private Color color;
+    private final Set<Position> tokensPositions;
     private final Integer boardSize;
     private final Integer numberOfTokens;
 
-    public Tokens(Integer boardSize, Integer numberOfTokens) {
-        this.tokens = new ArrayList<>(numberOfTokens);
+    public Tokens(Integer boardSize, Integer numberOfTokens, Color color) {
+        this.tokensPositions = new HashSet<>(numberOfTokens);
         this.boardSize = boardSize;
         this.numberOfTokens = numberOfTokens;
+        this.color = color;
     }
 
     public void addToken(Integer x, Integer y) throws TooManyTokensException, IllegalMoveException {
-        if (tokens.size() >= numberOfTokens) {
-            throw new TooManyTokensException();
+        checkNumberOfTokens();
+        checkBounds(x, y);
+
+        final Position position = new Position(x, y);
+        if (tokensPositions.contains(position)) {
+            throw new IllegalMoveException(IllegalMoveException.TOKEN_ALREADY_HERE, position.toString());
+        }
+        if (!color.isPositionValid(position)) {
+            throw new IllegalMoveException(IllegalMoveException.ILLEGAL_POSITION_FOR_PLAYER, position.toString(), color.toString().toLowerCase());
         }
 
-        tokens.add(new Token(new Position(x, y), boardSize));
+        tokensPositions.add(new Position(x, y));
+    }
+
+    private void checkBounds(int x, int y)
+            throws IllegalMoveException {
+        if (x < 0 || y < 0 || x >= boardSize || y >= boardSize) {
+            throw new IllegalMoveException(IllegalMoveException.TOKEN_OUT_OF_BOUNDS, new Position(x, y).toString());
+        }
+    }
+
+    private void checkNumberOfTokens() throws TooManyTokensException {
+        if (tokensPositions.size() >= numberOfTokens) {
+            throw new TooManyTokensException();
+        }
     }
 
     public void moveToken(Integer oldX, Integer oldY, Move move) throws IllegalMoveException {
-        final Token tokenToMove = tokens.stream().
-                filter(token -> token.hasPosition(oldX, oldY)).
+        final Position oldPosition = tokensPositions.stream().
+                filter(position -> position.equals(oldX, oldY)).
                 findFirst().
-                orElseThrow(() -> new IllegalMoveException(IllegalMoveException.TOKEN_OUT_OF_BOUNDS, new Position(oldX + move.dx, oldY + move.dy)));
+                orElseThrow(() -> new IllegalMoveException(IllegalMoveException.NO_TOKEN_HERE, new Position(oldX + move.dx, oldY + move.dy).toString()));
 
-        tokenToMove.move(Move.DOWN);
+        tokensPositions.add(Position.from(oldPosition).moving(Move.DOWN));
+        tokensPositions.remove(oldPosition);
     }
 
-    public List<Position> tokensPositions() {
-        return tokens.stream().
-                map(Token::getPosition).
-                collect(Collectors.toList());
+    public Set<Position> tokensPositions() {
+        return new HashSet<>(tokensPositions);
     }
 }

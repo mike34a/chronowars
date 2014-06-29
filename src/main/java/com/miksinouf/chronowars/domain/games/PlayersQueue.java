@@ -3,7 +3,7 @@ package com.miksinouf.chronowars.domain.games;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import com.miksinouf.chronowars.domain.Board;
+import com.miksinouf.chronowars.domain.board.Board;
 import com.miksinouf.chronowars.domain.player.Color;
 import com.miksinouf.chronowars.domain.player.Player;
 import com.miksinouf.chronowars.domain.player.WaitingPlayer;
