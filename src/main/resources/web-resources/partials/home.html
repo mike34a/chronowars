@@ -1,0 +1,10 @@
+<div class="container-fluid">
+	<input type="text" name="userName" ng-model="userName">
+	<p class="whiteMessage">{{userName | userNameFilter}}</p>
+	<button ng-click="registerPlayer(userName)"
+		ng-init="playerId = 0;gameLaunched=false"
+		ng-disabled="!(userName.length > 3)" id="NewGameInput"
+		class="NewGameInput" style="margin-left: 250px; margin-top: 50px">
+		New game
+	</button>
+</div>

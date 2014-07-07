@@ -5,7 +5,7 @@
 var chronoWarsControllers = angular.module('chronoWarsControllers', []);
 
 chronoWarsControllers.controller(
-		'PhoneListCtrl', 
+		'chronoWarsControllers', 
 		['$scope', 'launchGame','$http',
 		function($scope, launchGame, $http) {
 			
