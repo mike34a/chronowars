@@ -3,7 +3,7 @@
 		<div class="home" ng-show="!gameLaunched">
 			<input type="text" name="userName" ng-model="userName">
 			<p class="whiteMessage">{{userName | userNameFilter}}</p>
-			<button ng-click="getPlayerId(userName);gameLaunched = true"
+			<button ng-click="registerPlayer(userName);gameLaunched = true"
 				ng-init="playerId = 0;gameLaunched=false"
 				ng-disabled="!(userName.length > 3)" id="NewGameInput"
 				class="NewGameInput" style="margin-left: 250px; margin-top: 50px">
@@ -14,97 +14,10 @@
 			Hello {{userName}} ! Your id is {{playerId}}
 			</p>
 			<table id="damier" class="damier">
-				<tr id="l1">
-					<th id="a1" class="color1"><img src="img/token.png"
-						id="tatami" class="token"></th>
-					<th id="a2" class="color2"></th>
-					<th id="a3" class="color1"></th>
-					<th id="a4" class="color2"></th>
-					<th id="a5" class="color1"></th>
-					<th id="a6" class="color2"></th>
-					<th id="a7" class="color1"></th>
-					<th id="a8" class="color2"></th>
-				</tr>
-
-				<tr id="l2">
-					<th id="b1" class="color2"></th>
-					<th id="b2" class="color1"></th>
-					<th id="b3" class="color2"></th>
-					<th id="b4" class="color1"></th>
-					<th id="b5" class="color2"></th>
-					<th id="b6" class="color1"></th>
-					<th id="b7" class="color2"></th>
-					<th id="b8" class="color1"></th>
-				</tr>
-
-				<tr id="l3">
-					<th id="c1" class="color1"></th>
-					<th id="c2" class="color2"></th>
-					<th id="c3" class="color1"></th>
-					<th id="c4" class="color2"><img src="img/token.png"
-						class="token"></th>
-					<th id="c5" class="color1"></th>
-					<th id="c6" class="color2"></th>
-					<th id="c7" class="color1"></th>
-					<th id="c8" class="color2"></th>
-				</tr>
-
-				<tr id="l4">
-					<th id="d1" class="color2"></th>
-					<th id="d2" class="color1"></th>
-					<th id="d3" class="color2"></th>
-					<th id="d4" class="color1"></th>
-					<th id="d5" class="color2"></th>
-					<th id="d6" class="color1"></th>
-					<th id="d7" class="color2"></th>
-					<th id="d8" class="color1"></th>
-				</tr>
-
-				<tr id="l5">
-					<th id="e1" class="color1"></th>
-					<th id="e2" class="color2"></th>
-					<th id="e3" class="color1"></th>
-					<th id="e4" class="color2"></th>
-					<th id="e5" class="color1"></th>
-					<th id="e6" class="color2"></th>
-					<th id="e7" class="color1"></th>
-					<th id="e8" class="color2"></th>
-				</tr>
-
-				<tr id="l6">
-					<th id="f1" class="color2"></th>
-					<th id="f2" class="color1"></th>
-					<th id="f3" class="color2"></th>
-					<th id="f4" class="color1"></th>
-					<th id="f5" class="color2"></th>
-					<th id="f6" class="color1"></th>
-					<th id="f7" class="color2"></th>
-					<th id="f8" class="color1"></th>
-				</tr>
-
-				<tr id="l7">
-					<th id="g1" class="color1"></th>
-					<th id="g2" class="color2"></th>
-					<th id="g3" class="color1"></th>
-					<th id="g4" class="color2"></th>
-					<th id="g5" class="color1"></th>
-					<th id="g6" class="color2"></th>
-					<th id="g7" class="color1"></th>
-					<th id="g8" class="color2"></th>
-				</tr>
-
-				<tr id="l8">
-					<th id="h1" class="color2"></th>
-					<th id="h2" class="color1"></th>
-					<th id="h3" class="color2"></th>
-					<th id="h4" class="color1"></th>
-					<th id="h5" class="color2"></th>
-					<th id="h6" class="color1"></th>
-					<th id="h7" class="color2"></th>
-					<th id="h8" class="color1"></th>
-				</tr>
+					<tr id ="{{'l' + row}}" ng-repeat="row in [1,2,3,4,5,6,7,8]">
+						<th id="{{row + '' + col}}" class="{{(row + col) % 2 ? 'color2' : 'color1'}}" ng-repeat="col in [1,2,3,4,5,6,7,8]"></th>
+					</tr>
 			</table>
-
 		</div>
 	</div>
 </div>
