@@ -38,6 +38,10 @@ padding: 5px;
 background-color: #D0E3FA;
 }
 
+th:hover {
+	opacity: 0.4;
+}
+
 img.token:hover 
 {
      opacity: 0.4;
