@@ -15,7 +15,11 @@
 			</p>
 			<table id="damier" class="damier">
 					<tr id ="{{'l' + row}}" ng-repeat="row in [1,2,3,4,5,6,7,8]">
-						<th id="{{row + '' + col}}" class="{{(row + col) % 2 ? 'color2' : 'color1'}}" ng-repeat="col in [1,2,3,4,5,6,7,8]"></th>
+						<td id="{{row + '' + col}}"
+							ng-click="selectTile(row + '' + col)"
+							class="{{(row + col) % 2 ? 'color2' : 'color1'}}" 
+							ng-repeat="col in [1,2,3,4,5,6,7,8]">
+						</td>
 					</tr>
 			</table>
 		</div>

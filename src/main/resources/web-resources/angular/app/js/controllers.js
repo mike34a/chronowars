@@ -42,7 +42,12 @@ chronoWarsControllers.controller(
 			};
 			
 			/*Game*/
-			
+			$scope.selectTile = function(tileId) {
+				document.getElementById(tileId).setAttribute('style','border: 3px solid red');
+				if ($scope.selectedTile)
+					document.getElementById($scope.selectedTile).removeAttribute('style');
+				$scope.selectedTile = tileId;
+			}
 			/*
 			$("#tatami").draggable({
 				revert : "invalid"

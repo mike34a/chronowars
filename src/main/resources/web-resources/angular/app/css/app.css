@@ -18,16 +18,16 @@ table {
  border-spacing : 5px;
 }
 
-th.color1 {
+td.color1 {
 background-color: #593767;
 
 }
 
-th.color2 {
+td.color2 {
 background-color: #403542;
 }
 
-th {
+td {
 -moz-border-radius: 20px;
 border-radius: 20px;
 -khtml-border-radius: 20px;
@@ -38,7 +38,7 @@ padding: 5px;
 background-color: #D0E3FA;
 }
 
-th:hover {
+td:hover {
 	opacity: 0.4;
 }
 
