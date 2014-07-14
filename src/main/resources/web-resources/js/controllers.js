@@ -21,14 +21,18 @@ chronoWarsControllers.controller('GameCtrl', [
 			$scope.playerId = $routeParams.playerId;
 
 			var countPlayerToken = function(playerColor, board) {
-				return 8;
+				return 7;
 			}
 			
 			var placeToken = function() {
-				var gameId = gameApi.getGameId($routeParams.playerId).then(function(data) {
+				gameApi.getGameId($routeParams.playerId).then(function(data) {
 					$scope.gameId = data;
 				});
-				console.log($scope.gameid);
+				gameApi.setToken($routeParams.playerId, $scope.gameId, $scope.selectedTile[0], $scope.selectedTile[1]).then(function(data) {
+					/*
+					 * Server API not ready
+					 */
+				});
 			}
 			
 			var moveToken = function() {
@@ -37,7 +41,7 @@ chronoWarsControllers.controller('GameCtrl', [
 			
 			gameApi.getGameId($routeParams.playerId).then(function(data) {
 				$scope.gameId = data;
-				$scope.board = gameApi.getBoard(data)
+				$scope.board = gameApi.getBoard(data);
 			});
 			
 			$scope.selectTile = function(tileId) {

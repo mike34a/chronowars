@@ -21,20 +21,20 @@ chronoWarsServices.factory('gameApi', function($http) {
 		},
 
 		getBoard: function(gameId) {
-			$http.get('/get_game/' + gameId).then(function(result) {
+			return $http.get('/get_game/' + gameId).then(function(result) {
 				return result.data;
 			})
 		},
 
 		setToken: function(playerId, gameId, row, col) {
-			$http.put('/set_token/' + gameId + '/' + playerId + '/' + row + '/' + col)
+			return $http.put('/set_token/' + gameId + '/' + playerId + '/' + row + '/' + col)
 					.then(function(result) {
 						return result.data;
 					})
 		},
 
 		moveToken: function(playerId, gameId, row, col, direction) {
-			$http.patch(
+			return $http.patch(
 					'/set_token/' + gameId + '/' + playerId + '/' + row + '/' + col + '/'
 							+ direction).then(function(result) {
 				return result.data;
