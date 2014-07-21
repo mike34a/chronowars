@@ -76,10 +76,10 @@
 				</executions>
 				<configuration>
 					<jsSrcDir>${project.basedir}/src/main/resources/web-resources/js</jsSrcDir>
-					<jsTestSrcDir>${project.basedir}/src/main/resources/web-resources/test</jsTestSrcDir>
+					<jsTestSrcDir>${project.basedir}/src/main/resources/web-resources/test/unit</jsTestSrcDir>
 					<preloadSources>
-						<source>${project.basedir}/src/main/resources/web-resources/bower_components/angular/angular.js</source>
 						<source>${project.basedir}/src/main/resources/web-resources/bower_components/jquery/jquery.js</source>
+						<source>${project.basedir}/src/main/resources/web-resources/bower_components/angular/angular.js</source>
 						<source>${project.basedir}/src/main/resources/web-resources/bower_components/angular-mocks/angular-mocks.js</source>
 						<source>${project.basedir}/src/main/resources/web-resources/bower_components/angular-resource/angular-resource.js</source>
 						<source>${project.basedir}/src/main/resources/web-resources/bower_components/angular-animate/angular-animate.js</source>
@@ -89,6 +89,30 @@
 					</preloadSources>
 					<sourceIncludes>
 					</sourceIncludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.kelveden</groupId>
+				<artifactId>maven-karma-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<phase>test</phase>
+						<goals>
+							<goal>start</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<karmaExecutable>${basedir}/node_modules/.bin/karma</karmaExecutable>
+					<configFile>src/main/resources/web-resources/test/karma.conf.js</configFile>
+					<autoWatch>false</autoWatch>
+					<singleRun>true</singleRun>
+					<colors>true</colors>
+					<skipKarma>false</skipKarma>
+					<skipTests>false</skipTests>
+					<karmaFailureIgnore>false</karmaFailureIgnore>
+					<reporters>dots,junit</reporters>
 				</configuration>
 			</plugin>
         </plugins>

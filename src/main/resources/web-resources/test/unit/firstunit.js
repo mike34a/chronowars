@@ -7,7 +7,7 @@ describe('Chronowars first tests', function() {
     var data, responseData,
       requestMethod, requestUrl;
  
-    it('should send get request to "register/:playername"', inject(
+    it('should send get request to "/register/logar"', inject(
       function($httpBackend, gameApi) {
         $httpBackend.expectGET('/register/logar').respond(data);
         gameApi.registerPlayer('logar');
