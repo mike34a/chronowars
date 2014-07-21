@@ -91,6 +91,10 @@ img.token:hover
 	position:relative;
 	top:1px;
 }
+.actionButton:disabled {
+	background-color:#AAAAAA;
+}
+
 .whiteMessage {
 	color: white;
 }
