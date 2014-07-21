@@ -7,8 +7,16 @@ var chronoWarsControllers = angular.module('chronoWarsControllers', []);
 chronoWarsControllers.controller('HomeCtrl', [ '$scope', 'gameApi',
 		'$location', function($scope, gameApi, $location) {
 			$scope.registerPlayer = function(name) {
-				gameApi.registerPlayer(name).then(function(data) {
-					$location.path('/game/' + data)
+				var gameId;
+				gameApi.registerPlayer(name).then(function(pidres) {
+					$scope.startgame = setInterval(function(){
+						gameApi.getGameId(pidres).then(function(gidres) {
+							if (gidres != 'No game started yet.') {
+								clearInterval($scope.startgame);
+								$location.path('/game/' + pidres);
+							}
+						});
+					},1000);
 				});
 			};
 		} ]);

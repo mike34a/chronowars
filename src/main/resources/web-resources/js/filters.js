@@ -17,4 +17,9 @@ angular.module('chronoWarsFilters', [])
 	  return function(input) {
 	    return input == '' ? 'Select tile' : input == 'move' ? 'Move Token' : 'Place Token';
 	  };
+	})
+	.filter('gameStatusFilter', function() {
+		return function(input) {
+			return input == '0' ? 'New Game' : 'Finding you a game...';
+		}
 	});
