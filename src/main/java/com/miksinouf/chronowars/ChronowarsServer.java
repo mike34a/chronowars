@@ -21,11 +21,23 @@ public class ChronowarsServer {
               .orElse("No game started yet."));
 
       /*renvoie une réponse json de la forme
-                 {"currentColorToPlay": "BLACK",
+                 {
+                  "currentColorToPlay": "BLACK",
                   "status": "running",
+                  "lastRoundPoints": "12",
                   "blackTokens": "(2,2),(1,3)",
                   "whiteTokens": "(1,2),(2,5),(3,2)"
-                  }
+                 }
+
+         ou :
+
+                 {
+                  "currentColorToPlay": "WHITE",
+                  "status": "finished",
+                  "winner": "BLACK",
+                  "blackTokens": "(2,2),(1,3)",
+                  "whiteTokens": "(1,2),(2,5),(3,2)"
+                 }
        */
       get("/get_game/:gameIdentifier", (request, response) -> GameQueueSingleton.INSTANCE
               .hasPlayerAGame(request.params("gameIdentifier")));

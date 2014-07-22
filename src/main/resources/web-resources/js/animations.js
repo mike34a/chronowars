@@ -43,7 +43,7 @@ chronoWarsAnimations.animation('.damier', function() {
         element.stop();
       }
     };
-  }
+  };
 
   return {
     addClass: animateUp,
