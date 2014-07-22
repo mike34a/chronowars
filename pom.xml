@@ -104,7 +104,6 @@
 					</execution>
 				</executions>
 				<configuration>
-					<karmaExecutable>${basedir}/node_modules/.bin/karma</karmaExecutable>
 					<configFile>src/main/resources/web-resources/test/karma.conf.js</configFile>
 					<autoWatch>false</autoWatch>
 					<singleRun>true</singleRun>
