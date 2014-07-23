@@ -5,6 +5,8 @@ import java.security.SecureRandom;
 import java.util.Optional;
 
 import com.miksinouf.chronowars.domain.board.Board;
+import com.miksinouf.chronowars.domain.board.Move;
+import com.miksinouf.chronowars.domain.board.MoveResult;
 import com.miksinouf.chronowars.domain.player.Color;
 import com.miksinouf.chronowars.domain.player.Player;
 import com.miksinouf.chronowars.domain.player.UnknownPlayerException;
@@ -43,11 +45,11 @@ public enum GamesQueueSingleton {
         return new BigInteger(130, secureRandom).toString(32);
     }
 
-    public void setToken(String playerIdentifier, String x, String y) throws UnknownPlayerException {
-        players.setToken(playerIdentifier, Integer.parseInt(x), Integer.parseInt(y));
+    public MoveResult setToken(String playerIdentifier, int x, int y) throws UnknownPlayerException {
+        return players.setToken(playerIdentifier, x, y);
     }
 
-    public Object moveToken(String gameIdentifier, String playerIdentifier, String x, String y, String move) {
-        return null;
+    public MoveResult moveToken(String playerIdentifier, int x, int y, String move) throws UnknownPlayerException {
+        return players.moveToken(playerIdentifier, x, y, Move.valueOf(move));
     }
 }

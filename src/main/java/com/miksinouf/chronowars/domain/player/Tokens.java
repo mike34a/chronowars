@@ -1,12 +1,11 @@
 package com.miksinouf.chronowars.domain.player;
 
+import static com.miksinouf.chronowars.domain.board.MoveResultType.SUCCESS;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import com.miksinouf.chronowars.domain.board.IllegalMoveException;
-import com.miksinouf.chronowars.domain.board.Move;
-import com.miksinouf.chronowars.domain.board.MoveResultType;
-import com.miksinouf.chronowars.domain.board.Position;
+import com.miksinouf.chronowars.domain.board.*;
 
 public class Tokens {
 
@@ -50,14 +49,17 @@ public class Tokens {
         }
     }
 
-    public void moveToken(Integer oldX, Integer oldY, Move move) throws IllegalMoveException {
+    public MoveResult moveToken(Integer oldX, Integer oldY, Move move) throws IllegalMoveException {
         final Position oldPosition = tokensPositions.stream().
                 filter(position -> position.equals(oldX, oldY)).
                 findFirst().
                 orElseThrow(() -> new IllegalMoveException(MoveResultType.NO_TOKEN_HERE, oldX, oldY));
 
-        tokensPositions.add(Position.from(oldPosition).moving(Move.DOWN));
+        final Position newPosition = Position.from(oldPosition).moving(move);
+        tokensPositions.add(newPosition);
         tokensPositions.remove(oldPosition);
+
+        return new MoveResult(SUCCESS, newPosition);
     }
 
     public Set<Position> tokensPositions() {

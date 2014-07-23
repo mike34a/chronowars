@@ -54,20 +54,18 @@ public class Player {
         } catch (TooManyTokensException e) {
             return new MoveResult(NO_MORE_TOKENS_AVAILABLE, x, y);
         } catch (IllegalMoveException e) {
-            return new MoveResult(e.moveResultType, x, y);
+            return e.invalidMoveResult;
         }
 
         return new MoveResult(SUCCESS, x, y);
     }
 
-    public boolean move(Integer oldX, Integer oldY, Integer newX, Integer newY) {
+    public MoveResult move(Integer oldX, Integer oldY, Move move) {
         try {
-            tokens.moveToken(oldX, oldY, Move.DOWN);
+            return tokens.moveToken(oldX, oldY, move);
         } catch (IllegalMoveException e) {
-            return false;
+            return e.invalidMoveResult;
         }
-
-        return true;
     }
 
     public void setOpponent(Player opponent) {

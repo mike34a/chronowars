@@ -4,9 +4,13 @@ public class MoveResult {
     public final MoveResultType moveResultType;
     public final Position position;
 
-    public MoveResult(MoveResultType moveResultType, int x, int y) {
+    public MoveResult(MoveResultType moveResultType, Position position) {
         this.moveResultType = moveResultType;
-        this.position = new Position(x, y);
+        this.position = position;
+    }
+
+    public MoveResult(MoveResultType moveResultType, int x, int y) {
+        this(moveResultType, new Position(x, y));
     }
 
     @Override

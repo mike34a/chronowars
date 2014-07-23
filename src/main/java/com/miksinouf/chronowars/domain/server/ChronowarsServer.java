@@ -3,7 +3,10 @@ package com.miksinouf.chronowars.domain.server;
 import static spark.Spark.*;
 import static spark.SparkBase.staticFileLocation;
 
+import spark.Response;
+
 import com.miksinouf.chronowars.domain.games.GamesQueueSingleton;
+import com.miksinouf.chronowars.domain.player.UnknownPlayerException;
 
 public class ChronowarsServer {
 
@@ -21,7 +24,7 @@ public class ChronowarsServer {
                 (request, response) -> GamesQueueSingleton.INSTANCE
                         .hasPlayerAGame(request.params("identifier")));
 
-        /*
+        /**
          * renvoie une réponse json de la forme { "currentColorToPlay": "BLACK",
          * "status": "running", "lastRoundPoints": "12", "blackTokens":
          * "(2,2),(1,3)", "whiteTokens": "(1,2),(2,5),(3,2)" }
@@ -36,19 +39,61 @@ public class ChronowarsServer {
                 (request, response) -> GamesQueueSingleton.INSTANCE
                         .hasPlayerAGame(request.params("gameIdentifier")));
 
-        // permet de placer un pion
+        /**
+         * permet de placer un pion
+         */
         put("/set_token/:playerIdentifier/:x/:y",
-                (request, response) -> ChronowarsServerAdapter.setToken(
-                        request.params("playerIdentifier"),
-                        request.params("x"), request.params("y")));
+                (request, response) -> {
+                    final String x = request.params("x");
+                    final String y = request.params("y");
+                    try {
+                        return GamesQueueSingleton.INSTANCE.setToken(
+                                request.params("playerIdentifier"),
+                                parseInt(x), parseInt(y));
+                    } catch (UnknownPlayerException e) {
+                        return badRequest(response,
+                                "This player identifier does not exist!");
+                    } catch (ChronowarsNumberFormatException e) {
+                        return badRequest(response,
+                                "One of the coordinates is not an integer.");
+                    }
+                });
 
-        // permet de déplacer un pion
-        patch("/move_token/:gameIdentifier/:playerIdentifier/:x/:y/:moveDirection",
-                (request, response) -> GamesQueueSingleton.INSTANCE.moveToken(
-                        request.params("gameIdentifier"),
-                        request.params("playerIdentifier"),
-                        request.params("x"), request.params("y"),
-                        request.params("moveDirection")));
+        /**
+         * Permet de déplacer un pion moveDirection = UP | UP_RIGHT | RIGHT |
+         * DOWN_RIGHT | DOWN | DOWN_LEFT | LEFT | UP_LEFT
+         */
+        patch("/move_token/:playerIdentifier/:x/:y/:moveDirection",
+                (request, response) -> {
+                    final String x = request.params("x");
+                    final String y = request.params("y");
+                    try {
+                        return GamesQueueSingleton.INSTANCE.moveToken(
+                                request.params("playerIdentifier"),
+                                parseInt(x), parseInt(y),
+                                request.params("moveDirection"));
+                    } catch (UnknownPlayerException e) {
+                        return badRequest(response,
+                                "This player identifier does not exist!");
+                    } catch (ChronowarsNumberFormatException e) {
+                        return badRequest(response,
+                                "One of the coordinates is not an integer.");
+                    }
+                });
+    }
+
+    private static String badRequest(Response response, String message) {
+        response.status(400);
+        return message;
+    }
+
+    private static int parseInt(String intToParse)
+            throws ChronowarsNumberFormatException {
+        try {
+            return Integer.parseInt(intToParse);
+        } catch (NumberFormatException e) {
+            throw new ChronowarsNumberFormatException();
+        }
     }
 
 }
