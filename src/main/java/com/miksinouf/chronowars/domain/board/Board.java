@@ -1,6 +1,6 @@
 package com.miksinouf.chronowars.domain.board;
 
-import com.miksinouf.chronowars.domain.games.Game;
+import com.miksinouf.chronowars.domain.games.GameQueueSingleton;
 import com.miksinouf.chronowars.domain.player.Color;
 import com.miksinouf.chronowars.domain.player.Tokens;
 import com.miksinouf.chronowars.domain.player.TooManyTokensException;
@@ -13,8 +13,8 @@ public class Board {
     private final Tokens blackTokens;
 
     public Board() {
-        this.whiteTokens = new Tokens(SIZE, Game.MAX_NUMBER_OF_TOKENS, Color.WHITE);
-        this.blackTokens = new Tokens(SIZE, Game.MAX_NUMBER_OF_TOKENS, Color.BLACK);
+        this.whiteTokens = new Tokens(SIZE, GameQueueSingleton.MAX_NUMBER_OF_TOKENS, Color.WHITE);
+        this.blackTokens = new Tokens(SIZE, GameQueueSingleton.MAX_NUMBER_OF_TOKENS, Color.BLACK);
     }
 
     public Integer size() {

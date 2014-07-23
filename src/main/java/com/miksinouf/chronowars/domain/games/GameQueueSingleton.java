@@ -12,6 +12,7 @@ import com.miksinouf.chronowars.domain.player.WaitingPlayer;
 
 public enum GameQueueSingleton {
     INSTANCE;
+    public static final Integer MAX_NUMBER_OF_TOKENS = 8;
 
     private final Players players = new Players();
     private final SecureRandom secureRandom = new SecureRandom();
