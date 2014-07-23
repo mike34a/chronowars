@@ -1,8 +1,12 @@
 package com.miksinouf.chronowars.domain.player;
 
+import static com.miksinouf.chronowars.domain.board.MoveResultType.NO_MORE_TOKENS_AVAILABLE;
+import static com.miksinouf.chronowars.domain.board.MoveResultType.SUCCESS;
+
 import com.miksinouf.chronowars.domain.board.Board;
 import com.miksinouf.chronowars.domain.board.IllegalMoveException;
 import com.miksinouf.chronowars.domain.board.Move;
+import com.miksinouf.chronowars.domain.board.MoveResult;
 
 public class Player {
 
@@ -13,9 +17,10 @@ public class Player {
     private Integer score;
     private final Tokens tokens;
     private final Board board;
+    private Player opponent;
 
     public Player(String nickname, Color color, Integer numberOfTokens,
-                  String identifier, Board board) {
+            String identifier, Board board) {
         this.nickname = nickname;
         this.color = color;
         this.identifier = identifier;
@@ -41,16 +46,18 @@ public class Player {
      *            x
      * @param y
      *            y
-     * @return is state legal
+     * @return is state legal ?
      */
-    public boolean set(Integer x, Integer y) {
+    public MoveResult set(Integer x, Integer y) {
         try {
-            tokens.addToken(x,y);
-        } catch (TooManyTokensException | IllegalMoveException e) {
-            return false;
+            tokens.addToken(x, y);
+        } catch (TooManyTokensException e) {
+            return new MoveResult(NO_MORE_TOKENS_AVAILABLE, x, y);
+        } catch (IllegalMoveException e) {
+            return new MoveResult(e.moveResultType, x, y);
         }
 
-        return true;
+        return new MoveResult(SUCCESS, x, y);
     }
 
     public boolean move(Integer oldX, Integer oldY, Integer newX, Integer newY) {
@@ -61,5 +68,9 @@ public class Player {
         }
 
         return true;
+    }
+
+    public void setOpponent(Player opponent) {
+        this.opponent = opponent;
     }
 }

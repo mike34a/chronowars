@@ -1,27 +1,19 @@
 package com.miksinouf.chronowars.domain.board;
 
 public class Position {
-    private Integer x, y;
+    public final Integer x, y;
 
     public Position(Integer x, Integer y) {
         this.x = x;
         this.y = y;
     }
 
-    public Integer getX() {
-        return x;
-    }
-
-    public Integer getY() {
-        return y;
-    }
-
     public static boolean isPairPosition(Position position) {
-        return position.getX() + position.getY() % 2 == 0;
+        return position.x + position.y % 2 == 0;
     }
 
     public static boolean isImpairPosition(Position position) {
-        return position.getX() + position.getY() % 2 == 1;
+        return position.x + position.y % 2 == 1;
     }
 
     @Override
@@ -55,11 +47,11 @@ public class Position {
 
     public static void assertPositionLegal(int newX, int newY) throws IllegalMoveException {
         if (newX < 0 || newY < 0 || newX >= Board.SIZE || newY >= Board.SIZE) {
-            throw new IllegalMoveException(IllegalMoveException.TOKEN_OUT_OF_BOUNDS, new Position(newX, newY).toString());
+            throw new IllegalMoveException(MoveResultType.TOKEN_OUT_OF_BOUNDS, newX, newY);
         }
     }
 
     public static PositionBuilder from(Position oldPosition) {
-        return new PositionBuilder(oldPosition.getX(), oldPosition.getY());
+        return new PositionBuilder(oldPosition.x, oldPosition.y);
     }
 }

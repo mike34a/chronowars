@@ -2,13 +2,16 @@ package com.miksinouf.chronowars.domain.board;
 
 public class IllegalMoveException extends Exception {
 
-    public final static String TOKEN_ALREADY_HERE = "There is already a token at %s";
-    public final static String NO_TOKEN_HERE = "There is no token at %s";
-    public final static String TOKEN_OUT_OF_BOUNDS = "The position %s is out of bounds";
-    public static final String ILLEGAL_POSITION_FOR_PLAYER = "Illegal position %s for %s player";
+    private final static String MESSAGE_TEMPLATE =  "%s at Position{x=%d, y=%d}" ;
 
+    public final MoveResultType moveResultType;
 
-    public IllegalMoveException(String reason, String... reasons) {
-        super(String.format(reason, reasons));
+    public final Position invalidPosition;
+
+    public IllegalMoveException(MoveResultType moveResultType, int x, int y) {
+        super(String.format(MESSAGE_TEMPLATE, moveResultType.toString(), x, y));
+        this.moveResultType = moveResultType;
+        this.invalidPosition = new Position(x, y);
     }
+
 }

@@ -42,7 +42,7 @@ public class BoardTest {
 
         //THEN
         exception.expect(IllegalMoveException.class);
-        exception.expectMessage("There is already a token at Position{x=2, y=1}");
+        exception.expectMessage("TOKEN_ALREADY_HERE at Position{x=2, y=1}");
 
         //WHEN
         board.placeWhiteToken(2, 1);
@@ -52,7 +52,7 @@ public class BoardTest {
     public void should_not_be_able_to_place_white_token_out_of_board() throws Exception {
         //THEN
         exception.expect(IllegalMoveException.class);
-        exception.expectMessage("The position Position{x=10, y=1} is out of bounds");
+        exception.expectMessage("TOKEN_OUT_OF_BOUNDS at Position{x=10, y=1}");
 
         //WHEN
         board.placeWhiteToken(10, 1);
@@ -62,7 +62,7 @@ public class BoardTest {
     public void should_not_be_able_to_place_white_token_on_black_slot() throws Exception {
         //THEN
         exception.expect(IllegalMoveException.class);
-        exception.expectMessage("Illegal position Position{x=2, y=2} for white player");
+        exception.expectMessage("NOT_ON_PROPER_COLOR at Position{x=2, y=2}");
 
         //WHEN
         board.placeWhiteToken(2, 2);
@@ -81,7 +81,7 @@ public class BoardTest {
 
         //THEN
         exception.expect(IllegalMoveException.class);
-        exception.expectMessage("There is already a token at Position{x=2, y=2}");
+        exception.expectMessage("TOKEN_ALREADY_HERE at Position{x=2, y=2}");
 
         //WHEN
         board.placeBlackToken(2, 2);
@@ -91,7 +91,7 @@ public class BoardTest {
     public void should_not_be_able_to_place_black_token_out_of_board() throws Exception {
         //THEN
         exception.expect(IllegalMoveException.class);
-        exception.expectMessage("The position Position{x=10, y=2} is out of bounds");
+        exception.expectMessage("TOKEN_OUT_OF_BOUNDS at Position{x=10, y=2}");
 
         //WHEN
         board.placeBlackToken(10, 2);
@@ -101,7 +101,7 @@ public class BoardTest {
     public void should_not_be_able_to_place_black_token_on_white_slot() throws Exception {
         //THEN
         exception.expect(IllegalMoveException.class);
-        exception.expectMessage("Illegal position Position{x=1, y=2} for black player");
+        exception.expectMessage("NOT_ON_PROPER_COLOR at Position{x=1, y=2}");
 
         //WHEN
         board.placeBlackToken(1, 2);
@@ -114,7 +114,7 @@ public class BoardTest {
 
         //THEN
         exception.expect(IllegalMoveException.class);
-        exception.expectMessage("The position Position{x=-1, y=-1} is out of bounds");
+        exception.expectMessage("TOKEN_OUT_OF_BOUNDS at Position{x=-1, y=-1}");
 
         //WHEN
         Position.from(position).moving(UP_LEFT);
@@ -127,7 +127,7 @@ public class BoardTest {
 
         //THEN
         exception.expect(IllegalMoveException.class);
-        exception.expectMessage("The position Position{x=1, y=8} is out of bounds");
+        exception.expectMessage("TOKEN_OUT_OF_BOUNDS at Position{x=1, y=8}");
 
         //WHEN
         Position.from(position).moving(DOWN_RIGHT);

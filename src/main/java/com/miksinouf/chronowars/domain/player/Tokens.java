@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.miksinouf.chronowars.domain.board.IllegalMoveException;
 import com.miksinouf.chronowars.domain.board.Move;
+import com.miksinouf.chronowars.domain.board.MoveResultType;
 import com.miksinouf.chronowars.domain.board.Position;
 
 public class Tokens {
@@ -27,10 +28,10 @@ public class Tokens {
 
         final Position position = new Position(x, y);
         if (tokensPositions.contains(position)) {
-            throw new IllegalMoveException(IllegalMoveException.TOKEN_ALREADY_HERE, position.toString());
+            throw new IllegalMoveException(MoveResultType.TOKEN_ALREADY_HERE, x, y);
         }
         if (!color.isPositionValid(position)) {
-            throw new IllegalMoveException(IllegalMoveException.ILLEGAL_POSITION_FOR_PLAYER, position.toString(), color.toString().toLowerCase());
+            throw new IllegalMoveException(MoveResultType.NOT_ON_PROPER_COLOR, x, y);
         }
 
         tokensPositions.add(new Position(x, y));
@@ -39,7 +40,7 @@ public class Tokens {
     private void checkBounds(int x, int y)
             throws IllegalMoveException {
         if (x < 0 || y < 0 || x >= boardSize || y >= boardSize) {
-            throw new IllegalMoveException(IllegalMoveException.TOKEN_OUT_OF_BOUNDS, new Position(x, y).toString());
+            throw new IllegalMoveException(MoveResultType.TOKEN_OUT_OF_BOUNDS, x, y);
         }
     }
 
@@ -53,7 +54,7 @@ public class Tokens {
         final Position oldPosition = tokensPositions.stream().
                 filter(position -> position.equals(oldX, oldY)).
                 findFirst().
-                orElseThrow(() -> new IllegalMoveException(IllegalMoveException.NO_TOKEN_HERE, new Position(oldX + move.dx, oldY + move.dy).toString()));
+                orElseThrow(() -> new IllegalMoveException(MoveResultType.NO_TOKEN_HERE, oldX, oldY));
 
         tokensPositions.add(Position.from(oldPosition).moving(Move.DOWN));
         tokensPositions.remove(oldPosition);

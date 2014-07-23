@@ -8,6 +8,6 @@ public enum Color {
     
     public boolean isPositionValid(Position position) {
         int expectedModulo2Value = this == WHITE ? 1 : 0;
-        return (position.getX() + position.getY()) % 2 == expectedModulo2Value;
+        return (position.x + position.y) % 2 == expectedModulo2Value;
     }
 }
