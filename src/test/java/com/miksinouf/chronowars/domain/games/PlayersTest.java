@@ -16,7 +16,7 @@ import com.miksinouf.chronowars.domain.player.Player;
 import com.miksinouf.chronowars.domain.player.UnknownPlayerException;
 
 public class PlayersTest {
-
+    
     private Players players;
     private Player whitePlayer;
     private Player blackPlayer;
@@ -58,6 +58,7 @@ public class PlayersTest {
 
     @Test(expected = UnknownPlayerException.class)
     public void should_throw_error_if_player_does_not_exist() throws Exception {
+        
         assertThat(players.setToken("invalidPlayerIdentifier", 1, 2)).isEqualTo(new MoveResult(SUCCESS, 1, 2));
     }
 }

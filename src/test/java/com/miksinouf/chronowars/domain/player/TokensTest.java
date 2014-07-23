@@ -41,7 +41,6 @@ public class TokensTest {
         //WHEN
         tokens.moveToken(1,1, Move.DOWN);
 
-
         //THEN
         assertThat(tokens.tokensPositions()).containsOnly(new Position(0, 0), new Position(1, 3), new Position(2, 2));
     }
