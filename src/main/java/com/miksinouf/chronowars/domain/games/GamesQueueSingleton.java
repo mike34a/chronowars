@@ -10,7 +10,7 @@ import com.miksinouf.chronowars.domain.player.Player;
 import com.miksinouf.chronowars.domain.player.UnknownPlayerException;
 import com.miksinouf.chronowars.domain.player.WaitingPlayer;
 
-public enum GameQueueSingleton {
+public enum GamesQueueSingleton {
     INSTANCE;
     public static final Integer MAX_NUMBER_OF_TOKENS = 8;
 

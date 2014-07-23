@@ -3,7 +3,7 @@ package com.miksinouf.chronowars.domain.server;
 import static spark.Spark.*;
 import static spark.SparkBase.staticFileLocation;
 
-import com.miksinouf.chronowars.domain.games.GameQueueSingleton;
+import com.miksinouf.chronowars.domain.games.GamesQueueSingleton;
 
 public class ChronowarsServer {
 
@@ -13,12 +13,12 @@ public class ChronowarsServer {
         // permet d'inscrire le joueur à la liste d'attente des parties et
         // renvoie l'identifiant unique
         get("/register/:nickname",
-                (request, response) -> GameQueueSingleton.INSTANCE
+                (request, response) -> GamesQueueSingleton.INSTANCE
                         .register(request.params("nickname")));
 
         // boolean
         get("/have_i_running_game/:identifier",
-                (request, response) -> GameQueueSingleton.INSTANCE
+                (request, response) -> GamesQueueSingleton.INSTANCE
                         .hasPlayerAGame(request.params("identifier")));
 
         /*
@@ -33,7 +33,7 @@ public class ChronowarsServer {
          * "(1,2),(2,5),(3,2)" }
          */
         get("/get_game/:gameIdentifier",
-                (request, response) -> GameQueueSingleton.INSTANCE
+                (request, response) -> GamesQueueSingleton.INSTANCE
                         .hasPlayerAGame(request.params("gameIdentifier")));
 
         // permet de placer un pion
@@ -44,7 +44,7 @@ public class ChronowarsServer {
 
         // permet de déplacer un pion
         patch("/move_token/:gameIdentifier/:playerIdentifier/:x/:y/:moveDirection",
-                (request, response) -> GameQueueSingleton.INSTANCE.moveToken(
+                (request, response) -> GamesQueueSingleton.INSTANCE.moveToken(
                         request.params("gameIdentifier"),
                         request.params("playerIdentifier"),
                         request.params("x"), request.params("y"),
