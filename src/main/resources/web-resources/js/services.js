@@ -35,7 +35,7 @@ chronoWarsServices.factory('gameApi', function($http) {
 
 		moveToken: function(playerId, row, col, direction) {
 			return $http.patch(
-					'/set_token/' + gameId + '/' + playerId + '/' + row + '/' + col + '/'
+					'/move_token/' + playerId + '/' + row + '/' + col + '/'
 							+ direction).then(function(result) {
 				return result.data;
 			})
