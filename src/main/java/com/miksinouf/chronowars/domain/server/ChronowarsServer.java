@@ -35,9 +35,9 @@ public class ChronowarsServer {
          * "BLACK", "blackTokens": "(2,2),(1,3)", "whiteTokens":
          * "(1,2),(2,5),(3,2)" }
          */
-        get("/get_game/:gameIdentifier",
+        get("/get_game/:playerIdentifier",
                 (request, response) -> GamesQueueSingleton.INSTANCE
-                        .hasPlayerAGame(request.params("gameIdentifier")));
+                        .hasPlayerAGame(request.params("playerIdentifier")));
 
         /**
          * permet de placer un pion
