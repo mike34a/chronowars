@@ -10,5 +10,4 @@ public class IllegalMoveException extends Exception {
         super(String.format(MESSAGE_TEMPLATE, moveResultType.toString(), x, y));
         this.invalidMoveResult = new MoveResult(moveResultType, x, y);
     }
-
 }

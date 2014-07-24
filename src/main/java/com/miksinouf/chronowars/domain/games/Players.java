@@ -3,9 +3,11 @@ package com.miksinouf.chronowars.domain.games;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.miksinouf.chronowars.domain.board.IllegalMoveException;
 import com.miksinouf.chronowars.domain.board.Move;
 import com.miksinouf.chronowars.domain.board.MoveResult;
 import com.miksinouf.chronowars.domain.player.Player;
+import com.miksinouf.chronowars.domain.player.TooManyTokensException;
 import com.miksinouf.chronowars.domain.player.UnknownPlayerException;
 
 public class Players {
@@ -18,7 +20,7 @@ public class Players {
         blackPlayer.setOpponent(whitePlayer);
     }
 
-    public MoveResult setToken(String playerIdentifier, Integer x, Integer y) throws UnknownPlayerException {
+    public MoveResult setToken(String playerIdentifier, Integer x, Integer y) throws UnknownPlayerException, IllegalMoveException, TooManyTokensException {
         checkUserExists(playerIdentifier);
         return players.get(playerIdentifier).set(x, y);
     }

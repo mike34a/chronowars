@@ -48,15 +48,8 @@ public class Player {
      *            y
      * @return is state legal ?
      */
-    public MoveResult set(Integer x, Integer y) {
-        try {
-            tokens.addToken(x, y);
-        } catch (TooManyTokensException e) {
-            return new MoveResult(NO_MORE_TOKENS_AVAILABLE, x, y);
-        } catch (IllegalMoveException e) {
-            return e.invalidMoveResult;
-        }
-
+    public MoveResult set(Integer x, Integer y) throws IllegalMoveException, TooManyTokensException{
+        tokens.addToken(x, y);
         return new MoveResult(SUCCESS, x, y);
     }
 
