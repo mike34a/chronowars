@@ -33,14 +33,12 @@ public class Board {
     /*TODO : Change to private*/
     public void placeWhiteToken(int x, int y) throws IllegalMoveException, TooManyTokensException {
         whiteTokens.addToken(x, y);
-        System.out.println("White to black");
         this.colorToPlay = Color.BLACK;
     }
 
     /*TODO : Change to private*/
     public void placeBlackToken(int x, int y) throws IllegalMoveException, TooManyTokensException {
         blackTokens.addToken(x, y);
-        System.out.println("Black to White");
         this.colorToPlay = Color.WHITE;
     }
 }
