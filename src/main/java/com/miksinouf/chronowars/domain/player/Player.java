@@ -7,6 +7,7 @@ import com.miksinouf.chronowars.domain.board.Board;
 import com.miksinouf.chronowars.domain.board.IllegalMoveException;
 import com.miksinouf.chronowars.domain.board.Move;
 import com.miksinouf.chronowars.domain.board.MoveResult;
+import com.miksinouf.chronowars.domain.board.MoveResultType;
 
 public class Player {
 
@@ -49,7 +50,10 @@ public class Player {
      * @return is state legal ?
      */
     public MoveResult set(Integer x, Integer y) throws IllegalMoveException, TooManyTokensException{
-        tokens.addToken(x, y);
+        if (this.color != this.board.colorToPlay)
+        	throw new IllegalMoveException(MoveResultType.BAD_PLAYER, x, y);
+    	tokens.addToken(x, y);
+    	board.placeToken(x, y);
         return new MoveResult(SUCCESS, x, y);
     }
 

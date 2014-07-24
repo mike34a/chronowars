@@ -11,21 +11,36 @@ public class Board {
 
     private final Tokens whiteTokens;
     private final Tokens blackTokens;
+    public Color colorToPlay;
 
     public Board() {
         this.whiteTokens = new Tokens(SIZE, GamesQueueSingleton.MAX_NUMBER_OF_TOKENS, Color.WHITE);
         this.blackTokens = new Tokens(SIZE, GamesQueueSingleton.MAX_NUMBER_OF_TOKENS, Color.BLACK);
+        this.colorToPlay = Color.WHITE;
     }
 
     public Integer size() {
         return SIZE;
     }
 
+    public void placeToken(int x, int y) throws IllegalMoveException, TooManyTokensException {
+    	if (colorToPlay == Color.WHITE)
+    		placeWhiteToken(x, y);
+    	else
+    		placeBlackToken(x, y);
+    }
+    
+    /*TODO : Change to private*/
     public void placeWhiteToken(int x, int y) throws IllegalMoveException, TooManyTokensException {
         whiteTokens.addToken(x, y);
+        System.out.println("White to black");
+        this.colorToPlay = Color.BLACK;
     }
 
+    /*TODO : Change to private*/
     public void placeBlackToken(int x, int y) throws IllegalMoveException, TooManyTokensException {
         blackTokens.addToken(x, y);
+        System.out.println("Black to White");
+        this.colorToPlay = Color.WHITE;
     }
 }
