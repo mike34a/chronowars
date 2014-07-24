@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.miksinouf.chronowars.domain.board.Board;
+import com.miksinouf.chronowars.domain.board.IllegalMoveException;
 import com.miksinouf.chronowars.domain.board.MoveResult;
 import com.miksinouf.chronowars.domain.player.Color;
 import com.miksinouf.chronowars.domain.player.Player;
@@ -52,8 +53,16 @@ public class PlayersTest {
     }
 
     @Test
-    public void should_return_out_of_bounds_if_place_not_valid() throws Exception {
-        assertThat(players.setToken("whitePlayerIdentifier", -1, 2)).isEqualTo(new MoveResult(TOKEN_OUT_OF_BOUNDS, -1, 2));
+    public void should_throw_out_of_bounds_if_place_not_valid() throws Exception{
+    	Integer failed = 0;
+    	try {
+    		players.setToken("whitePlayerIdentifier", -1, 2);
+    	}
+    	catch (IllegalMoveException e){
+    		assertThat(e.invalidMoveResult).isEqualTo(new MoveResult(TOKEN_OUT_OF_BOUNDS, -1, 2));
+    		failed = 1;
+    	}
+    	assertThat(failed);
     }
 
     @Test(expected = UnknownPlayerException.class)
