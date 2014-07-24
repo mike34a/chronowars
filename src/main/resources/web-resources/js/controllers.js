@@ -7,11 +7,10 @@ var chronoWarsControllers = angular.module('chronoWarsControllers', []);
 chronoWarsControllers.controller('HomeCtrl', [ '$scope', 'gameApi',
 		'$location', function($scope, gameApi, $location) {
 			$scope.registerPlayer = function(name) {
-				var gameId;
 				gameApi.registerPlayer(name).then(function(pidres) {
 					$scope.startgame = setInterval(function(){
-						gameApi.getGameId(pidres).then(function(gidres) {
-							if (gidres != 'No game started yet.') {
+						gameApi.hasGameStarted(pidres).then(function(started) {
+							if (started != 'false') {
 								clearInterval($scope.startgame);
 								$location.path('/game/' + pidres);
 							}
@@ -33,10 +32,7 @@ chronoWarsControllers.controller('GameCtrl', [
 			}
 			
 			var placeToken = function() {
-				gameApi.getGameId($routeParams.playerId).then(function(data) {
-					$scope.gameId = data;
-				});
-				gameApi.setToken($routeParams.playerId, $scope.gameId, $scope.selectedTile[0], $scope.selectedTile[1]).then(function(data) {
+				gameApi.setToken($routeParams.playerId, $scope.selectedTile[0], $scope.selectedTile[1]).then(function(data) {
 					/*
 					 * Server API not ready
 					 */
@@ -46,11 +42,6 @@ chronoWarsControllers.controller('GameCtrl', [
 			var moveToken = function() {
 				console.log('moving token');
 			}
-			
-			gameApi.getGameId($routeParams.playerId).then(function(data) {
-				$scope.gameId = data;
-				$scope.board = gameApi.getBoard(data);
-			});
 			
 			$scope.selectTile = function(tileId) {
 				document.getElementById(tileId).setAttribute('style',

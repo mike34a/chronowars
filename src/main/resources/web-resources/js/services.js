@@ -13,7 +13,7 @@ chronoWarsServices.factory('gameApi', function($http) {
 			});
 		},
 
-		getGameId: function(playerId) {
+		hasGameStarted: function(playerId) {
 			return $http.get('/have_i_running_game/' + playerId).then(
 					function(result) {
 						return result.data;
@@ -26,8 +26,8 @@ chronoWarsServices.factory('gameApi', function($http) {
 			})
 		},
 
-		setToken: function(playerId, gameId, row, col) {
-			return $http.put('/set_token/' + gameId + '/' + playerId + '/' + row + '/' + col)
+		setToken: function(playerId, row, col) {
+			return $http.put('/set_token/' + playerId + '/' + row + '/' + col)
 					.then(function(result) {
 						return result.data;
 					})
