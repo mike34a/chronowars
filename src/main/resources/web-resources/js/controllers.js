@@ -94,12 +94,36 @@ chronoWarsControllers.controller('GameCtrl', [
 			var col = parseInt(tileId[1]);
 			var tileColor = (row + col) % 2;
 			var tile = document.getElementById(tileId);
-			if ((tile.childElementCount == 0) && ((tileColor == 0 && $scope.color == 'BLACK') || (tileColor == 1 && $scope.color == 'WHITE'))
-					&& $scope.color == $scope.colorToPlay) {
-				tile.setAttribute('style','border: 3px solid red');
-				if ($scope.selectedTile)
-					document.getElementById($scope.selectedTile).removeAttribute('style');
-				$scope.selectedTile = tileId;
+			if ($scope.color == $scope.colorToPlay
+					&& ((tileColor == 0 && $scope.color == 'BLACK')
+							|| (tileColor == 1 && $scope.color == 'WHITE'))) {
+				if ($scope.numberOfTokens < 8 && tile.childElementCount == 0) {
+						tile.setAttribute('style','border: 3px solid red');
+						if ($scope.selectedTile)
+							document.getElementById($scope.selectedTile).removeAttribute('style');
+						$scope.selectedTile = tileId;
+				}
+				else if (tile.childElementCount == 1) {
+					tile.setAttribute('style','border: 3px solid red');
+					if ($scope.selectedTile)
+						document.getElementById($scope.selectedTile).removeAttribute('style');
+					if ($scope.directionTile)
+						document.getElementById($scope.directionTile).removeAttribute('style');
+					$scope.selectedTile = tileId;
+				}
+				else if ($scope.selectedTile && tile.childElementCount == 0) {
+					var sRow = parseInt($scope.selectedTile[0]);
+					var sCol = parseInt($scope.selectedTile[1]);
+					var newRow = parseInt(tileId[0]);
+					var newCol = parseInt(tileId[1]);
+					if ((Math.abs(sRow - newRow) == 1 && Math.abs(sCol - newCol) <= 1) 
+							|| (Math.abs(sRow - newRow) == 0 && Math.abs(sCol - newCol) == 1)) {
+						if ($scope.directionTile)
+							document.getElementById($scope.directionTile).removeAttribute('style');
+						$scope.directionTile = tileId;
+						tile.setAttribute('style','border: 3px solid red');
+					}
+				}
 			}
 		}
 
