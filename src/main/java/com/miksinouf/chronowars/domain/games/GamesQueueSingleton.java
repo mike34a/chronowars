@@ -42,6 +42,10 @@ public enum GamesQueueSingleton {
     public synchronized String nextRandomIdentifier() {
         return new BigInteger(130, secureRandom).toString(32);
     }
+    
+    public synchronized String getGame(String playerIdentifier) throws UnknownPlayerException {
+    	return players.getGame(playerIdentifier);
+    }
 
     public MoveResult setToken(String playerIdentifier, int x, int y) throws UnknownPlayerException, IllegalMoveException, TooManyTokensException {
         return players.setToken(playerIdentifier, x, y);

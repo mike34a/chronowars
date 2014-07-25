@@ -27,9 +27,19 @@ public class ChronowarsServer {
                         .hasPlayerAGame(request.params("identifier")));
 
         /**
-         * renvoie une réponse json de la forme { "currentColorToPlay": "BLACK",
-         * "status": "running", "lastRoundPoints": "12", "blackTokens":
-         * "(2,2),(1,3)", "whiteTokens": "(1,2),(2,5),(3,2)" }
+         * renvoie une réponse json de la forme {
+         * "currentColorToPlay": "BLACK",
+         * "status": "running", 
+         * "lastRoundPoints": "12",
+         * "blackTokens": {
+         *   "(2,2),
+         *   (1,3)"
+         *   }
+         *  "whiteTokens": {
+         *  "(1,2),
+         *  (2,5),
+         *  (3,2)"
+         *  }
          * 
          * ou :
          * 
@@ -38,8 +48,16 @@ public class ChronowarsServer {
          * "(1,2),(2,5),(3,2)" }
          */
         get("/get_game/:playerIdentifier",
-                (request, response) -> GamesQueueSingleton.INSTANCE
-                        .hasPlayerAGame(request.params("playerIdentifier")));
+                (request, response) -> {
+                	try {
+                		return GamesQueueSingleton.INSTANCE.getGame(
+                				request.params("playerIdentifier"));
+                	} catch (UnknownPlayerException e) {
+                		return badRequest(response,
+                                e.toString());
+                	}
+                });
+                        
 
         /**
          * permet de placer un pion

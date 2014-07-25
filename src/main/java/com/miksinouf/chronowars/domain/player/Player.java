@@ -59,4 +59,8 @@ public class Player {
     public void setOpponent(Player opponent) {
         this.opponent = opponent;
     }
+    
+    public Board getBoard() {
+    	return this.board;
+    }
 }

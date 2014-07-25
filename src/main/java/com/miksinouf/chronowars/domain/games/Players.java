@@ -5,10 +5,12 @@ import java.util.Map;
 
 import com.miksinouf.chronowars.domain.board.IllegalMoveException;
 import com.miksinouf.chronowars.domain.board.Move;
+import com.miksinouf.chronowars.domain.board.Board;
 import com.miksinouf.chronowars.domain.board.MoveResult;
 import com.miksinouf.chronowars.domain.player.Player;
 import com.miksinouf.chronowars.domain.player.TooManyTokensException;
 import com.miksinouf.chronowars.domain.player.UnknownPlayerException;
+import com.google.gson.*;
 
 public class Players {
     private final Map<String, Player> players = new HashMap<>();
@@ -38,5 +40,12 @@ public class Players {
 
     public Boolean hasPlayerAGame(String playerIdentifier) {
         return players.containsKey(playerIdentifier);
+    }
+    
+    public String getGame(String playerIdentifier) throws UnknownPlayerException {
+    	checkUserExists(playerIdentifier);
+    	Board board = players.get(playerIdentifier).getBoard();
+    	Gson gson = new Gson();
+    	return gson.toJson(board);
     }
 }
