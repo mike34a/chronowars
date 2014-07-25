@@ -1,12 +1,12 @@
 <div class="Board">
 	<p class="whiteMessage">
-	Your id is {{playerId}}
+	Your color is {{color}}
 	</p>
 	<table id="damier" class="damier">
 			<tr id ="{{'l' + row}}" ng-repeat="row in [0,1,2,3,4,5,6,7]">
 				<td id="{{row + '' + col}}"
 					ng-click="selectTile(row + '' + col)"
-					class="{{(row + col) % 2 ? 'color2' : 'color1'}}" 
+					class="{{(row + col) % 2 ? 'BLACK' : 'WHITE'}}" 
 					ng-repeat="col in [0,1,2,3,4,5,6,7]">
 				</td>
 			</tr>
