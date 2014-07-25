@@ -26,6 +26,9 @@ chronoWarsControllers.controller('GameCtrl', [
 		'$routeParams',
 		function($scope, gameApi, $routeParams) {
 			$scope.playerId = $routeParams.playerId;
+			gameApi.getBoard($routeParams.playerId).then(function(board) {
+				$scope.colorToPlay = board.colorToPlay;
+			});
 			gameApi.hasGameStarted($routeParams.playerId).then(function(color) {
 				if (color != 'false') {
 					$scope.color = color;
@@ -52,8 +55,9 @@ chronoWarsControllers.controller('GameCtrl', [
 				var row = parseInt(tileId[0]);
 				var col = parseInt(tileId[1]);
 				var tileColor = (row + col) % 2;
-				if ((tileColor == 0 && $scope.color == 'WHITE')
-						|| (tileColor == 1 && $scope.color == 'BLACK')) {
+				if (((tileColor == 0 && $scope.color == 'WHITE')
+						|| (tileColor == 1 && $scope.color == 'BLACK'))
+						&& $scope.color == $scope.colorToPlay) {
 					document.getElementById(tileId).setAttribute('style',
 							'border: 3px solid red');
 					if ($scope.selectedTile)
@@ -83,7 +87,6 @@ chronoWarsControllers.controller('GameCtrl', [
 				else
 					moveToken();
 			}
-
 			/*
 			 * $("#tatami").draggable({ revert : "invalid" });
 			 * $("#a2").droppable(); $("#a1").droppable();
