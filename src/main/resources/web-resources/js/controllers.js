@@ -55,8 +55,8 @@ chronoWarsControllers.controller('GameCtrl', [
 				var row = parseInt(tileId[0]);
 				var col = parseInt(tileId[1]);
 				var tileColor = (row + col) % 2;
-				if (((tileColor == 0 && $scope.color == 'WHITE')
-						|| (tileColor == 1 && $scope.color == 'BLACK'))
+				if (((tileColor == 0 && $scope.color == 'BLACK')
+						|| (tileColor == 1 && $scope.color == 'WHITE'))
 						&& $scope.color == $scope.colorToPlay) {
 					document.getElementById(tileId).setAttribute('style',
 							'border: 3px solid red');
