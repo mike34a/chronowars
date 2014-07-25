@@ -28,7 +28,14 @@
             <artifactId>commons-collections4</artifactId>
             <version>4.0</version>
         </dependency>
-
+        
+        <!-- Json -->
+        <dependency>
+			<groupId>com.google.code.gson</groupId>
+			<version>2.2.4</version>
+			<artifactId>gson</artifactId>			
+		</dependency>
+        
         <!-- Craft Utils -->
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -102,14 +109,6 @@
 				<groupId>com.kelveden</groupId>
 				<artifactId>maven-karma-plugin</artifactId>
 				<version>1.6</version>
-				<executions>
-					<execution>
-						<phase>test</phase>
-						<goals>
-							<goal>start</goal>
-						</goals>
-					</execution>
-				</executions>
 				<configuration>
 					<configFile>src/main/resources/web-resources/test/karma.conf.js</configFile>
 					<autoWatch>false</autoWatch>
