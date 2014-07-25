@@ -35,7 +35,9 @@ chronoWarsControllers.controller('GameCtrl', [
 				$scope.colorToPlay = board.colorToPlay;
 				var tile;
 				var tokenImg;
+				var numberOfTokens = 0;
 				board.whiteTokens.tokensPositions.forEach(function(token) {
+					numberOfTokens++;
 					tile = document.getElementById(token.x + '' + token.y);
 					if (tile.childElementCount == 0) {
 						tokenImg = document.createElement("img");
@@ -44,6 +46,7 @@ chronoWarsControllers.controller('GameCtrl', [
 					}
 				});
 				board.blackTokens.tokensPositions.forEach(function(token) {
+					numberOfTokens++;
 					tile = document.getElementById(token.x + '' + token.y);
 					if (tile.childElementCount == 0) {
 						tokenImg = document.createElement("img");
@@ -51,6 +54,7 @@ chronoWarsControllers.controller('GameCtrl', [
 						tile.appendChild(tokenImg);
 					}
 				});
+				$scope.numberOfTokens = numberOfTokens;
 			});
 		}, 1000);
 
@@ -75,12 +79,14 @@ chronoWarsControllers.controller('GameCtrl', [
 				if (data == 'success') {
 					var tile = document.getElementById($scope.selectedTile);
 					tile.removeAttribute('style');
+					delete $scope.selectedTile;
 				}
 			});
 		}
 
 		var moveToken = function() {
 			console.log('moving token');
+			delete $scope.selectedTile;
 		}
 
 		$scope.selectTile = function(tileId) {
@@ -92,27 +98,18 @@ chronoWarsControllers.controller('GameCtrl', [
 					&& $scope.color == $scope.colorToPlay) {
 				tile.setAttribute('style','border: 3px solid red');
 				if ($scope.selectedTile)
-					tile.removeAttribute('style');
+					document.getElementById($scope.selectedTile).removeAttribute('style');
 				$scope.selectedTile = tileId;
 			}
 		}
 
 		$scope.getActionText = function() {
-			var playerToken;
-			if (!$scope.board || $scope.board == 'Optionnal.empty')
-				return $scope.selectedTile ? 'place' : '';
-			else {
-				playerToken = countPlayerToken($scope.playerId, $scope.board);
-				return (playerToken < 8 ? 'place' : 'move');
-			}
+			return $scope.selectedTile ? $scope.numberOfTokens >= 8 ? 'move' : 'place' : '';
 		}
 
 		$scope.play = function() {
 			var playerToken;
-			if (!$scope.board
-					|| $scope.board == 'Optionnal.empty'
-					|| countPlayerToken($scope.playerId,
-							$scope.board) < 8)
+			if ($scope.numberOfTokens < 8)
 				placeToken();
 			else
 				moveToken();
