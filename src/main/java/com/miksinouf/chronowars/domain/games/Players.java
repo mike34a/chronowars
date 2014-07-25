@@ -46,6 +46,9 @@ public class Players {
     	checkUserExists(playerIdentifier);
     	Board board = players.get(playerIdentifier).getBoard();
     	Gson gson = new Gson();
-    	return gson.toJson(board);
+    	JsonElement jsonElement = gson.toJsonTree(board);
+    	jsonElement.getAsJsonObject().addProperty("status", "running");
+    	jsonElement.getAsJsonObject().addProperty("lastRoundPoints", "0");
+    	return gson.toJson(jsonElement);
     }
 }
