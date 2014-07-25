@@ -63,4 +63,8 @@ public class Player {
     public Board getBoard() {
     	return this.board;
     }
+
+	public Color getColor() {
+		return color;
+	}
 }

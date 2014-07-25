@@ -18,7 +18,7 @@ public enum GamesQueueSingleton {
     private final SecureRandom secureRandom = new SecureRandom();
     private Optional<WaitingPlayer> waitingPlayer = Optional.empty();
 
-    public synchronized Boolean hasPlayerAGame(String playerIdentifier) {
+    public synchronized String hasPlayerAGame(String playerIdentifier) {
         return players.hasPlayerAGame(playerIdentifier);
     }
 

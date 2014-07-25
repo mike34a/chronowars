@@ -38,8 +38,9 @@ public class Players {
         }
     }
 
-    public Boolean hasPlayerAGame(String playerIdentifier) {
-        return players.containsKey(playerIdentifier);
+    public String hasPlayerAGame(String playerIdentifier) {
+        return players.containsKey(playerIdentifier) ? 
+        		players.get(playerIdentifier).getColor().toString() : "false";
     }
     
     public String getGame(String playerIdentifier) throws UnknownPlayerException {
