@@ -47,8 +47,9 @@ public enum GamesQueueSingleton {
     	return players.getGame(playerIdentifier);
     }
 
-    public MoveResult setToken(String playerIdentifier, int x, int y) throws UnknownPlayerException, IllegalMoveException, TooManyTokensException {
-        return players.setToken(playerIdentifier, x, y);
+    public String setToken(String playerIdentifier, int x, int y) throws UnknownPlayerException, IllegalMoveException, TooManyTokensException {
+        players.setToken(playerIdentifier, x, y);
+        return "success";
     }
 
     public MoveResult moveToken(String playerIdentifier, int x, int y, String move) throws UnknownPlayerException, IllegalMoveException {
