@@ -25,7 +25,7 @@ public class Players {
         return players.get(playerIdentifier).set(x, y);
     }
 
-    public MoveResult moveToken(String playerIdentifier, Integer oldX, Integer oldY, Move move) throws UnknownPlayerException {
+    public MoveResult moveToken(String playerIdentifier, Integer oldX, Integer oldY, Move move) throws UnknownPlayerException, IllegalMoveException {
         checkUserExists(playerIdentifier);
         return players.get(playerIdentifier).move(oldX, oldY, move);
     }

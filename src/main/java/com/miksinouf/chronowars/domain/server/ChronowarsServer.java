@@ -2,12 +2,13 @@ package com.miksinouf.chronowars.domain.server;
 
 import static spark.Spark.*;
 import static spark.SparkBase.staticFileLocation;
+
 import spark.Response;
 
+import com.miksinouf.chronowars.domain.board.IllegalMoveException;
 import com.miksinouf.chronowars.domain.games.GamesQueueSingleton;
 import com.miksinouf.chronowars.domain.player.TooManyTokensException;
 import com.miksinouf.chronowars.domain.player.UnknownPlayerException;
-import com.miksinouf.chronowars.domain.board.IllegalMoveException;
 
 public class ChronowarsServer {
 
@@ -51,16 +52,7 @@ public class ChronowarsServer {
                         return GamesQueueSingleton.INSTANCE.setToken(
                                 request.params("playerIdentifier"),
                                 parseInt(x), parseInt(y));
-                    } catch (UnknownPlayerException e) {
-                        return badRequest(response,
-                                "This player identifier does not exist!");
-                    } catch (ChronowarsNumberFormatException e) {
-                        return badRequest(response,
-                                "One of the coordinates is not an integer.");
-                    } catch (IllegalMoveException e) {
-                        return badRequest(response,
-                                e.toString());
-                    } catch (TooManyTokensException e) {
+                    } catch (UnknownPlayerException | IllegalMoveException | TooManyTokensException | ChronowarsNumberFormatException e) {
                         return badRequest(response,
                                 e.toString());
                     }
@@ -79,9 +71,9 @@ public class ChronowarsServer {
                                 request.params("playerIdentifier"),
                                 parseInt(x), parseInt(y),
                                 request.params("moveDirection"));
-                    } catch (UnknownPlayerException e) {
+                    } catch (UnknownPlayerException | IllegalMoveException e) {
                         return badRequest(response,
-                                "This player identifier does not exist!");
+                                e.toString());
                     } catch (ChronowarsNumberFormatException e) {
                         return badRequest(response,
                                 "One of the coordinates is not an integer.");

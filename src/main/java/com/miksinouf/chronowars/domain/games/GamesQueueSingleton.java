@@ -8,11 +8,7 @@ import com.miksinouf.chronowars.domain.board.Board;
 import com.miksinouf.chronowars.domain.board.IllegalMoveException;
 import com.miksinouf.chronowars.domain.board.Move;
 import com.miksinouf.chronowars.domain.board.MoveResult;
-import com.miksinouf.chronowars.domain.player.Color;
-import com.miksinouf.chronowars.domain.player.Player;
-import com.miksinouf.chronowars.domain.player.TooManyTokensException;
-import com.miksinouf.chronowars.domain.player.UnknownPlayerException;
-import com.miksinouf.chronowars.domain.player.WaitingPlayer;
+import com.miksinouf.chronowars.domain.player.*;
 
 public enum GamesQueueSingleton {
     INSTANCE;
@@ -51,7 +47,7 @@ public enum GamesQueueSingleton {
         return players.setToken(playerIdentifier, x, y);
     }
 
-    public MoveResult moveToken(String playerIdentifier, int x, int y, String move) throws UnknownPlayerException {
+    public MoveResult moveToken(String playerIdentifier, int x, int y, String move) throws UnknownPlayerException, IllegalMoveException {
         return players.moveToken(playerIdentifier, x, y, Move.valueOf(move));
     }
 }
