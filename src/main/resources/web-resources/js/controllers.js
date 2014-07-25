@@ -26,9 +26,17 @@ chronoWarsControllers.controller('GameCtrl', [
 		'$routeParams',
 		function($scope, gameApi, $routeParams) {
 			$scope.playerId = $routeParams.playerId;
+			
+			setInterval(function() {
+				gameApi.getBoard($routeParams.playerId).then(function(board) {
+					$scope.colorToPlay = board.colorToPlay;
+				});
+			}, 1000);
+			
 			gameApi.getBoard($routeParams.playerId).then(function(board) {
 				$scope.colorToPlay = board.colorToPlay;
 			});
+			
 			gameApi.hasGameStarted($routeParams.playerId).then(function(color) {
 				if (color != 'false') {
 					$scope.color = color;
