@@ -6,7 +6,6 @@
 			<tr id ="{{'l' + row}}" ng-repeat="row in [0,1,2,3,4,5,6,7]">
 				<td id="{{row + '' + col}}"
 					ng-click="selectTile(row + '' + col)"
-					ng-init="token = 0"
 					class="{{(row + col) % 2 ? 'WHITE' : 'BLACK'}}" 
 					ng-repeat="col in [0,1,2,3,4,5,6,7]">
 				</td>
