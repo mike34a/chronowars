@@ -85,8 +85,24 @@ chronoWarsControllers.controller('GameCtrl', [
 		}
 
 		var moveToken = function() {
-			console.log('moving token');
-			delete $scope.selectedTile;
+			var direction = gameApi.getDirection($scope.selectedTile, $scope.directionTile);
+			gameApi.moveToken($routeParams.playerId,
+					$scope.selectedTile[0],
+					$scope.selectedTile[1],
+					direction).then(function(data) {
+				if (data == 'success') {
+					var tile = document.getElementById($scope.selectedTile);
+					tile.removeAttribute('style');
+					while (tile.firstChild) {
+					    tile.removeChild(tile.firstChild);
+					}
+					delete $scope.selectedTile;
+					tile = document.getElementById($scope.directionTile);
+					tile.removeAttribute('style');
+					delete $scope.directionTile;
+				}
+			});
+			console.log(direction);
 		}
 
 		$scope.selectTile = function(tileId) {

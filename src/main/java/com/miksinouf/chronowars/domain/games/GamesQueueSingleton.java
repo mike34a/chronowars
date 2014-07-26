@@ -12,7 +12,7 @@ import com.miksinouf.chronowars.domain.player.*;
 
 public enum GamesQueueSingleton {
     INSTANCE;
-    public static final Integer MAX_NUMBER_OF_TOKENS = 8;
+    public static final Integer MAX_NUMBER_OF_TOKENS = 4;
 
     private final Players players = new Players();
     private final SecureRandom secureRandom = new SecureRandom();
@@ -52,7 +52,8 @@ public enum GamesQueueSingleton {
         return "success";
     }
 
-    public MoveResult moveToken(String playerIdentifier, int x, int y, String move) throws UnknownPlayerException, IllegalMoveException {
-        return players.moveToken(playerIdentifier, x, y, Move.valueOf(move));
+    public String moveToken(String playerIdentifier, int x, int y, String move) throws UnknownPlayerException, IllegalMoveException {
+        players.moveToken(playerIdentifier, x, y, Move.valueOf(move));
+        return "success";
     }
 }

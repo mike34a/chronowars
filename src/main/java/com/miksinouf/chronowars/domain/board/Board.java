@@ -41,4 +41,21 @@ public class Board {
         blackTokens.addToken(x, y);
         this.colorToPlay = Color.WHITE;
     }
+    
+    public void moveToken(int x, int y, Move move) throws IllegalMoveException {
+    	if (colorToPlay == Color.WHITE)
+    		moveWhiteToken(x, y, move);
+    	else
+    		moveBlackToken(x, y, move);
+    }
+    
+    private void moveWhiteToken(int x, int y, Move move) throws IllegalMoveException {
+        whiteTokens.moveToken(x, y, move);
+        this.colorToPlay = Color.BLACK;
+    }
+
+    private void moveBlackToken(int x, int y, Move move) throws IllegalMoveException {
+        blackTokens.moveToken(x, y, move);
+        this.colorToPlay = Color.WHITE;
+    }
 }

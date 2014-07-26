@@ -53,7 +53,11 @@ public class Player {
     }
 
     public MoveResult move(Integer oldX, Integer oldY, Move move) throws IllegalMoveException {
-        return tokens.moveToken(oldX, oldY, move);
+        if (this.color != this.board.colorToPlay)
+            throw new IllegalMoveException(MoveResultType.BAD_PLAYER, oldX, oldY);
+        tokens.moveToken(oldX, oldY, move);
+        board.moveToken(oldX, oldY, move);
+        return new MoveResult(SUCCESS, oldX, oldY);
     }
 
     public void setOpponent(Player opponent) {
