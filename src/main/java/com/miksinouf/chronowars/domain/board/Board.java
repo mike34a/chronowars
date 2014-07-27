@@ -50,12 +50,22 @@ public class Board {
     }
     
     private void moveWhiteToken(int x, int y, Move move) throws IllegalMoveException {
+    	assertInBetween(x, y, move, blackTokens);
         whiteTokens.moveToken(x, y, move);
         this.colorToPlay = Color.BLACK;
     }
 
     private void moveBlackToken(int x, int y, Move move) throws IllegalMoveException {
+    	assertInBetween(x, y, move, whiteTokens);
         blackTokens.moveToken(x, y, move);
         this.colorToPlay = Color.WHITE;
+    }
+    
+    private void assertInBetween(int x, int y, Move move, Tokens opponnentTokens) throws IllegalMoveException {
+    	if (move == Move.UP || move == Move.DOWN || move == Move.LEFT || move == Move.RIGHT)
+    	{
+	    	if (!(opponnentTokens.tokensPositions().contains(Position.getInBetweenPosition(x, y, move))))
+	    		throw new IllegalMoveException(MoveResultType.NO_TOKEN_INBETWEEN, x, y);
+    	}   	
     }
 }

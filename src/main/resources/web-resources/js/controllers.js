@@ -41,7 +41,7 @@ chronoWarsControllers.controller('GameCtrl', [
 				for (var i = 0; i < cells.length; i++) {
 					var found = 0;
 					board.whiteTokens.tokensPositions.forEach(function(token) {
-						if ((token.x == parseInt(cells[i].id[0])) && (token.y == parseInt(cells[i].id[1]))) {
+						if ((token.y == parseInt(cells[i].id[0])) && (token.x == parseInt(cells[i].id[1]))) {
 							numberOfTokens++;
 							tile = cells[i];
 							found = 1;
@@ -53,7 +53,7 @@ chronoWarsControllers.controller('GameCtrl', [
 						}
 					});
 					board.blackTokens.tokensPositions.forEach(function(token) {
-						if ((token.x == parseInt(cells[i].id[0])) && (token.y == parseInt(cells[i].id[1]))) {
+						if ((token.y == parseInt(cells[i].id[0])) && (token.x == parseInt(cells[i].id[1]))) {
 							numberOfTokens++;
 							tile = cells[i];
 							found = 1;

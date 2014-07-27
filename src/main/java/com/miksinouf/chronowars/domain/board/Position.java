@@ -54,4 +54,14 @@ public class Position {
     public static PositionBuilder from(Position oldPosition) {
         return new PositionBuilder(oldPosition.x, oldPosition.y);
     }
+    
+    public static Position getInBetweenPosition(int x, int y, Move move) {
+    	switch (move) {
+        case UP:  return new Position(x, y - 1);
+        case DOWN:  return new Position(x, y + 1);
+        case RIGHT:  return new Position(x + 1, y);
+        case LEFT:  return new Position(x - 2, y);
+        default: return null;
+    	}
+    }
 }

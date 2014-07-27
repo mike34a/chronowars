@@ -27,7 +27,7 @@ chronoWarsServices.factory('gameApi', function($http) {
 		},
 
 		setToken: function(playerId, row, col) {
-			return $http.put('/set_token/' + playerId + '/' + row + '/' + col)
+			return $http.put('/set_token/' + playerId + '/' + col + '/' + row)
 					.then(function(result) {
 						return result.data;
 					})
@@ -38,7 +38,7 @@ chronoWarsServices.factory('gameApi', function($http) {
 			        'Content-Type': 'application/json;charset=utf-8'
 			    };
 			return $http({
-			    url: '/move_token/' + playerId + '/' + row + '/' + col + '/' + direction,
+			    url: '/move_token/' + playerId + '/' + col + '/' + row + '/' + direction,
 			    method: "PATCH",
 					}).then(function(result) {
 				return result.data;
