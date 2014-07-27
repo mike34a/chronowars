@@ -166,7 +166,22 @@ chronoWarsControllers.controller('GameCtrl', [
 		}
 
 		$scope.getActionText = function() {
-			return $scope.selectedTile ? $scope.numberOfTokens >= 8 ? 'move' : 'place' : '';
+			if ($scope.colorToPlay != $scope.color)
+				return 'wait';
+			else if ($scope.numberOfTokens < 8) {
+				if (!$scope.selectedTile)
+					return 'selectTile';
+				else
+					return 'place';
+			}
+			else {
+				if (!$scope.selectedTile)
+					return 'selectToken';
+				else if (!$scope.directionTile)
+					return 'selectTile';
+				else
+					return 'move';
+			}
 		}
 
 		$scope.play = function() {

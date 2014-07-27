@@ -15,7 +15,11 @@ angular.module('chronoWarsFilters', [])
 	})
 	.filter('textActionFilter', function() {
 	  return function(input) {
-	    return input == '' ? 'Select tile' : input == 'move' ? 'Move Token' : input == 'place' ? 'Place Token' : 'Select tile';
+	    return input == 'move' ? 'Move Token' :
+	    	input == 'place' ? 'Place Token' :
+	    	input == 'wait' ? 'Please Wait...' :
+	    	input == 'selectTile' ? 'Select Tile' :
+	    	input == 'selectToken' ? 'Select Token' : 'Undefined Action';
 	  };
 	})
 	.filter('gameStatusFilter', function() {
