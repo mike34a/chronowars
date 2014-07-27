@@ -115,7 +115,6 @@ chronoWarsControllers.controller('GameCtrl', [
 					delete $scope.directionTile;
 				}
 			});
-			console.log(direction);
 		}
 
 		$scope.selectTile = function(tileId) {

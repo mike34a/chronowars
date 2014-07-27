@@ -11,7 +11,6 @@ public class Player {
     private final Color color;
     private Integer timeBonus;
     private Integer score;
-    private final Tokens tokens;
     private final Board board;
     private Player opponent;
 
@@ -23,7 +22,6 @@ public class Player {
         this.board = board;
         this.timeBonus = 0;
         this.score = 0;
-        this.tokens = new Tokens(board.size(), numberOfTokens, color);
     }
 
     public Player(WaitingPlayer waitingPlayer, Board board, Color color) {
@@ -33,7 +31,6 @@ public class Player {
         this.board = board;
         this.timeBonus = 0;
         this.score = 0;
-        this.tokens = new Tokens(board.size(), 8, color);
     }
 
     /**
@@ -47,7 +44,6 @@ public class Player {
     public MoveResult set(Integer x, Integer y) throws IllegalMoveException, TooManyTokensException {
         if (this.color != this.board.colorToPlay)
             throw new IllegalMoveException(MoveResultType.BAD_PLAYER, x, y);
-        tokens.addToken(x, y);
         board.placeToken(x, y);
         return new MoveResult(SUCCESS, x, y);
     }
@@ -55,7 +51,6 @@ public class Player {
     public MoveResult move(Integer oldX, Integer oldY, Move move) throws IllegalMoveException {
         if (this.color != this.board.colorToPlay)
             throw new IllegalMoveException(MoveResultType.BAD_PLAYER, oldX, oldY);
-        tokens.moveToken(oldX, oldY, move);
         board.moveToken(oldX, oldY, move);
         return new MoveResult(SUCCESS, oldX, oldY);
     }

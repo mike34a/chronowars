@@ -60,7 +60,7 @@ public class Position {
         case UP:  return new Position(x, y - 1);
         case DOWN:  return new Position(x, y + 1);
         case RIGHT:  return new Position(x + 1, y);
-        case LEFT:  return new Position(x - 2, y);
+        case LEFT:  return new Position(x - 1, y);
         default: return null;
     	}
     }
