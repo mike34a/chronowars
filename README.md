@@ -17,5 +17,6 @@ Here are the different shapes, rotations can be made :
       o                      oo                      ooo                      ooo
       o                      o                        o                       o o
       o                      oo                      ooo                      ooo
-
 lower I : 1 point    upper C : 3 points          upper I : 5 points       upper O : 8 points
+
+Enjoy !
