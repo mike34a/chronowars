@@ -36,24 +36,40 @@ chronoWarsControllers.controller('GameCtrl', [
 				var tile;
 				var tokenImg;
 				var numberOfTokens = 0;
-				board.whiteTokens.tokensPositions.forEach(function(token) {
-					numberOfTokens++;
-					tile = document.getElementById(token.x + '' + token.y);
-					if (tile.childElementCount == 0) {
-						tokenImg = document.createElement("img");
-						tokenImg.setAttribute('src', 'img/token.png')
-						tile.appendChild(tokenImg);
+				var table = document.getElementById("damier");
+				var cells = table.querySelectorAll("td");
+				for (var i = 0; i < cells.length; i++) {
+					var found = 0;
+					board.whiteTokens.tokensPositions.forEach(function(token) {
+						if ((token.x == parseInt(cells[i].id[0])) && (token.y == parseInt(cells[i].id[1]))) {
+							numberOfTokens++;
+							tile = cells[i];
+							found = 1;
+							if (tile.childElementCount == 0) {
+								tokenImg = document.createElement("img");
+								tokenImg.setAttribute('src', 'img/token.png')
+								tile.appendChild(tokenImg);
+							}	
+						}
+					});
+					board.blackTokens.tokensPositions.forEach(function(token) {
+						if ((token.x == parseInt(cells[i].id[0])) && (token.y == parseInt(cells[i].id[1]))) {
+							numberOfTokens++;
+							tile = cells[i];
+							found = 1;
+							if (tile.childElementCount == 0) {
+								tokenImg = document.createElement("img");
+								tokenImg.setAttribute('src', 'img/token.png')
+								tile.appendChild(tokenImg);
+							}	
+						}
+					});
+					if (!found) {
+						while (cells[i].firstChild) {
+							cells[i].removeChild(cells[i].firstChild);
+						}
 					}
-				});
-				board.blackTokens.tokensPositions.forEach(function(token) {
-					numberOfTokens++;
-					tile = document.getElementById(token.x + '' + token.y);
-					if (tile.childElementCount == 0) {
-						tokenImg = document.createElement("img");
-						tokenImg.setAttribute('src', 'img/token.png')
-						tile.appendChild(tokenImg);
-					}
-				});
+			    }
 				$scope.numberOfTokens = numberOfTokens;
 			});
 		}, 1000);
@@ -93,9 +109,6 @@ chronoWarsControllers.controller('GameCtrl', [
 				if (data == 'success') {
 					var tile = document.getElementById($scope.selectedTile);
 					tile.removeAttribute('style');
-					while (tile.firstChild) {
-					    tile.removeChild(tile.firstChild);
-					}
 					delete $scope.selectedTile;
 					tile = document.getElementById($scope.directionTile);
 					tile.removeAttribute('style');
