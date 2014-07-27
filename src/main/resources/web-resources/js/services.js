@@ -57,7 +57,7 @@ chronoWarsServices.factory('gameApi', function($http) {
 				return cd > cs ? 'UP_RIGHT' : cd < cs ? 'UP_LEFT' : 'UP';
 			}
 			if (rd == rs) {
-				return cd > cs ? 'UP' : cd < cs ? 'DOWN' : 'BAD_MOVE';
+				return cd > cs ? 'RIGHT' : cd < cs ? 'LEFT' : 'BAD_MOVE';
 			}
 		}
 	}
