@@ -59,12 +59,11 @@ public class Player {
     }
 
     public void refreshPlayerScore(Position p) {
-    	Integer maxScore = 0;
     	for(Shape shape : this.board.getShapes()){
     		if (shape.tokens.contains(p))
-    			maxScore = shape.getScore() > maxScore ? shape.getScore() : maxScore;
+    			this.board.maxShape = shape.getScore() > this.board.maxShape.getScore() ? shape : this.board.maxShape;
     	}
-    	this.score += maxScore;
+    	this.score += this.board.maxShape.getScore();
     	System.out.println("Score : " + score.toString());
     }
     

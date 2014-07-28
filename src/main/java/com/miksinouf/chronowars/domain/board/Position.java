@@ -1,7 +1,9 @@
 package com.miksinouf.chronowars.domain.board;
 
+import com.google.gson.annotations.Expose;
+
 public class Position {
-    public final Integer x, y;
+	@Expose public final Integer x, y;
 
     public Position(Integer x, Integer y) {
         this.x = x;

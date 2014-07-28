@@ -3,12 +3,13 @@ package com.miksinouf.chronowars.domain.board;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.google.gson.annotations.Expose;
 import com.miksinouf.chronowars.domain.player.Color;
 
 public class Shape {
 	private ShapeType shape;
-	public Set<Position> tokens;
-	public Color playerColor;
+	@Expose public Set<Position> tokens;
+	@Expose public Color playerColor;
 	
 	public Shape(ShapeType shape, Color c) {
 		this.shape = shape;

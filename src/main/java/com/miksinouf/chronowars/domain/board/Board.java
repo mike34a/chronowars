@@ -3,6 +3,7 @@ package com.miksinouf.chronowars.domain.board;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.google.gson.annotations.Expose;
 import com.miksinouf.chronowars.domain.games.GamesQueueSingleton;
 import com.miksinouf.chronowars.domain.player.Color;
 import com.miksinouf.chronowars.domain.player.Tokens;
@@ -12,18 +13,20 @@ public class Board {
 
     public static final int SIZE = 8;
 
-    private final Tokens whiteTokens;
-    private final Tokens blackTokens;
+    @Expose private final Tokens whiteTokens;
+    @Expose private final Tokens blackTokens;
     
     private final Set<Shape> shapes;
+    @Expose public Shape maxShape;
     
-    public Color colorToPlay;
+    @Expose public Color colorToPlay;
 
     public Board() {
         this.whiteTokens = new Tokens(SIZE, GamesQueueSingleton.MAX_NUMBER_OF_TOKENS, Color.WHITE);
         this.blackTokens = new Tokens(SIZE, GamesQueueSingleton.MAX_NUMBER_OF_TOKENS, Color.BLACK);
         this.colorToPlay = Color.WHITE;
         this.shapes = new HashSet<Shape>();
+        this.maxShape = new Shape(ShapeType.NONE, Color.WHITE);
     }
 
     public Integer size() {
@@ -108,6 +111,7 @@ public class Board {
     
     public void findShapes() {
         this.shapes.clear();
+        this.maxShape = new Shape(ShapeType.NONE, Color.WHITE);
     	for(Position token : whiteTokens.tokensPositions()){
         	findLowerI(token, Color.WHITE);
         	findUpperC(token, Color.WHITE);

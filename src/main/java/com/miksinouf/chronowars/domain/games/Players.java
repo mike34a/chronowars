@@ -61,7 +61,7 @@ public class Players {
     	Board board = players.get(playerIdentifier).getBoard();
     	String whiteScore = getByColor(Color.WHITE).getScore().toString();
     	String blackScore = getByColor(Color.BLACK).getScore().toString();
-    	Gson gson = new Gson();
+    	Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     	JsonElement jsonElement = gson.toJsonTree(board);
     	jsonElement.getAsJsonObject().addProperty("status", "running");
     	jsonElement.getAsJsonObject().addProperty("lastRoundPoints", "0");

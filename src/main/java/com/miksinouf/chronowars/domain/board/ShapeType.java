@@ -1,6 +1,7 @@
 package com.miksinouf.chronowars.domain.board;
 
 public enum ShapeType {
+	NONE(0),
     LOWER_I(1),
     UPPER_C(3),
     UPPER_I(5),

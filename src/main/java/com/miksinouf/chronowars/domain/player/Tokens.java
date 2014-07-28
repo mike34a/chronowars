@@ -5,14 +5,15 @@ import static com.miksinouf.chronowars.domain.board.MoveResultType.SUCCESS;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.google.gson.annotations.Expose;
 import com.miksinouf.chronowars.domain.board.*;
 
 public class Tokens {
 
-    private Color color;
-    private final Set<Position> tokensPositions;
-    private final Integer boardSize;
-    private final Integer numberOfTokens;
+	@Expose private Color color;
+	@Expose private final Set<Position> tokensPositions;
+	@Expose private final Integer boardSize;
+	@Expose private final Integer numberOfTokens;
 
     public Tokens(Integer boardSize, Integer numberOfTokens, Color color) {
         this.tokensPositions = new HashSet<>(numberOfTokens);

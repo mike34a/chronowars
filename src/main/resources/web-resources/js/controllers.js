@@ -36,6 +36,7 @@ chronoWarsControllers.controller('GameCtrl', [
 				$scope.colorToPlay = board.colorToPlay;
 				var tile;
 				var tokenImg;
+				var shapedTile;
 				var numberOfTokens = 0;
 				var table = document.getElementById("damier");
 				var cells = table.querySelectorAll("td");
@@ -44,11 +45,12 @@ chronoWarsControllers.controller('GameCtrl', [
 				if ($scope.color == "BLACK")
 					$scope.score = board.blackScore;
 				for (var i = 0; i < cells.length; i++) {
+					tile = cells[i];
+					tile.setAttribute("class", (parseInt(tile.id[0]) + parseInt(tile.id[1])) % 2 == 0 ? 'BLACK' : 'WHITE');
 					var found = 0;
 					board.whiteTokens.tokensPositions.forEach(function(token) {
 						if ((token.y == parseInt(cells[i].id[0])) && (token.x == parseInt(cells[i].id[1]))) {
 							numberOfTokens++;
-							tile = cells[i];
 							found = 1;
 							if (tile.childElementCount == 0) {
 								tokenImg = document.createElement("img");
@@ -60,7 +62,6 @@ chronoWarsControllers.controller('GameCtrl', [
 					board.blackTokens.tokensPositions.forEach(function(token) {
 						if ((token.y == parseInt(cells[i].id[0])) && (token.x == parseInt(cells[i].id[1]))) {
 							numberOfTokens++;
-							tile = cells[i];
 							found = 1;
 							if (tile.childElementCount == 0) {
 								tokenImg = document.createElement("img");
@@ -75,6 +76,9 @@ chronoWarsControllers.controller('GameCtrl', [
 						}
 					}
 			    }
+				board.maxShape.tokens.forEach(function(token) {
+					document.getElementById(token.y + '' + token.x).setAttribute("class", "inShape");
+				})
 				$scope.numberOfTokens = numberOfTokens;
 			});
 		}, 1000);

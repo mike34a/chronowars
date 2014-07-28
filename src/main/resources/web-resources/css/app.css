@@ -27,6 +27,10 @@ td.BLACK {
 background-color: #403542;
 }
 
+td.inShape {
+	background-color: #666;
+}
+
 td {
 -moz-border-radius: 20px;
 border-radius: 20px;
