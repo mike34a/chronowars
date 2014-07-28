@@ -53,27 +53,29 @@ public class Board {
         blackTokens.addToken(x, y);
     }
     
-    public void moveToken(int x, int y, Move move) throws IllegalMoveException {
+    public MoveResult moveToken(int x, int y, Move move) throws IllegalMoveException {
+    	MoveResult rslt;
     	if (colorToPlay == Color.WHITE)
-    		moveWhiteToken(x, y, move);
+    		rslt = moveWhiteToken(x, y, move);
     	else
-    		moveBlackToken(x, y, move);
+    		rslt = moveBlackToken(x, y, move);
     	findShapes();
     	changePlayer();
+    	return (rslt);
     }
     
     public void changePlayer() {
     	this.colorToPlay = this.colorToPlay == Color.WHITE ? Color.BLACK : Color.WHITE;
     }
     
-    private void moveWhiteToken(int x, int y, Move move) throws IllegalMoveException {
+    private MoveResult moveWhiteToken(int x, int y, Move move) throws IllegalMoveException {
     	assertInBetween(x, y, move, blackTokens);
-        whiteTokens.moveToken(x, y, move);
+        return (whiteTokens.moveToken(x, y, move));
     }
 
-    private void moveBlackToken(int x, int y, Move move) throws IllegalMoveException {
+    private MoveResult moveBlackToken(int x, int y, Move move) throws IllegalMoveException {
     	assertInBetween(x, y, move, whiteTokens);
-        blackTokens.moveToken(x, y, move);
+        return (blackTokens.moveToken(x, y, move));
     }
     
     private void assertInBetween(int x, int y, Move move, Tokens opponnentTokens) throws IllegalMoveException {

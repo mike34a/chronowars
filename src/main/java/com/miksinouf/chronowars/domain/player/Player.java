@@ -45,22 +45,24 @@ public class Player {
         if (this.color != this.board.colorToPlay)
             throw new IllegalMoveException(MoveResultType.BAD_PLAYER, x, y);
         board.placeToken(x, y);
-        refreshPlayerScore();
+        refreshPlayerScore(new Position(x, y));
         return new MoveResult(SUCCESS, x, y);
     }
 
     public MoveResult move(Integer oldX, Integer oldY, Move move) throws IllegalMoveException {
+    	MoveResult rslt;
         if (this.color != this.board.colorToPlay)
             throw new IllegalMoveException(MoveResultType.BAD_PLAYER, oldX, oldY);
-        board.moveToken(oldX, oldY, move);
-        refreshPlayerScore();
-        return new MoveResult(SUCCESS, oldX, oldY);
+        rslt = board.moveToken(oldX, oldY, move);
+        refreshPlayerScore(rslt.position);
+        return rslt;
     }
 
-    public void refreshPlayerScore() {
+    public void refreshPlayerScore(Position p) {
     	Integer maxScore = 0;
     	for(Shape shape : this.board.getShapes()){
-    		maxScore = shape.getScore() > maxScore ? shape.getScore() : maxScore;
+    		if (shape.tokens.contains(p))
+    			maxScore = shape.getScore() > maxScore ? shape.getScore() : maxScore;
     	}
     	this.score += maxScore;
     	System.out.println("Score : " + score.toString());
