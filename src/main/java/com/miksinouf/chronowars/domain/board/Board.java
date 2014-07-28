@@ -127,7 +127,7 @@ public class Board {
     }
     
     public void findLowerI(Position token, Color c) {
-    	Shape lowerI = new Shape(ShapeType.LOWER_I, colorToPlay);
+    	Shape lowerI;
     	Position t2;
     	Position t3;
 
@@ -135,6 +135,7 @@ public class Board {
 		for (Move m : Move.values()) {
 			if (m == Move.UP || m == Move.RIGHT) {
 				if ((t3 = hasTokenAt(t2 = hasTokenAt(token, m, c.getOpponnentColor()), m, c)) != null) {
+					lowerI = new Shape(ShapeType.LOWER_I, colorToPlay);
 					lowerI.tokens.add(token);
 					lowerI.tokens.add(t2);
 					lowerI.tokens.add(t3);
@@ -145,7 +146,7 @@ public class Board {
     }
     
     public void findUpperC(Position token, Color c) {
-    	Shape lowerC = new Shape(ShapeType.UPPER_C, colorToPlay);
+    	Shape lowerC;
     	Position t2;
     	Position t3;
     	Position t4;
@@ -159,6 +160,7 @@ public class Board {
 						m.getNextDirection(), c), 
 						m.getNextDirection(), c.getOpponnentColor()), 
 						m.getOppositeDirection(), c)) != null) {
+					lowerC = new Shape(ShapeType.UPPER_C, colorToPlay);
 					lowerC.tokens.add(token);
 					lowerC.tokens.add(t2);
 					lowerC.tokens.add(t3);
@@ -171,7 +173,7 @@ public class Board {
     }
     
     public void findUpperI(Position token, Color c) {
-    	Shape upperI = new Shape(ShapeType.UPPER_I, colorToPlay);
+    	Shape upperI;
     	Position t2;
     	Position t3;
     	Position t4;
@@ -185,6 +187,7 @@ public class Board {
 				if ((t3 = hasTokenAt(t2 = hasTokenAt(token, m, c.getOpponnentColor()), m, c)) != null) {
 					if ((t5 = hasTokenAt(t4 = hasTokenAt(t2, m.getNextDirection(), c), m.getNextDirection(), c.getOpponnentColor())) != null) {
 						if ((t6 = hasTokenAt(t5, m, c)) != null && (t7 = hasTokenAt(t5, m.getOppositeDirection(), c)) != null) {
+							upperI = new Shape(ShapeType.UPPER_I, colorToPlay);
 							upperI.tokens.add(token);
 							upperI.tokens.add(t2);
 							upperI.tokens.add(t3);
@@ -201,7 +204,7 @@ public class Board {
     }
     
     public void findUpperO(Position token, Color c) {
-    	Shape upperO = new Shape(ShapeType.UPPER_O, colorToPlay);
+    	Shape upperO;
     	Position t2;
     	Position t3;
     	Position t4;
@@ -221,6 +224,7 @@ public class Board {
 						m.getOppositeDirection(), c.getOpponnentColor()),
 						m.getOppositeDirection(), c),
 						m.getPreviousDirection(), c.getOpponnentColor())) != null) {
+					upperO = new Shape(ShapeType.UPPER_O, colorToPlay);
 					upperO.tokens.add(token);
 					upperO.tokens.add(t2);
 					upperO.tokens.add(t3);

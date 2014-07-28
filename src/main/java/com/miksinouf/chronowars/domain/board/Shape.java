@@ -7,7 +7,7 @@ import com.google.gson.annotations.Expose;
 import com.miksinouf.chronowars.domain.player.Color;
 
 public class Shape {
-	private ShapeType shape;
+	@Expose private ShapeType shape;
 	@Expose public Set<Position> tokens;
 	@Expose public Color playerColor;
 	
