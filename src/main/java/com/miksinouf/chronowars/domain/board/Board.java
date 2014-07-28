@@ -180,7 +180,7 @@ public class Board {
 			if (m == Move.DOWN || m == Move.UP || m == Move.LEFT || m == Move.RIGHT) {
 				if ((t3 = hasTokenAt(t2 = hasTokenAt(token, m, c.getOpponnentColor()), m, c)) != null) {
 					if ((t5 = hasTokenAt(t4 = hasTokenAt(t2, m.getNextDirection(), c), m.getNextDirection(), c.getOpponnentColor())) != null) {
-						if ((t6 = hasTokenAt(t5, m, c)) != null && (t7 = hasTokenAt(t5, m, c)) != null) {
+						if ((t6 = hasTokenAt(t5, m, c)) != null && (t7 = hasTokenAt(t5, m.getOppositeDirection(), c)) != null) {
 							upperI.tokens.add(token);
 							upperI.tokens.add(t2);
 							upperI.tokens.add(t3);
