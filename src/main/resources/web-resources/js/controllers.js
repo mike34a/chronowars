@@ -29,6 +29,7 @@ chronoWarsControllers.controller('GameCtrl', [
 	'$routeParams',
 	function($scope, gameApi, $routeParams) {
 		$scope.playerId = $routeParams.playerId;
+		$scope.score = 0;
 		
 		setInterval(function() {
 			gameApi.getBoard($routeParams.playerId).then(function(board) {
@@ -38,6 +39,10 @@ chronoWarsControllers.controller('GameCtrl', [
 				var numberOfTokens = 0;
 				var table = document.getElementById("damier");
 				var cells = table.querySelectorAll("td");
+				if ($scope.color == "WHITE")
+					$scope.score = board.whiteScore;
+				if ($scope.color == "BLACK")
+					$scope.score = board.blackScore;
 				for (var i = 0; i < cells.length; i++) {
 					var found = 0;
 					board.whiteTokens.tokensPositions.forEach(function(token) {
