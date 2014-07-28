@@ -1,7 +1,7 @@
 package com.miksinouf.chronowars.domain.games;
 
 import static com.miksinouf.chronowars.domain.board.MoveResultType.SUCCESS;
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 

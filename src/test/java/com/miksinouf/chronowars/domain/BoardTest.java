@@ -1,7 +1,7 @@
 package com.miksinouf.chronowars.domain;
 
 import static com.miksinouf.chronowars.domain.board.Move.*;
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Rule;
 import org.junit.Test;
