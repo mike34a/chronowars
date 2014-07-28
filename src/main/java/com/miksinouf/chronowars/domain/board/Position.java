@@ -65,19 +65,17 @@ public class Position {
     	}
     }
     
-    public Boolean isUpper(Position p) {
-    	return (this.x == (p.x)) && (this.y == p.y - 1);
-    }
-    
-    public Boolean isDown(Position p) {
-    	return (this.x == (p.x)) && (this.y == p.y + 1);
-    }
-    
-    public Boolean isLeft(Position p) {
-    	return (this.x == (p.x - 1)) && (this.y == p.y);
-    }
-    
-    public Boolean isRight(Position p) {
-    	return (this.x == (p.x + 1)) && (this.y == p.y);
+    public Boolean isAt(Position p, Move d) {
+    	switch (d) {
+    	case UP:
+        	return (this.x == (p.x)) && (this.y == p.y - 1);
+    	case DOWN:
+        	return (this.x == (p.x)) && (this.y == p.y + 1);
+    	case LEFT:
+        	return (this.x == (p.x - 1)) && (this.y == p.y);
+    	case RIGHT:
+        	return (this.x == (p.x + 1)) && (this.y == p.y);
+        default : return null;
+    	}
     }
 }

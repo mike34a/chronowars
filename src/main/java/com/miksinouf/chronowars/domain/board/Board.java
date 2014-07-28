@@ -29,6 +29,10 @@ public class Board {
     public Integer size() {
         return SIZE;
     }
+    
+    public Set<Shape> getShapes() {
+    	return this.shapes;
+    }
 
     public void placeToken(int x, int y) throws IllegalMoveException, TooManyTokensException {
     	if (colorToPlay == Color.WHITE)
@@ -80,78 +84,18 @@ public class Board {
     	}   	
     }
     
-    public Position hasUpperToken(Position token, Color c) {
+    public Position hasTokenAt(Position token, Move d, Color c) {
     	if (token != null) {
-	    	if (c == Color.WHITE) { 
+	    	if (c == Color.BLACK) { 
 		    	for(Position nextToken : blackTokens.tokensPositions()) {
-		    		if (nextToken.isUpper(token))
+		    		if (nextToken.isAt(token, d))
 		    			return nextToken;
 		    	}
 		    	return null;
 	    	}
 	    	else {
 		    	for(Position nextToken : whiteTokens.tokensPositions()) {
-		    		if (nextToken.isUpper(token))
-		    			return nextToken;
-		    	}
-		    	return null;
-	    	}
-    	}
-    	return null;
-    }
-    
-    public Position hasDownToken(Position token, Color c) {
-    	if (token != null) {
-	    	if (c == Color.WHITE) { 
-		    	for(Position nextToken : blackTokens.tokensPositions()) {
-		    		if (nextToken.isDown(token))
-		    			return nextToken;
-		    	}
-		    	return null;
-	    	}
-	    	else {
-		    	for(Position nextToken : whiteTokens.tokensPositions()) {
-		    		if (nextToken.isDown(token))
-		    			return nextToken;
-		    	}
-		    	return null;
-	    	}
-    	}
-    	return null;
-    }
-   
-    public Position hasLeftToken(Position token, Color c) {
-    	if (token != null) {
-	    	if (c == Color.WHITE) { 
-		    	for(Position nextToken : blackTokens.tokensPositions()) {
-		    		if (nextToken.isLeft(token))
-		    			return nextToken;
-		    	}
-		    	return null;
-	    	}
-	    	else {
-		    	for(Position nextToken : whiteTokens.tokensPositions()) {
-		    		if (nextToken.isLeft(token))
-		    			return nextToken;
-		    	}
-		    	return null;
-	    	}
-    	}
-    	return null;
-    }
-    
-    public Position hasRightToken(Position token, Color c) {
-    	if (token != null) {
-	    	if (c == Color.WHITE) { 
-		    	for(Position nextToken : blackTokens.tokensPositions()) {
-		    		if (nextToken.isRight(token))
-		    			return nextToken;
-		    	}
-		    	return null;
-	    	}
-	    	else {
-		    	for(Position nextToken : whiteTokens.tokensPositions()) {
-		    		if (nextToken.isRight(token))
+		    		if (nextToken.isAt(token, d))
 		    			return nextToken;
 		    	}
 		    	return null;
@@ -162,14 +106,12 @@ public class Board {
     
     public void findShapes() {
     	for(Position token : whiteTokens.tokensPositions()){
-    		System.out.println("token : " + token.toString());
         	findLowerI(token, Color.WHITE);
         	findUpperC(token, Color.WHITE);
         	findUpperI(token, Color.WHITE);
         	findUpperO(token, Color.WHITE);
         }
     	for(Position token : blackTokens.tokensPositions()){
-    		System.out.println("token : " + token.toString());
         	findLowerI(token, Color.BLACK);
         	findUpperC(token, Color.BLACK);
         	findUpperI(token, Color.BLACK);
@@ -182,7 +124,7 @@ public class Board {
     	Position t2;
     	Position t3;
     	if (c == Color.WHITE) {
-        	if ((t3 = hasUpperToken(t2 = hasUpperToken(token, Color.BLACK), Color.WHITE)) != null) {
+        	if ((t3 = hasTokenAt(t2 = hasTokenAt(token, Move.UP, Color.BLACK), Move.UP, Color.WHITE)) != null) {
         		lowerI.tokens.add(token);
         		lowerI.tokens.add(t2);
         		lowerI.tokens.add(t3);
@@ -190,12 +132,12 @@ public class Board {
         	}
     	}
     	else {
-        	if ((t3 = hasUpperToken(t2 = hasUpperToken(token, Color.WHITE), Color.BLACK)) != null) {
+        	if ((t3 = hasTokenAt(t2 = hasTokenAt(token, Move.UP, Color.WHITE), Move.UP, Color.BLACK)) != null) {
         		lowerI.tokens.add(token);
         		lowerI.tokens.add(t2);
         		lowerI.tokens.add(t3);
         		this.shapes.add(lowerI);
-        	}		
+        	}
     	}
     }
     

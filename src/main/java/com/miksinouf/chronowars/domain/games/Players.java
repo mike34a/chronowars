@@ -1,12 +1,15 @@
 package com.miksinouf.chronowars.domain.games;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.miksinouf.chronowars.domain.board.IllegalMoveException;
 import com.miksinouf.chronowars.domain.board.Move;
 import com.miksinouf.chronowars.domain.board.Board;
 import com.miksinouf.chronowars.domain.board.MoveResult;
+import com.miksinouf.chronowars.domain.player.Color;
 import com.miksinouf.chronowars.domain.player.Player;
 import com.miksinouf.chronowars.domain.player.TooManyTokensException;
 import com.miksinouf.chronowars.domain.player.UnknownPlayerException;
@@ -20,6 +23,15 @@ public class Players {
         players.put(blackPlayer.identifier, blackPlayer);
         whitePlayer.setOpponent(blackPlayer);
         blackPlayer.setOpponent(whitePlayer);
+    }
+    
+    private Player getByColor(Color c) {
+    	Iterator<Entry<String, Player>> i = players.entrySet().iterator();
+    	while (i.hasNext()) {
+    		if (i.next().getValue().getColor() == c)
+    			return i.next().getValue();
+    	}
+    	return null;
     }
 
     public MoveResult setToken(String playerIdentifier, Integer x, Integer y) throws UnknownPlayerException, IllegalMoveException, TooManyTokensException {
@@ -50,6 +62,8 @@ public class Players {
     	JsonElement jsonElement = gson.toJsonTree(board);
     	jsonElement.getAsJsonObject().addProperty("status", "running");
     	jsonElement.getAsJsonObject().addProperty("lastRoundPoints", "0");
+    	//jsonElement.getAsJsonObject().addProperty("whiteScore", getByColor(Color.WHITE).getScore().toString());
+    	//jsonElement.getAsJsonObject().addProperty("blackScore", getByColor(Color.BLACK).getScore().toString());
     	return gson.toJson(jsonElement);
     }
 }

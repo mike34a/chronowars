@@ -45,6 +45,7 @@ public class Player {
         if (this.color != this.board.colorToPlay)
             throw new IllegalMoveException(MoveResultType.BAD_PLAYER, x, y);
         board.placeToken(x, y);
+        refreshPlayerScore();
         return new MoveResult(SUCCESS, x, y);
     }
 
@@ -52,9 +53,19 @@ public class Player {
         if (this.color != this.board.colorToPlay)
             throw new IllegalMoveException(MoveResultType.BAD_PLAYER, oldX, oldY);
         board.moveToken(oldX, oldY, move);
+        refreshPlayerScore();
         return new MoveResult(SUCCESS, oldX, oldY);
     }
 
+    public void refreshPlayerScore() {
+    	Integer maxScore = 0;
+    	for(Shape shape : this.board.getShapes()){
+    		maxScore = shape.getScore() > maxScore ? shape.getScore() : maxScore;
+    	}
+    	this.score += maxScore;
+    	System.out.println("Score : " + score.toString());
+    }
+    
     public void setOpponent(Player opponent) {
         this.opponent = opponent;
     }
@@ -65,5 +76,9 @@ public class Player {
 
 	public Color getColor() {
 		return color;
+	}
+	
+	public Integer getScore() {
+		return score;
 	}
 }
