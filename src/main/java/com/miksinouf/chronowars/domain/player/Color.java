@@ -10,4 +10,8 @@ public enum Color {
         int expectedModulo2Value = this == WHITE ? 1 : 0;
         return (position.x + position.y) % 2 == expectedModulo2Value;
     }
+    
+    public Color getOpponnentColor() {
+    	return this == WHITE ? BLACK : WHITE;
+    }
 }

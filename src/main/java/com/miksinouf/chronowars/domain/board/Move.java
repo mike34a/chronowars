@@ -17,4 +17,16 @@ public enum Move {
         this.dx = dx;
         this.dy = dy;
     }
+    
+    public Move getNextDirection() {
+    	return this == UP ? RIGHT : this == RIGHT ? DOWN : this == DOWN ? LEFT : this == LEFT ? UP : null;
+    }
+    
+    public Move getPreviousDirection() {
+    	return this == UP ? LEFT : this == LEFT ? DOWN : this == DOWN ? RIGHT : this == RIGHT ? UP : null;
+    }
+    
+    public Move getOppositeDirection() {
+    	return this == UP ? DOWN : this == RIGHT ? LEFT : this == DOWN ? UP : this == LEFT ? RIGHT : null;
+    }
 }

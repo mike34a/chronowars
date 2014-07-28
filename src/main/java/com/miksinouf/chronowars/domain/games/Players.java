@@ -28,8 +28,9 @@ public class Players {
     private Player getByColor(Color c) {
     	Iterator<Entry<String, Player>> i = players.entrySet().iterator();
     	while (i.hasNext()) {
-    		if (i.next().getValue().getColor() == c)
-    			return i.next().getValue();
+    		Player p = i.next().getValue();
+    		if (p.getColor() == c)
+    			return p;
     	}
     	return null;
     }
@@ -58,12 +59,14 @@ public class Players {
     public String getGame(String playerIdentifier) throws UnknownPlayerException {
     	checkUserExists(playerIdentifier);
     	Board board = players.get(playerIdentifier).getBoard();
+    	String whiteScore = getByColor(Color.WHITE).getScore().toString();
+    	String blackScore = getByColor(Color.BLACK).getScore().toString();
     	Gson gson = new Gson();
     	JsonElement jsonElement = gson.toJsonTree(board);
     	jsonElement.getAsJsonObject().addProperty("status", "running");
     	jsonElement.getAsJsonObject().addProperty("lastRoundPoints", "0");
-    	//jsonElement.getAsJsonObject().addProperty("whiteScore", getByColor(Color.WHITE).getScore().toString());
-    	//jsonElement.getAsJsonObject().addProperty("blackScore", getByColor(Color.BLACK).getScore().toString());
+    	jsonElement.getAsJsonObject().addProperty("whiteScore", whiteScore);
+    	jsonElement.getAsJsonObject().addProperty("blackScore", blackScore);
     	return gson.toJson(jsonElement);
     }
 }
