@@ -125,7 +125,7 @@ chronoWarsControllers.controller('GameCtrl', [
 			if ($scope.color == $scope.colorToPlay
 					&& ((tileColor == 0 && $scope.color == 'BLACK')
 							|| (tileColor == 1 && $scope.color == 'WHITE'))) {
-				if ($scope.numberOfTokens < 8) {
+				if ($scope.numberOfTokens < 10) {
 					if (tile.childElementCount == 0) {
 						tile.setAttribute('style','border: 3px solid red');
 						if ($scope.selectedTile)
@@ -168,7 +168,7 @@ chronoWarsControllers.controller('GameCtrl', [
 		$scope.getActionText = function() {
 			if ($scope.colorToPlay != $scope.color)
 				return 'wait';
-			else if ($scope.numberOfTokens < 8) {
+			else if ($scope.numberOfTokens < 10) {
 				if (!$scope.selectedTile)
 					return 'selectTile';
 				else
@@ -186,7 +186,7 @@ chronoWarsControllers.controller('GameCtrl', [
 
 		$scope.play = function() {
 			var playerToken;
-			if ($scope.numberOfTokens < 8)
+			if ($scope.numberOfTokens < 10)
 				placeToken();
 			else
 				moveToken();
