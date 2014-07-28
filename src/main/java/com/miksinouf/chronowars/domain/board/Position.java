@@ -64,4 +64,20 @@ public class Position {
         default: return null;
     	}
     }
+    
+    public Boolean isUpper(Position p) {
+    	return (this.x == (p.x)) && (this.y == p.y - 1);
+    }
+    
+    public Boolean isDown(Position p) {
+    	return (this.x == (p.x)) && (this.y == p.y + 1);
+    }
+    
+    public Boolean isLeft(Position p) {
+    	return (this.x == (p.x - 1)) && (this.y == p.y);
+    }
+    
+    public Boolean isRight(Position p) {
+    	return (this.x == (p.x + 1)) && (this.y == p.y);
+    }
 }

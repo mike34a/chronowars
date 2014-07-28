@@ -1,5 +1,8 @@
 package com.miksinouf.chronowars.domain.board;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.miksinouf.chronowars.domain.games.GamesQueueSingleton;
 import com.miksinouf.chronowars.domain.player.Color;
 import com.miksinouf.chronowars.domain.player.Tokens;
@@ -11,12 +14,16 @@ public class Board {
 
     private final Tokens whiteTokens;
     private final Tokens blackTokens;
+    
+    private final Set<Shape> shapes;
+    
     public Color colorToPlay;
 
     public Board() {
         this.whiteTokens = new Tokens(SIZE, GamesQueueSingleton.MAX_NUMBER_OF_TOKENS, Color.WHITE);
         this.blackTokens = new Tokens(SIZE, GamesQueueSingleton.MAX_NUMBER_OF_TOKENS, Color.BLACK);
         this.colorToPlay = Color.WHITE;
+        this.shapes = new HashSet<Shape>();
     }
 
     public Integer size() {
@@ -28,18 +35,18 @@ public class Board {
     		placeWhiteToken(x, y);
     	else
     		placeBlackToken(x, y);
+    	findShapes();
+    	changePlayer();
     }
     
     /*TODO : Change to private*/
     public void placeWhiteToken(int x, int y) throws IllegalMoveException, TooManyTokensException {
         whiteTokens.addToken(x, y);
-        this.colorToPlay = Color.BLACK;
     }
 
     /*TODO : Change to private*/
     public void placeBlackToken(int x, int y) throws IllegalMoveException, TooManyTokensException {
         blackTokens.addToken(x, y);
-        this.colorToPlay = Color.WHITE;
     }
     
     public void moveToken(int x, int y, Move move) throws IllegalMoveException {
@@ -47,18 +54,22 @@ public class Board {
     		moveWhiteToken(x, y, move);
     	else
     		moveBlackToken(x, y, move);
+    	findShapes();
+    	changePlayer();
+    }
+    
+    public void changePlayer() {
+    	this.colorToPlay = this.colorToPlay == Color.WHITE ? Color.BLACK : Color.WHITE;
     }
     
     private void moveWhiteToken(int x, int y, Move move) throws IllegalMoveException {
     	assertInBetween(x, y, move, blackTokens);
         whiteTokens.moveToken(x, y, move);
-        this.colorToPlay = Color.BLACK;
     }
 
     private void moveBlackToken(int x, int y, Move move) throws IllegalMoveException {
     	assertInBetween(x, y, move, whiteTokens);
         blackTokens.moveToken(x, y, move);
-        this.colorToPlay = Color.WHITE;
     }
     
     private void assertInBetween(int x, int y, Move move, Tokens opponnentTokens) throws IllegalMoveException {
@@ -67,5 +78,157 @@ public class Board {
 	    	if (!(opponnentTokens.tokensPositions().contains(Position.getInBetweenPosition(x, y, move))))
 	    		throw new IllegalMoveException(MoveResultType.NO_TOKEN_INBETWEEN, x, y);
     	}   	
+    }
+    
+    public Position hasUpperToken(Position token, Color c) {
+    	if (token != null) {
+	    	if (c == Color.WHITE) { 
+		    	for(Position nextToken : blackTokens.tokensPositions()) {
+		    		if (nextToken.isUpper(token))
+		    			return nextToken;
+		    	}
+		    	return null;
+	    	}
+	    	else {
+		    	for(Position nextToken : whiteTokens.tokensPositions()) {
+		    		if (nextToken.isUpper(token))
+		    			return nextToken;
+		    	}
+		    	return null;
+	    	}
+    	}
+    	return null;
+    }
+    
+    public Position hasDownToken(Position token, Color c) {
+    	if (token != null) {
+	    	if (c == Color.WHITE) { 
+		    	for(Position nextToken : blackTokens.tokensPositions()) {
+		    		if (nextToken.isDown(token))
+		    			return nextToken;
+		    	}
+		    	return null;
+	    	}
+	    	else {
+		    	for(Position nextToken : whiteTokens.tokensPositions()) {
+		    		if (nextToken.isDown(token))
+		    			return nextToken;
+		    	}
+		    	return null;
+	    	}
+    	}
+    	return null;
+    }
+   
+    public Position hasLeftToken(Position token, Color c) {
+    	if (token != null) {
+	    	if (c == Color.WHITE) { 
+		    	for(Position nextToken : blackTokens.tokensPositions()) {
+		    		if (nextToken.isLeft(token))
+		    			return nextToken;
+		    	}
+		    	return null;
+	    	}
+	    	else {
+		    	for(Position nextToken : whiteTokens.tokensPositions()) {
+		    		if (nextToken.isLeft(token))
+		    			return nextToken;
+		    	}
+		    	return null;
+	    	}
+    	}
+    	return null;
+    }
+    
+    public Position hasRightToken(Position token, Color c) {
+    	if (token != null) {
+	    	if (c == Color.WHITE) { 
+		    	for(Position nextToken : blackTokens.tokensPositions()) {
+		    		if (nextToken.isRight(token))
+		    			return nextToken;
+		    	}
+		    	return null;
+	    	}
+	    	else {
+		    	for(Position nextToken : whiteTokens.tokensPositions()) {
+		    		if (nextToken.isRight(token))
+		    			return nextToken;
+		    	}
+		    	return null;
+	    	}
+    	}
+    	return null;
+    }
+    
+    public void findShapes() {
+    	for(Position token : whiteTokens.tokensPositions()){
+    		System.out.println("token : " + token.toString());
+        	findLowerI(token, Color.WHITE);
+        	findUpperC(token, Color.WHITE);
+        	findUpperI(token, Color.WHITE);
+        	findUpperO(token, Color.WHITE);
+        }
+    	for(Position token : blackTokens.tokensPositions()){
+    		System.out.println("token : " + token.toString());
+        	findLowerI(token, Color.BLACK);
+        	findUpperC(token, Color.BLACK);
+        	findUpperI(token, Color.BLACK);
+        	findUpperO(token, Color.BLACK);
+        }
+    }
+    
+    public void findLowerI(Position token, Color c) {
+    	Shape lowerI = new Shape(ShapeType.LOWER_I, colorToPlay);
+    	Position t2;
+    	Position t3;
+    	if (c == Color.WHITE) {
+        	if ((t3 = hasUpperToken(t2 = hasUpperToken(token, Color.BLACK), Color.WHITE)) != null) {
+        		lowerI.tokens.add(token);
+        		lowerI.tokens.add(t2);
+        		lowerI.tokens.add(t3);
+        		this.shapes.add(lowerI);
+        	}
+    	}
+    	else {
+        	if ((t3 = hasUpperToken(t2 = hasUpperToken(token, Color.WHITE), Color.BLACK)) != null) {
+        		lowerI.tokens.add(token);
+        		lowerI.tokens.add(t2);
+        		lowerI.tokens.add(t3);
+        		this.shapes.add(lowerI);
+        	}		
+    	}
+    }
+    
+    public void findUpperC(Position token, Color c) {
+    	if (c == Color.WHITE) {
+        	for(Position nextToken : blackTokens.tokensPositions()){
+            } 		
+    	}
+    	else {
+        	for(Position nextToken : whiteTokens.tokensPositions()){
+            } 	  		
+    	}	
+    }
+    
+    public void findUpperI(Position token, Color c) {
+    	if (c == Color.WHITE) {
+        	for(Position nextToken : blackTokens.tokensPositions()){
+            } 		
+    	}
+    	else {
+        	for(Position nextToken : whiteTokens.tokensPositions()){
+            } 	  		
+    	} 	
+    }
+    
+    public void findUpperO(Position token, Color c) {
+    	if (c == Color.WHITE) {
+        	for(Position nextToken : blackTokens.tokensPositions()){
+            } 		
+    	}
+    	else {
+        	for(Position nextToken : whiteTokens.tokensPositions()){
+            } 	  		
+    	} 	
     }
 }
