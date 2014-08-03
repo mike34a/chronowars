@@ -50,12 +50,12 @@ public class Player {
     }
 
     public MoveResult move(Integer oldX, Integer oldY, Move move) throws IllegalMoveException {
-    	MoveResult rslt;
+    	MoveResult moveResult;
         if (this.color != this.board.colorToPlay)
             throw new IllegalMoveException(MoveResultType.BAD_PLAYER, oldX, oldY);
-        rslt = board.moveToken(oldX, oldY, move);
-        refreshPlayerScore(rslt.position);
-        return rslt;
+        moveResult = board.moveToken(oldX, oldY, move);
+        refreshPlayerScore(moveResult.position);
+        return moveResult;
     }
 
     public void refreshPlayerScore(Position p) {

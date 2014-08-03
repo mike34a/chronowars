@@ -66,7 +66,8 @@ public class Position {
         default: return null;
     	}
     }
-    
+
+    //FIXME comparison with ==. Should use equals. We should then be careful about NullPointerException...
     public Boolean isAt(Position p, Move d) {
     	switch (d) {
     	case UP:

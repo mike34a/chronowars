@@ -57,14 +57,14 @@ public class Board {
     }
     
     public MoveResult moveToken(int x, int y, Move move) throws IllegalMoveException {
-    	MoveResult rslt;
+    	MoveResult moveResult;
     	if (colorToPlay == Color.WHITE)
-    		rslt = moveWhiteToken(x, y, move);
+    		moveResult = moveWhiteToken(x, y, move);
     	else
-    		rslt = moveBlackToken(x, y, move);
+    		moveResult = moveBlackToken(x, y, move);
     	findShapes();
     	changePlayer();
-    	return (rslt);
+    	return (moveResult);
     }
     
     public void changePlayer() {
@@ -81,10 +81,10 @@ public class Board {
         return (blackTokens.moveToken(x, y, move));
     }
     
-    private void assertInBetween(int x, int y, Move move, Tokens opponnentTokens) throws IllegalMoveException {
+    private void assertInBetween(int x, int y, Move move, Tokens opponentTokens) throws IllegalMoveException {
     	if (move == Move.UP || move == Move.DOWN || move == Move.LEFT || move == Move.RIGHT)
     	{
-	    	if (!(opponnentTokens.tokensPositions().contains(Position.getInBetweenPosition(x, y, move))))
+	    	if (!(opponentTokens.tokensPositions().contains(Position.getInBetweenPosition(x, y, move))))
 	    		throw new IllegalMoveException(MoveResultType.NO_TOKEN_INBETWEEN, x, y);
     	}   	
     }
@@ -134,7 +134,7 @@ public class Board {
 		/* Example : * RIGHT * RIGHT */
 		for (Move m : Move.values()) {
 			if (m == Move.UP || m == Move.RIGHT) {
-				if ((t3 = hasTokenAt(t2 = hasTokenAt(token, m, c.getOpponnentColor()), m, c)) != null) {
+				if ((t3 = hasTokenAt(t2 = hasTokenAt(token, m, c.getOpponentColor()), m, c)) != null) {
 					lowerI = new Shape(ShapeType.LOWER_I, colorToPlay);
 					lowerI.tokens.add(token);
 					lowerI.tokens.add(t2);
@@ -156,9 +156,9 @@ public class Board {
 		for (Move m : Move.values()) {
 			if (m == Move.DOWN || m == Move.UP || m == Move.LEFT || m == Move.RIGHT) {
 				if ((t5 = hasTokenAt(t4 = hasTokenAt(t3 = hasTokenAt(t2 = hasTokenAt(
-						token, m, c.getOpponnentColor()), 
+						token, m, c.getOpponentColor()),
 						m.getNextDirection(), c), 
-						m.getNextDirection(), c.getOpponnentColor()), 
+						m.getNextDirection(), c.getOpponentColor()),
 						m.getOppositeDirection(), c)) != null) {
 					lowerC = new Shape(ShapeType.UPPER_C, colorToPlay);
 					lowerC.tokens.add(token);
@@ -184,8 +184,8 @@ public class Board {
 		/* Example : (1)UP * UP * (1)RIGHT * RIGHT * (2)UP * (2) DOWN */
 		for (Move m : Move.values()) {
 			if (m == Move.DOWN || m == Move.UP || m == Move.LEFT || m == Move.RIGHT) {
-				if ((t3 = hasTokenAt(t2 = hasTokenAt(token, m, c.getOpponnentColor()), m, c)) != null) {
-					if ((t5 = hasTokenAt(t4 = hasTokenAt(t2, m.getNextDirection(), c), m.getNextDirection(), c.getOpponnentColor())) != null) {
+				if ((t3 = hasTokenAt(t2 = hasTokenAt(token, m, c.getOpponentColor()), m, c)) != null) {
+					if ((t5 = hasTokenAt(t4 = hasTokenAt(t2, m.getNextDirection(), c), m.getNextDirection(), c.getOpponentColor())) != null) {
 						if ((t6 = hasTokenAt(t5, m, c)) != null && (t7 = hasTokenAt(t5, m.getOppositeDirection(), c)) != null) {
 							upperI = new Shape(ShapeType.UPPER_I, colorToPlay);
 							upperI.tokens.add(token);
@@ -217,13 +217,13 @@ public class Board {
 		for (Move m : Move.values()) {
 			if (m == Move.DOWN || m == Move.UP || m == Move.LEFT || m == Move.RIGHT) {
 				if ((t8 = hasTokenAt(t7 = hasTokenAt(t6 = hasTokenAt((t5 = hasTokenAt(t4 = hasTokenAt(t3 = hasTokenAt(t2 = hasTokenAt(
-						token, m, c.getOpponnentColor()), 
+						token, m, c.getOpponentColor()),
 						m, c), 
-						m.getNextDirection(), c.getOpponnentColor()), 
+						m.getNextDirection(), c.getOpponentColor()),
 						m.getNextDirection(), c)),
-						m.getOppositeDirection(), c.getOpponnentColor()),
+						m.getOppositeDirection(), c.getOpponentColor()),
 						m.getOppositeDirection(), c),
-						m.getPreviousDirection(), c.getOpponnentColor())) != null) {
+						m.getPreviousDirection(), c.getOpponentColor())) != null) {
 					upperO = new Shape(ShapeType.UPPER_O, colorToPlay);
 					upperO.tokens.add(token);
 					upperO.tokens.add(t2);

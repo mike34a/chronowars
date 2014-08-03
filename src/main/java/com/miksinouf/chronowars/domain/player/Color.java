@@ -11,7 +11,7 @@ public enum Color {
         return (position.x + position.y) % 2 == expectedModulo2Value;
     }
     
-    public Color getOpponnentColor() {
+    public Color getOpponentColor() {
     	return this == WHITE ? BLACK : WHITE;
     }
 }
