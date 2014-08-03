@@ -61,12 +61,19 @@ chronoWarsServices.factory('gameApi', function($http) {
 			}
 		},
 		
-		addTokenImg: function(tile) {
+		addImg: function(tile, src) {
 			var tokenImg;
 			if (tile.childElementCount == 0) {
 				tokenImg = document.createElement("img");
-				tokenImg.setAttribute('src', 'img/token.png')
+				tokenImg.setAttribute('src', src)
+				tokenImg.setAttribute('class', 'token')
 				tile.appendChild(tokenImg);
+			}	
+		},
+		
+		removeImg: function(tile) {
+			while (tile.firstChild) {
+				tile.removeChild(tile.firstChild);
 			}
 		}
 	}
