@@ -13,7 +13,7 @@ public class Shape {
 	
 	public Shape(ShapeType shape, Color c) {
 		this.shape = shape;
-		this.tokens = new HashSet<Position>();
+		this.tokens = new HashSet<>();
 		this.playerColor = c;
 	}
 	

@@ -25,7 +25,7 @@ public class Board {
         this.whiteTokens = new Tokens(SIZE, GamesQueueSingleton.MAX_NUMBER_OF_TOKENS, Color.WHITE);
         this.blackTokens = new Tokens(SIZE, GamesQueueSingleton.MAX_NUMBER_OF_TOKENS, Color.BLACK);
         this.colorToPlay = Color.WHITE;
-        this.shapes = new HashSet<Shape>();
+        this.shapes = new HashSet<>();
         this.maxShape = new Shape(ShapeType.NONE, Color.WHITE);
     }
 
