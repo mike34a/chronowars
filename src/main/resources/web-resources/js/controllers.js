@@ -205,8 +205,4 @@ chronoWarsControllers.controller('GameCtrl', [
 			else
 				moveToken();
 		}
-		/*
-		 * $("#tatami").draggable({ revert : "invalid" });
-		 * $("#a2").droppable(); $("#a1").droppable();
-		 */
 	} ]);
