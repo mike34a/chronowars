@@ -66,7 +66,7 @@ chronoWarsControllers.controller('GameCtrl', [
 						gameApi.removeImg(tile);
 			    }
 				board.maxShape.tokens.forEach(function(token) {
-					document.getElementById(token.y + '' + token.x).setAttribute("class", "inShape");
+					gameApi.setInShape(token);
 				})
 				$scope.numberOfTokens = numberOfTokens;
 			});
@@ -127,10 +127,11 @@ chronoWarsControllers.controller('GameCtrl', [
 					tile.setAttribute('style','border: 3px solid red');
 					if ($scope.directionTile) {
 						document.getElementById($scope.directionTile).removeAttribute('style');
-						$scope.directionTile = null;
+						delete $scope.directionTile;
 					}
 					if ($scope.selectedTile) {
 						document.getElementById($scope.selectedTile).removeAttribute('style');
+						delete $scope.selectedTile;
 					}
 					$scope.selectedTile = tileId;
 				}

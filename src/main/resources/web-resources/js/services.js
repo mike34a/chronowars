@@ -75,6 +75,15 @@ chronoWarsServices.factory('gameApi', function($http) {
 			while (tile.firstChild) {
 				tile.removeChild(tile.firstChild);
 			}
+		},
+		
+		setInShape: function(token) {
+			document.getElementById(token.y + '' + token.x).setAttribute("class", "inShape");
+		},
+		
+		removeToken: function(tile) {
+			document.getElementById(tile).removeAttribute('style');
+			delete $scope.selectedTile;
 		}
 	}
 });
