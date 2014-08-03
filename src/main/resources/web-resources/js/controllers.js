@@ -54,7 +54,8 @@ chronoWarsControllers.controller('GameCtrl', [
 							found = 1;
 							if (tile.childElementCount == 0) {
 								tokenImg = document.createElement("img");
-								tokenImg.setAttribute('src', 'img/token.png')
+								tokenImg.setAttribute('src', 'img/blacktoken.png')
+								tokenImg.setAttribute('class', 'token')
 								tile.appendChild(tokenImg);
 							}	
 						}
@@ -65,7 +66,8 @@ chronoWarsControllers.controller('GameCtrl', [
 							found = 1;
 							if (tile.childElementCount == 0) {
 								tokenImg = document.createElement("img");
-								tokenImg.setAttribute('src', 'img/token.png')
+								tokenImg.setAttribute('src', 'img/whitetoken.png')
+								tokenImg.setAttribute('class', 'token')
 								tile.appendChild(tokenImg);
 							}	
 						}
