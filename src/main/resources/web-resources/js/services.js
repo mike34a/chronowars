@@ -59,6 +59,15 @@ chronoWarsServices.factory('gameApi', function($http) {
 			if (rd == rs) {
 				return cd > cs ? 'RIGHT' : cd < cs ? 'LEFT' : 'BAD_MOVE';
 			}
+		},
+		
+		addTokenImg: function(tile) {
+			var tokenImg;
+			if (tile.childElementCount == 0) {
+				tokenImg = document.createElement("img");
+				tokenImg.setAttribute('src', 'img/token.png')
+				tile.appendChild(tokenImg);
+			}
 		}
 	}
 });

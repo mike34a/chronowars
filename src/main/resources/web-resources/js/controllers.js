@@ -52,22 +52,14 @@ chronoWarsControllers.controller('GameCtrl', [
 						if ((token.y == parseInt(tile.id[0])) && (token.x == parseInt(tile.id[1]))) {
 							numberOfTokens++;
 							found = 1;
-							if (tile.childElementCount == 0) {
-								tokenImg = document.createElement("img");
-								tokenImg.setAttribute('src', 'img/token.png')
-								tile.appendChild(tokenImg);
-							}	
+							gameApi.addTokenImg(tile);
 						}
 					});
 					board.blackTokens.tokensPositions.forEach(function(token) {
 						if ((token.y == parseInt(tile.id[0])) && (token.x == parseInt(tile.id[1]))) {
 							numberOfTokens++;
 							found = 1;
-							if (tile.childElementCount == 0) {
-								tokenImg = document.createElement("img");
-								tokenImg.setAttribute('src', 'img/token.png')
-								tile.appendChild(tokenImg);
-							}	
+							gameApi.addTokenImg(tile);
 						}
 					});
 					if (!found) {
