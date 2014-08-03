@@ -49,7 +49,7 @@ chronoWarsControllers.controller('GameCtrl', [
 					tile.setAttribute("class", (parseInt(tile.id[0]) + parseInt(tile.id[1])) % 2 == 0 ? 'BLACK' : 'WHITE');
 					var found = 0;
 					board.whiteTokens.tokensPositions.forEach(function(token) {
-						if ((token.y == parseInt(cells[i].id[0])) && (token.x == parseInt(cells[i].id[1]))) {
+						if ((token.y == parseInt(tile.id[0])) && (token.x == parseInt(tile.id[1]))) {
 							numberOfTokens++;
 							found = 1;
 							if (tile.childElementCount == 0) {
@@ -60,7 +60,7 @@ chronoWarsControllers.controller('GameCtrl', [
 						}
 					});
 					board.blackTokens.tokensPositions.forEach(function(token) {
-						if ((token.y == parseInt(cells[i].id[0])) && (token.x == parseInt(cells[i].id[1]))) {
+						if ((token.y == parseInt(tile.id[0])) && (token.x == parseInt(tile.id[1]))) {
 							numberOfTokens++;
 							found = 1;
 							if (tile.childElementCount == 0) {
@@ -71,8 +71,8 @@ chronoWarsControllers.controller('GameCtrl', [
 						}
 					});
 					if (!found) {
-						while (cells[i].firstChild) {
-							cells[i].removeChild(cells[i].firstChild);
+						while (tile.firstChild) {
+							tile.removeChild(tile.firstChild);
 						}
 					}
 			    }
@@ -82,20 +82,12 @@ chronoWarsControllers.controller('GameCtrl', [
 				$scope.numberOfTokens = numberOfTokens;
 			});
 		}, 1000);
-
-		gameApi.getBoard($routeParams.playerId).then(function(board) {
-			$scope.colorToPlay = board.colorToPlay;
-		});
-
+		
 		gameApi.hasGameStarted($routeParams.playerId).then(function(color) {
 			if (color != 'false') {
 				$scope.color = color;
 			}
 		});
-		
-		var countPlayerToken = function(playerColor, board) {
-			return 7;
-		}
 
 		var placeToken = function() {
 			gameApi.setToken($routeParams.playerId,
