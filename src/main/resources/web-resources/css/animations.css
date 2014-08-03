@@ -59,6 +59,7 @@
   -o-animation: 0.5s fade-in;
   animation: 0.5s fade-in;
   z-index: 100;
+  background: white;
 }
 
 .view-frame.ng-leave {

@@ -1,0 +1,83 @@
+html, body {min-height: 100%;}
+
+body {
+background: white;
+}
+
+table {
+ margin-left: 170px;
+ margin-top: 50px;
+ border: 2px #A4A4A4 solid;
+ border-collapse: separate;
+ -moz-border-radius: 20px;
+ border-radius: 20px;
+ -khtml-border-radius: 20px;
+ -webkit-border-radius: 20px;
+ background-color:#A89C9C;
+ border-spacing : 5px;
+}
+
+td.WHITE {
+background-color: white;
+
+}
+
+td.BLACK {
+background-color: black;
+}
+
+td.inShape {
+	background-color: #04B404;
+}
+
+td {
+-moz-border-radius: 20px;
+border-radius: 20px;
+-khtml-border-radius: 20px;
+-webkit-border-radius: 20px;
+width: 50px;
+height: 50px;
+padding: 5px;
+background-color: #D0E3FA;
+}
+
+td:hover {
+	opacity: 0.4;
+}
+
+img.token:hover 
+{
+     background-color:#b2cb26;
+}
+
+.actionButton {
+background-color:#E0DADA;
+padding: 15px;
+color:black;
+}
+
+.actionButton:hover {
+background-color:#A89C9C;
+}
+
+.actionButton:active {
+}
+
+.actionButton:disabled {
+	background-color:#AAAAAA;
+	color:grey;
+}
+
+.whiteMessage {
+	color: grey;
+	text-align:center;
+}
+
+input {
+	    border: 1px solid #A89C9C; 
+
+    padding: 15px;
+    background: #E0DADA;
+    margin: 0 0 10px 0;
+	
+}
