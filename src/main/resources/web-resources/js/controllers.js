@@ -144,16 +144,14 @@ chronoWarsControllers.controller('GameCtrl', [
 				}
 				else if (tile.childElementCount == 1) {
 					tile.setAttribute('style','border: 3px solid red');
-					if ($scope.selectedTile) {
-						document.getElementById($scope.selectedTile).removeAttribute('style');
-						$scope.selectedTile = null;
-					}
-					else if ($scope.directionTile) {
+					if ($scope.directionTile) {
 						document.getElementById($scope.directionTile).removeAttribute('style');
 						$scope.directionTile = null;
 					}
-					else
-						$scope.selectedTile = tileId;
+					if ($scope.selectedTile) {
+						document.getElementById($scope.selectedTile).removeAttribute('style');
+					}
+					$scope.selectedTile = tileId;
 				}
 				else if ($scope.selectedTile && tile.childElementCount == 0) {
 					var sRow = parseInt($scope.selectedTile[0]);

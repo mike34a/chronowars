@@ -6,7 +6,7 @@
 		ng-click="registerPlayer(userName);gameStatus=1"
 		ng-init="playerId = 0;gameStatus=0"
 		ng-disabled="(!(userName.length > 3)) || gameStatus == 1" id="NewGameInput"
-		class="actionButton" style="margin-left: 250px; margin-top: 50px">
+		class="actionButton">
 		{{gameStatus | gameStatusFilter}}
 	</button>
 </div>
