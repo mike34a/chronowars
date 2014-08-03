@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.google.gson.annotations.Expose;
-import com.miksinouf.chronowars.domain.games.GamesQueueSingleton;
+import com.miksinouf.chronowars.domain.games.GamesQueue;
 import com.miksinouf.chronowars.domain.player.Color;
 import com.miksinouf.chronowars.domain.player.Tokens;
 import com.miksinouf.chronowars.domain.player.TooManyTokensException;
@@ -22,8 +22,8 @@ public class Board {
     @Expose public Color colorToPlay;
 
     public Board() {
-        this.whiteTokens = new Tokens(SIZE, GamesQueueSingleton.MAX_NUMBER_OF_TOKENS, Color.WHITE);
-        this.blackTokens = new Tokens(SIZE, GamesQueueSingleton.MAX_NUMBER_OF_TOKENS, Color.BLACK);
+        this.whiteTokens = new Tokens(SIZE, GamesQueue.MAX_NUMBER_OF_TOKENS, Color.WHITE);
+        this.blackTokens = new Tokens(SIZE, GamesQueue.MAX_NUMBER_OF_TOKENS, Color.BLACK);
         this.colorToPlay = Color.WHITE;
         this.shapes = new HashSet<>();
         this.maxShape = new Shape(ShapeType.NONE, Color.WHITE);
