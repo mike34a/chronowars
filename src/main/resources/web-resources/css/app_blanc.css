@@ -15,25 +15,24 @@ table {
  -webkit-border-radius: 20px;
  background-color:#A89C9C;
  border-spacing : 10px;
- width:550px;
- height:550px;
+ width:530px;
+ height:530px;
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
 }
 
 td.WHITE {
 background-color: white;
-width: 50px;
-height: 50px;
 }
 
 
 td.BLACK {
 background-color: black;
-width: 50px;
-height: 50px;
 }
 
 td.inShape {
-	background-color: #04B404;
+background-color: #04B404;
 }
 
 td {
@@ -41,15 +40,13 @@ td {
 border-radius: 20px;
 -khtml-border-radius: 20px;
 -webkit-border-radius: 20px;
-width: 40px;
-height: 40px;
-padding: 5px;
+width: 55px;
+height: 55px;
+padding: 0px;
 background-color: #D0E3FA;
 }
 
-td:hover {
-	opacity: 0.4;
-}
+
 
 img.token 
 {
@@ -57,13 +54,17 @@ width: 40px;
 height: 40px;
 display: block;
 margin-left: auto;
-margin-right: auto
+margin-right: auto;
 }
 
 
 img.token:hover 
 {
-     background-color:#b2cb26;
+width: 42px;
+height: 42px;
+display: block;
+margin-left: auto;
+margin-right: auto;
 }
 
 .actionButton {
