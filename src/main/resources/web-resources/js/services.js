@@ -59,6 +59,31 @@ chronoWarsServices.factory('gameApi', function($http) {
 			if (rd == rs) {
 				return cd > cs ? 'RIGHT' : cd < cs ? 'LEFT' : 'BAD_MOVE';
 			}
+		},
+		
+		addImg: function(tile, src) {
+			var tokenImg;
+			if (tile.childElementCount == 0) {
+				tokenImg = document.createElement("img");
+				tokenImg.setAttribute('src', src)
+				tokenImg.setAttribute('class', 'token')
+				tile.appendChild(tokenImg);
+			}	
+		},
+		
+		removeImg: function(tile) {
+			while (tile.firstChild) {
+				tile.removeChild(tile.firstChild);
+			}
+		},
+		
+		setInShape: function(token) {
+			document.getElementById(token.y + '' + token.x).setAttribute("class", "inShape");
+		},
+		
+		removeToken: function(tile) {
+			document.getElementById(tile).removeAttribute('style');
+			delete $scope.selectedTile;
 		}
 	}
 });
