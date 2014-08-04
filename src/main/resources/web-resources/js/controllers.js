@@ -32,6 +32,12 @@ chronoWarsControllers.controller('GameCtrl', [
 		$scope.playerId = $routeParams.playerId;
 		$scope.score = 0;
 		
+		gameApi.hasGameStarted($routeParams.playerId).then(function(color) {
+			if (color != 'false') {
+				$scope.color = color;
+			}
+		});
+		
 		setInterval(function() {
 			gameApi.getBoard($routeParams.playerId).then(function(board) {
 				$scope.colorToPlay = board.colorToPlay;
@@ -40,6 +46,10 @@ chronoWarsControllers.controller('GameCtrl', [
 				var cells = document.getElementById("damier").querySelectorAll("td");
 				$scope.score = gameHelper.getScore($scope.color, board);
 				for (var i = 0; i < cells.length; i++) {
+										
+					$scope.playerScore = $scope.color == "WHITE" ? board.whiteScore : board.blackScore;
+					$scope.opponentScore = $scope.color == "WHITE" ? board.blackScore : board.whiteScore;
+					
 					tile = cells[i];
 					gameHelper.setClass(tile);
 					var found = 0;
@@ -83,12 +93,6 @@ chronoWarsControllers.controller('GameCtrl', [
 				$scope.numberOfTokens = numberOfTokens;
 			});
 		}, 1000);
-		
-		gameApi.hasGameStarted($routeParams.playerId).then(function(color) {
-			if (color != 'false') {
-				$scope.color = color;
-			}
-		});
 
 		var placeToken = function(tileId) {
 			gameApi.setToken($routeParams.playerId,
