@@ -43,6 +43,17 @@ chronoWarsServices.factory('gameApi', function($http) {
 					}).then(function(result) {
 				return result.data;
 			})
+		}
+	}
+});
+chronoWarsServices.factory('gameHelper', function() {
+	return {
+		setClass: function(tile) {
+			tile.setAttribute("class", (parseInt(tile.id[0]) + parseInt(tile.id[1])) % 2 == 0 ? 'BLACK' : 'WHITE');
+		},
+		
+		getScore: function(color, board) {
+			return color == "WHITE" ? board.whiteScore : board.blackScore;
 		},
 		
 		getDirection: function(selectedTile, directionTile) {
@@ -83,10 +94,6 @@ chronoWarsServices.factory('gameApi', function($http) {
 		
 		setSelectedStyle: function(tile) {
 			tile.setAttribute('style','background-color:red');
-		},
-		
-		unselectTile: function(tile) {
-			tile.removeAttribute('style');
 		},
 		
 		isMovable: function(selectedTile, newTile) {
