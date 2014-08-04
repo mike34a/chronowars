@@ -83,9 +83,7 @@ chronoWarsControllers.controller('GameCtrl', [
 							$scope.selectedTile[0],
 							$scope.selectedTile[1]).then(function(data) {
 				if (data == 'success') {
-					var tile = document.getElementById($scope.selectedTile);
-					tile.removeAttribute('style');
-					delete $scope.selectedTile;
+					removeSelectedTile();
 				}
 			});
 		}
@@ -97,63 +95,38 @@ chronoWarsControllers.controller('GameCtrl', [
 					$scope.selectedTile[1],
 					direction).then(function(data) {
 				if (data == 'success') {
-					var tile = document.getElementById($scope.selectedTile);
-					tile.removeAttribute('style');
-					delete $scope.selectedTile;
-					tile = document.getElementById($scope.directionTile);
-					tile.removeAttribute('style');
-					delete $scope.directionTile;
+					removeSelectedTile();
+					removeDirectionTile();
 				}
 			});
 		}
 
 		$scope.selectTile = function(tileId) {
-			var row = parseInt(tileId[0]);
-			var col = parseInt(tileId[1]);
-			var tileColor = (row + col) % 2;
 			var tile = document.getElementById(tileId);
-			if ($scope.color == $scope.colorToPlay
-					&& ((tileColor == 0 && $scope.color == 'BLACK')
-							|| (tileColor == 1 && $scope.color == 'WHITE'))) {
-				if ($scope.numberOfTokens < 10) {
+			var tileColor = (parseInt(tileId[0]) + parseInt(tileId[1])) % 2 ? "WHITE" : "BLACK";
+			if (tileColor == $scope.color) {
+				if (!maxTokensPlaced()) {
 					if (tile.childElementCount == 0) {
-						tile.setAttribute('style','background-color:red');
+						gameApi.setSelectedStyle(tile);
 						if ($scope.selectedTile)
-							document.getElementById($scope.selectedTile).removeAttribute('style');
+							removeSelectedTile();
 						$scope.selectedTile = tileId;
 					}
 				}
 				else if (tile.childElementCount == 1) {
-					tile.setAttribute('style','background-color:#8CBDEC');
-					if ($scope.directionTile) {
-						document.getElementById($scope.directionTile).removeAttribute('style');
-						delete $scope.directionTile;
-					}
-					if ($scope.selectedTile) {
-						document.getElementById($scope.selectedTile).removeAttribute('style');
-						delete $scope.selectedTile;
-					}
+					gameApi.setSelectedStyle(tile);
+					if ($scope.directionTile)
+						removeDirectionTile();
+					if ($scope.selectedTile)
+						removeSelectedTile();
 					$scope.selectedTile = tileId;
 				}
 				else if ($scope.selectedTile && tile.childElementCount == 0) {
-					var sRow = parseInt($scope.selectedTile[0]);
-					var sCol = parseInt($scope.selectedTile[1]);
-					var newRow = parseInt(tileId[0]);
-					var newCol = parseInt(tileId[1]);
-					if ((Math.abs(sRow - newRow) == 1 && Math.abs(sCol - newCol) <= 1) 
-							|| (sRow - newRow == 0 && Math.abs(sCol - newCol) == 1)
-							|| ((sRow - newRow == 0 && sCol - newCol == 2)
-								&& document.getElementById(parseInt($scope.selectedTile) - 1).childElementCount > 0)
-							|| ((sRow - newRow == 0 && sCol - newCol == -2)
-									&& document.getElementById(parseInt($scope.selectedTile) + 1).childElementCount > 0)
-							|| ((sRow - newRow == 2 && sCol - newCol == 0)
-									&& document.getElementById(parseInt($scope.selectedTile) - 10).childElementCount > 0)
-							|| ((sRow - newRow == -2 && sCol - newCol == 0)
-									&& document.getElementById(parseInt($scope.selectedTile) + 10).childElementCount > 0)) {
+					if (gameApi.isMovable($scope.selectedTile, tileId)) {
 						if ($scope.directionTile)
-							document.getElementById($scope.directionTile).removeAttribute('style');
+							removeDirectionTile();
 						$scope.directionTile = tileId;
-						tile.setAttribute('style','background-color:#64ADF2');
+						gameApi.setSelectedStyle(tile);
 					}
 				}
 			}
@@ -162,7 +135,7 @@ chronoWarsControllers.controller('GameCtrl', [
 		$scope.getActionText = function() {
 			if ($scope.colorToPlay != $scope.color)
 				return 'wait';
-			else if ($scope.numberOfTokens < 10) {
+			else if (!maxTokensPlaced()) {
 				if (!$scope.selectedTile)
 					return 'selectTile';
 				else
@@ -180,9 +153,25 @@ chronoWarsControllers.controller('GameCtrl', [
 
 		$scope.play = function() {
 			var playerToken;
-			if ($scope.numberOfTokens < 10)
+			if (!maxTokensPlaced())
 				placeToken();
 			else
 				moveToken();
+		}
+		
+		var removeSelectedTile = function() {
+			var tile = document.getElementById($scope.selectedTile);
+			tile.removeAttribute('style');
+			delete $scope.selectedTile;
+		}
+		
+		var removeDirectionTile = function() {
+			var tile = document.getElementById($scope.directionTile);
+			tile.removeAttribute('style');
+			delete $scope.directionTile;
+		}
+		
+		var maxTokensPlaced = function() {
+			return $scope.numberOfTokens == 10;
 		}
 	} ]);

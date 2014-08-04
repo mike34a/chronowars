@@ -81,9 +81,29 @@ chronoWarsServices.factory('gameApi', function($http) {
 			document.getElementById(token.y + '' + token.x).setAttribute("class", "inShape");
 		},
 		
-		removeToken: function(tile) {
-			document.getElementById(tile).removeAttribute('style');
-			delete $scope.selectedTile;
+		setSelectedStyle: function(tile) {
+			tile.setAttribute('style','background-color:red');
+		},
+		
+		unselectTile: function(tile) {
+			tile.removeAttribute('style');
+		},
+		
+		isMovable: function(selectedTile, newTile) {
+			var sRow = parseInt(selectedTile[0]);
+			var sCol = parseInt(selectedTile[1]);
+			var newRow = parseInt(newTile[0]);
+			var newCol = parseInt(newTile[1]);
+			return ((Math.abs(sRow - newRow) == 1 && Math.abs(sCol - newCol) <= 1)
+			|| (sRow - newRow == 0 && Math.abs(sCol - newCol) == 1)
+			|| ((sRow - newRow == 0 && sCol - newCol == 2)
+				&& document.getElementById(parseInt(selectedTile) - 1).childElementCount > 0)
+			|| ((sRow - newRow == 0 && sCol - newCol == -2)
+					&& document.getElementById(parseInt(selectedTile) + 1).childElementCount > 0)
+			|| ((sRow - newRow == 2 && sCol - newCol == 0)
+					&& document.getElementById(parseInt(selectedTile) - 10).childElementCount > 0)
+			|| ((sRow - newRow == -2 && sCol - newCol == 0)
+					&& document.getElementById(parseInt(selectedTile) + 10).childElementCount > 0))
 		}
 	}
 });
