@@ -13,6 +13,11 @@ import com.miksinouf.chronowars.domain.player.UnknownPlayerException;
 public class ChronowarsServer {
 
     public static void main(String[] args) {
+        final ChronowarsServer chronowarsServer = new ChronowarsServer();
+        chronowarsServer.startChronowarsServer();
+    }
+
+    public void startChronowarsServer() {
         staticFileLocation("/web-resources");
 
         // permet d'inscrire le joueur à la liste d'attente des parties et
@@ -29,7 +34,7 @@ public class ChronowarsServer {
         /**
          * renvoie une réponse json de la forme {
          * "currentColorToPlay": "BLACK",
-         * "status": "running", 
+         * "status": "running",
          * "lastRoundPoints": "12",
          * "blackTokens": {
          *   "(2,2),
@@ -40,9 +45,9 @@ public class ChronowarsServer {
          *  (2,5),
          *  (3,2)"
          *  }
-         * 
+         *
          * ou :
-         * 
+         *
          * { "currentColorToPlay": "WHITE", "status": "finished", "winner":
          * "BLACK", "blackTokens": "(2,2),(1,3)", "whiteTokens":
          * "(1,2),(2,5),(3,2)" }
@@ -57,7 +62,7 @@ public class ChronowarsServer {
                                 e.toString());
                 	}
                 });
-                        
+
 
         /**
          * permet de placer un pion
