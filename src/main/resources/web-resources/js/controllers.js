@@ -116,7 +116,7 @@ chronoWarsControllers.controller('GameCtrl', [
 		$scope.selectTile = function(tileId) {
 			var tile = document.getElementById(tileId);
 			var tileColor = (parseInt(tileId[0]) + parseInt(tileId[1])) % 2 ? "WHITE" : "BLACK";
-			if (tileColor == $scope.color) {
+			if (tileColor == $scope.color && $scope.color == $scope.colorToPlay) {
 				if (!maxTokensPlaced()) {
 					placeToken(tileId);
 				}
