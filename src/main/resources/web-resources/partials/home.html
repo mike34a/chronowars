@@ -1,6 +1,7 @@
 <div class="container-fluid">
 	<input type="text" name="userName" ng-model="userName" class="nameBox">
 	<p class="whiteMessage">{{userName | userNameFilter}}</p>
+	
 	<button
 		ng-model="startButton"
 		ng-click="registerPlayer(userName);gameStatus=1"
@@ -9,4 +10,5 @@
 		class="actionButton">
 		{{gameStatus | gameStatusFilter}}
 	</button>
+	
 </div>
