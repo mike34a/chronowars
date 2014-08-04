@@ -48,6 +48,8 @@ chronoWarsControllers.controller('GameCtrl', [
 							numberOfTokens++;
 							found = 1;
 							gameHelper.addImg(tile, "img/bluetoken.png");
+							if (isDraggable(tile))
+								gameHelper.setDraggable(tile);
 						}
 					});
 					board.blackTokens.tokensPositions.forEach(function(token) {
@@ -55,10 +57,25 @@ chronoWarsControllers.controller('GameCtrl', [
 							numberOfTokens++;
 							found = 1;
 							gameHelper.addImg(tile, "img/bluetoken.png");
+							if (isDraggable(tile))
+								gameHelper.setDraggable(tile);
 						}
 					});
-					if (!found)
+					if (!found) {
 						gameHelper.removeImg(tile);
+						if (maxTokensPlaced() && gameHelper.getTileColor(tile) == $scope.color) {
+							$( "#" + tile.id ).droppable({
+								drop: function( event, ui ) {
+									var directionTile = document.getElementById($(this).attr("id"));
+									var baseTile = document.getElementById($(ui.draggable).attr("id")).parentNode;
+									if (isDroppable(directionTile, baseTile)) {
+										$('.ui-draggable-dragging').hide();
+										moveToken(baseTile, directionTile);
+									}
+								}
+							});
+						}
+					}
 			    }
 				board.maxShape.tokens.forEach(function(token) {
 					gameHelper.setInShape(token);
@@ -73,21 +90,21 @@ chronoWarsControllers.controller('GameCtrl', [
 			}
 		});
 
-		var placeToken = function() {
+		var placeToken = function(tileId) {
 			gameApi.setToken($routeParams.playerId,
-							$scope.selectedTile[0],
-							$scope.selectedTile[1]).then(function(data) {
+							tileId[0],
+							tileId[1]).then(function(data) {
 				if (data == 'success') {
 					removeSelectedTile();
 				}
 			});
 		}
 
-		var moveToken = function() {
-			var direction = game.getDirection($scope.selectedTile, $scope.directionTile);
+		var moveToken = function(baseTile, directionTile) {
+			var direction = gameHelper.getDirection(baseTile.id, directionTile.id);
 			gameApi.moveToken($routeParams.playerId,
-					$scope.selectedTile[0],
-					$scope.selectedTile[1],
+					baseTile.id[0],
+					baseTile.id[1],
 					direction).then(function(data) {
 				if (data == 'success') {
 					removeSelectedTile();
@@ -101,30 +118,7 @@ chronoWarsControllers.controller('GameCtrl', [
 			var tileColor = (parseInt(tileId[0]) + parseInt(tileId[1])) % 2 ? "WHITE" : "BLACK";
 			if (tileColor == $scope.color) {
 				if (!maxTokensPlaced()) {
-					if (tile.childElementCount == 0) {
-						gameHelper.setSelectedStyle(tile);
-						if ($scope.selectedTile)
-							removeSelectedTile();
-						if ($scope.selectedTile != tileId)
-							$scope.selectedTile = tileId;
-					}
-				}
-				else if (tile.childElementCount == 1) {
-					gameHelper.setSelectedStyle(tile);
-					if ($scope.directionTile)
-						removeDirectionTile();
-					if ($scope.selectedTile)
-						removeSelectedTile();
-					if ($scope.selectedTile != tileId)
-						$scope.selectedTile = tileId;
-				}
-				else if ($scope.selectedTile && tile.childElementCount == 0) {
-					if (gameHelper.isMovable($scope.selectedTile, tileId)) {
-						if ($scope.directionTile)
-							removeDirectionTile();
-						$scope.directionTile = tileId;
-						gameHelper.setSelectedStyle(tile);
-					}
+					placeToken(tileId);
 				}
 			}
 		}
@@ -158,8 +152,10 @@ chronoWarsControllers.controller('GameCtrl', [
 		
 		var removeSelectedTile = function() {
 			var tile = document.getElementById($scope.selectedTile);
-			tile.removeAttribute('style');
-			delete $scope.selectedTile;
+			if (tile) {
+				tile.removeAttribute('style');
+				delete $scope.selectedTile;
+			}
 		}
 		
 		var removeDirectionTile = function() {
@@ -170,5 +166,16 @@ chronoWarsControllers.controller('GameCtrl', [
 		
 		var maxTokensPlaced = function() {
 			return $scope.numberOfTokens == 10;
+		}
+		
+		var isDraggable = function(tile) {
+			return (maxTokensPlaced() && gameHelper.getTileColor(tile) == $scope.color && $scope.color == $scope.colorToPlay);
+		}
+		
+		var isDroppable = function(tile, baseTile) {
+			return (gameHelper.getTileColor(tile) == $scope.color &&
+					$scope.color == $scope.colorToPlay &&
+					maxTokensPlaced() &&
+					gameHelper.isMovable(baseTile.id, tile.id));
 		}
 	} ]);

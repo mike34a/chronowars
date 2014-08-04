@@ -46,10 +46,16 @@ chronoWarsServices.factory('gameApi', function($http) {
 		}
 	}
 });
+
 chronoWarsServices.factory('gameHelper', function() {
 	return {
 		setClass: function(tile) {
-			tile.setAttribute("class", (parseInt(tile.id[0]) + parseInt(tile.id[1])) % 2 == 0 ? 'BLACK' : 'WHITE');
+			var color = (parseInt(tile.id[0]) + parseInt(tile.id[1])) % 2 == 0 ? 'BLACK' : 'WHITE';
+			tile.setAttribute("class", color.concat(' ui-widget-header'));
+		},
+		
+		getTileColor: function(tile) {
+			return ((parseInt(tile.id[0]) + parseInt(tile.id[1])) % 2 == 0 ? 'BLACK' : 'WHITE');
 		},
 		
 		getScore: function(color, board) {
@@ -76,8 +82,9 @@ chronoWarsServices.factory('gameHelper', function() {
 			var tokenImg;
 			if (tile.childElementCount == 0) {
 				tokenImg = document.createElement("img");
-				tokenImg.setAttribute('src', src)
-				tokenImg.setAttribute('class', 'token')
+				tokenImg.setAttribute('src', src);
+				tokenImg.setAttribute('class', 'token  ui-widget-content');
+				tokenImg.setAttribute('id', 'img'.concat(tile.id));
 				tile.appendChild(tokenImg);
 			}	
 		},
@@ -111,6 +118,10 @@ chronoWarsServices.factory('gameHelper', function() {
 					&& document.getElementById(parseInt(selectedTile) - 10).childElementCount > 0)
 			|| ((sRow - newRow == -2 && sCol - newCol == 0)
 					&& document.getElementById(parseInt(selectedTile) + 10).childElementCount > 0))
+		},
+		
+		setDraggable: function(tile) {
+			$("#" + tile.firstElementChild.id).draggable({revert: true});
 		}
 	}
 });
