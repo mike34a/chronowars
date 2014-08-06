@@ -18,7 +18,7 @@ chronoWarsControllers.controller('HomeCtrl', [
 							$location.path('/game/' + pidres);
 						}
 					});
-				}, 1000);
+				}, 10);
 			});
 		};
     } ]);
@@ -96,7 +96,7 @@ chronoWarsControllers.controller('GameCtrl', [
 				})
 				$scope.numberOfTokens = numberOfTokens;
 			});
-		}, 1000);
+		}, 10);
 
 		var placeToken = function(tileId) {
 			gameApi.setToken($routeParams.playerId,
