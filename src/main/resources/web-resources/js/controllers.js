@@ -101,7 +101,6 @@ chronoWarsControllers.controller('GameCtrl', [
 							tileId[0],
 							tileId[1]).then(function(data) {
 				if (data == 'success') {
-					removeSelectedTile();
 				}
 			});
 		}
@@ -113,8 +112,6 @@ chronoWarsControllers.controller('GameCtrl', [
 					baseTile.id[1],
 					direction).then(function(data) {
 				if (data == 'success') {
-					removeSelectedTile();
-					removeDirectionTile();
 				}
 			});
 		}
@@ -132,20 +129,10 @@ chronoWarsControllers.controller('GameCtrl', [
 		$scope.getActionText = function() {
 			if ($scope.colorToPlay != $scope.color)
 				return 'wait';
-			else if (!maxTokensPlaced()) {
-				if (!$scope.selectedTile)
-					return 'selectTile';
-				else
-					return 'place';
-			}
-			else {
-				if (!$scope.selectedTile)
-					return 'selectToken';
-				else if (!$scope.directionTile)
-					return 'selectTile';
-				else
-					return 'move';
-			}
+			else if (!maxTokensPlaced())
+				return 'place';
+			else
+				return 'move';
 		}
 
 		$scope.play = function() {
@@ -154,20 +141,6 @@ chronoWarsControllers.controller('GameCtrl', [
 				placeToken();
 			else
 				moveToken();
-		}
-		
-		var removeSelectedTile = function() {
-			var tile = document.getElementById($scope.selectedTile);
-			if (tile) {
-				tile.removeAttribute('style');
-				delete $scope.selectedTile;
-			}
-		}
-		
-		var removeDirectionTile = function() {
-			var tile = document.getElementById($scope.directionTile);
-			tile.removeAttribute('style');
-			delete $scope.directionTile;
 		}
 		
 		var maxTokensPlaced = function() {
