@@ -51,6 +51,8 @@ chronoWarsControllers.controller('GameCtrl', [
 					$scope.opponentName = $scope.color == "WHITE" ? board.blackNick : board.whiteNick;
 					$scope.playerScore = $scope.color == "WHITE" ? board.whiteScore : board.blackScore;
 					$scope.opponentScore = $scope.color == "WHITE" ? board.blackScore : board.whiteScore;
+					$scope.playerImage = $scope.color == "WHITE" ? 'img/whitetoken.png' : 'img/blacktoken.png';
+					$scope.opponentImage = $scope.color == "WHITE" ? 'img/blacktoken.png' : 'img/whitetoken.png';
 					
 					tile = cells[i];
 					gameHelper.setClass(tile);
@@ -59,7 +61,7 @@ chronoWarsControllers.controller('GameCtrl', [
 						if ((token.y == parseInt(tile.id[0])) && (token.x == parseInt(tile.id[1]))) {
 							numberOfTokens++;
 							found = 1;
-							gameHelper.addImg(tile, "img/bluetoken.png");
+							gameHelper.addImg(tile, "img/blacktoken.png");
 							if (isDraggable(tile))
 								gameHelper.setDraggable(tile);
 						}
@@ -68,7 +70,7 @@ chronoWarsControllers.controller('GameCtrl', [
 						if ((token.y == parseInt(tile.id[0])) && (token.x == parseInt(tile.id[1]))) {
 							numberOfTokens++;
 							found = 1;
-							gameHelper.addImg(tile, "img/bluetoken.png");
+							gameHelper.addImg(tile, "img/whitetoken.png");
 							if (isDraggable(tile))
 								gameHelper.setDraggable(tile);
 						}

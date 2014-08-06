@@ -74,11 +74,10 @@ height: 55px;
 padding: 0px;
 }
 
-
 img.token 
 {
-width: 40px;
-height: 40px;
+width: 35;
+height: 35px;
 display: block;
 margin-left: auto;
 margin-right: auto;
@@ -87,8 +86,8 @@ margin-right: auto;
 
 img.token:hover 
 {
-width: 42px;
-height: 42px;
+width: 37px;
+height: 37px;
 display: block;
 margin-left: auto;
 margin-right: auto;
@@ -128,6 +127,13 @@ input {
 	position:absolute;
 }
 
+.tscore img{
+	width: 35;
+	height: 35px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	}
 .tscore table
 {
     border-collapse: collapse;
@@ -136,14 +142,12 @@ input {
 	height:100%;
 	margin:0px;padding:0px;
 }
-.
-tscore tr:hover td{
-background-color: #3A3C3A;
+.tscore tr:hover{
+background-color: #DFE0DF;
 }
+
 .tscore td{
 	vertical-align:middle;
-	
-	
 	border:1px solid #8D8E8D;
 	border-width:0px 1px 1px 0px;
 	text-align:center;
