@@ -2,7 +2,21 @@ html, body {min-height: 100%;}
 
 body {
 background: white;
+margin:0px 0px 80px 0px;padding:0px;
 }
+
+
+div.bandeau {
+	width: 100%;
+	padding: 0px;
+	height: 50px;
+	margin-top: 60px;
+	background-color: #9CF2A3;
+	color: grey;
+	text-align:center;
+	border: 1px solid #9F9F9F; border-left-width: 0; border-right-width: 0;
+	}
+
 
 table.damier {
  margin-left: 170px;
@@ -13,6 +27,7 @@ table.damier {
  border-radius: 20px;
  -khtml-border-radius: 20px;
  -webkit-border-radius: 20px;
+ box-shadow: 10px 10px 5px #888888;
  background-color:#A89C9C;
  border-spacing : 10px;
  width:530px;
@@ -79,6 +94,8 @@ margin-right: auto;
 .actionButton {
 background-color:#E0DADA;
 padding: 15px;
+margin-top: 100px;
+margin-left: 20px ; 
 color:black;
 }
 
@@ -94,11 +111,6 @@ background-color:#A89C9C;
 	color:grey;
 }
 
-.whiteMessage {
-	color: grey;
-	text-align:center;
-}
-
 input {
 	border: 1px solid #A89C9C; 
     padding: 15px;
@@ -109,64 +121,32 @@ input {
 
 .tscore {
 	margin:0px;padding:0px;
-	width:500px;
+	width:300px;
 	box-shadow: 10px 10px 5px #888888;
-	border:1px solid #000000;
-	
-	-moz-border-radius-bottomleft:0px;
-	-webkit-border-bottom-left-radius:0px;
-	border-bottom-left-radius:0px;
-	
-	-moz-border-radius-bottomright:0px;
-	-webkit-border-bottom-right-radius:0px;
-	border-bottom-right-radius:0px;
-	
-	-moz-border-radius-topright:0px;
-	-webkit-border-top-right-radius:0px;
-	border-top-right-radius:0px;
-	
-	-moz-border-radius-topleft:0px;
-	-webkit-border-top-left-radius:0px;
-	border-top-left-radius:0px;
-	
-display: block;
-margin-left: auto;
-margin-right: auto;
-}.tscore table
+	border:1px solid #8D8E8D;
+	margin-top: 50px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
 
+.tscore table
 {
     border-collapse: collapse;
-        border-spacing: 0;
+    border-spacing: 0;
 	width:100%;
 	height:100%;
 	margin:0px;padding:0px;
-}.tscore tr:last-child td:last-child {
-	-moz-border-radius-bottomright:0px;
-	-webkit-border-bottom-right-radius:0px;
-	border-bottom-right-radius:0px;
 }
-.tscore table tr:first-child td:first-child {
-	-moz-border-radius-topleft:0px;
-	-webkit-border-top-left-radius:0px;
-	border-top-left-radius:0px;
+.
+tscore tr:hover td{
+background-color: #3A3C3A;
 }
-.tscore table tr:first-child td:last-child {
-	-moz-border-radius-topright:0px;
-	-webkit-border-top-right-radius:0px;
-	border-top-right-radius:0px;
-}.tscore tr:last-child td:first-child{
-	-moz-border-radius-bottomleft:0px;
-	-webkit-border-bottom-left-radius:0px;
-	border-bottom-left-radius:0px;
-}.tscore tr:hover td{
-	
-}
-.tscore tr:nth-child(odd){ background-color:#e5e5e5; }
-.tscore tr:nth-child(even)    { background-color:#ffffff; }.tscore td{
+.tscore td{
 	vertical-align:middle;
 	
 	
-	border:1px solid #000000;
+	border:1px solid #8D8E8D;
 	border-width:0px 1px 1px 0px;
 	text-align:center;
 	padding:16px;
@@ -174,20 +154,29 @@ margin-right: auto;
 	font-family:Arial;
 	font-weight:normal;
 	color:#000000;
-}.tscore tr:last-child td{
-	border-width:0px 1px 0px 0px;
-}.tscore tr td:last-child{
-	border-width:0px 0px 1px 0px;
-}.tscore tr:last-child td:last-child{
-	border-width:0px 0px 0px 0px;
 }
+
+.tscore tr:last-child td{
+	border-width:0px 1px 0px 0px;
+	background:-o-linear-gradient(bottom, #cccccc 5%, #b2b2b2 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #cccccc), color-stop(1, #b2b2b2) );
+	background:-moz-linear-gradient( center top, #cccccc 5%, #b2b2b2 100% );
+}
+.tscore tr td:last-child{
+	border-width:0px 0px 1px 0px;
+}
+.tscore tr:last-child td:last-child{
+	border-width:0px 0px 0px 0px;
+	
+}
+
+
 .tscore tr:first-child td{
 	background:-o-linear-gradient(bottom, #cccccc 5%, #b2b2b2 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #cccccc), color-stop(1, #b2b2b2) );
 	background:-moz-linear-gradient( center top, #cccccc 5%, #b2b2b2 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#cccccc", endColorstr="#b2b2b2");	background: -o-linear-gradient(top,#cccccc,b2b2b2);
 
 	background-color:#cccccc;
-	border:0px solid #000000;
+	border:0px solid #8D8E8D;
 	text-align:center;
 	border-width:0px 0px 1px 1px;
 	font-size:14px;
