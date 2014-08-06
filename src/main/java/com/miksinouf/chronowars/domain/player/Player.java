@@ -64,7 +64,6 @@ public class Player {
     			this.board.maxShape = shape.getScore() > this.board.maxShape.getScore() ? shape : this.board.maxShape;
     	}
     	this.score += this.board.maxShape.getScore();
-    	System.out.println("Score : " + score.toString());
     }
     
     public void setOpponent(Player opponent) {
