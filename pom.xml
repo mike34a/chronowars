@@ -94,6 +94,8 @@
                     <preloadSources>
                         <source>${project.basedir}/src/main/resources/web-resources/bower_components/jquery/jquery.js
                         </source>
+                        <source>${project.basedir}/src/main/resources/web-resources/bower_components/jquery-ui-1.11.0/jquery-ui.js
+                        </source>
                         <source>
                             ${project.basedir}/src/main/resources/web-resources/bower_components/angular/angular.js
                         </source>
