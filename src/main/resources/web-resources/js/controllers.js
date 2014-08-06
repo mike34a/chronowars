@@ -90,7 +90,7 @@ chronoWarsControllers.controller('GameCtrl', [
 					}
 			    }
 				board.maxShape.tokens.forEach(function(token) {
-					gameHelper.setInShape(token);
+					gameHelper.setInShape(document.getElementById(token.y + '' + token.x));
 				})
 				$scope.numberOfTokens = numberOfTokens;
 			});
@@ -147,6 +147,6 @@ chronoWarsControllers.controller('GameCtrl', [
 			return (gameHelper.getTileColor(tile) == $scope.color &&
 					$scope.color == $scope.colorToPlay &&
 					maxTokensPlaced() &&
-					gameHelper.isMovable(baseTile.id, tile.id));
+					gameHelper.isMovable(baseTile, tile));
 		}
 	} ]);

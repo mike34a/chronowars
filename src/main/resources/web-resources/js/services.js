@@ -83,7 +83,7 @@ chronoWarsServices.factory('gameHelper', function() {
 			if (tile.childElementCount == 0) {
 				tokenImg = document.createElement("img");
 				tokenImg.setAttribute('src', src);
-				tokenImg.setAttribute('class', 'token  ui-widget-content');
+				tokenImg.setAttribute('class', 'token ui-widget-content');
 				tokenImg.setAttribute('id', 'img'.concat(tile.id));
 				tile.appendChild(tokenImg);
 			}	
@@ -95,29 +95,28 @@ chronoWarsServices.factory('gameHelper', function() {
 			}
 		},
 		
-		setInShape: function(token) {
-			document.getElementById(token.y + '' + token.x).setAttribute("class", "inShape");
-		},
-		
-		setSelectedStyle: function(tile) {
-			tile.setAttribute('style','background-color:red');
+		setInShape: function(tile) {
+			tile.setAttribute("class", "inShape");
 		},
 		
 		isMovable: function(selectedTile, newTile) {
-			var sRow = parseInt(selectedTile[0]);
-			var sCol = parseInt(selectedTile[1]);
-			var newRow = parseInt(newTile[0]);
-			var newCol = parseInt(newTile[1]);
-			return ((Math.abs(sRow - newRow) == 1 && Math.abs(sCol - newCol) <= 1)
-			|| (sRow - newRow == 0 && Math.abs(sCol - newCol) == 1)
-			|| ((sRow - newRow == 0 && sCol - newCol == 2)
-				&& document.getElementById(parseInt(selectedTile) - 1).childElementCount > 0)
-			|| ((sRow - newRow == 0 && sCol - newCol == -2)
-					&& document.getElementById(parseInt(selectedTile) + 1).childElementCount > 0)
-			|| ((sRow - newRow == 2 && sCol - newCol == 0)
-					&& document.getElementById(parseInt(selectedTile) - 10).childElementCount > 0)
-			|| ((sRow - newRow == -2 && sCol - newCol == 0)
-					&& document.getElementById(parseInt(selectedTile) + 10).childElementCount > 0))
+			var sRow = parseInt(selectedTile.id[0]);
+			var sCol = parseInt(selectedTile.id[1]);
+			var newRow = parseInt(newTile.id[0]);
+			var newCol = parseInt(newTile.id[1]);
+			if (newTile.childElementCount == 0)
+				return ((Math.abs(sRow - newRow) == 1 && Math.abs(sCol - newCol) == 1)
+				//|| (sRow - newRow == 0 && Math.abs(sCol - newCol) == 1)
+				|| ((sRow - newRow == 0 && sCol - newCol == 2)
+					&& document.getElementById(parseInt(selectedTile.id) - 1).childElementCount > 0)
+				|| ((sRow - newRow == 0 && sCol - newCol == -2)
+						&& document.getElementById(parseInt(selectedTile.id) + 1).childElementCount > 0)
+				|| ((sRow - newRow == 2 && sCol - newCol == 0)
+						&& document.getElementById(parseInt(selectedTile.id) - 10).childElementCount > 0)
+				|| ((sRow - newRow == -2 && sCol - newCol == 0)
+						&& document.getElementById(parseInt(selectedTile.id) + 10).childElementCount > 0));
+			else
+				return false;
 		},
 		
 		setDraggable: function(tile) {
