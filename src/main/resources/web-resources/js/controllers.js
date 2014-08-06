@@ -134,14 +134,6 @@ chronoWarsControllers.controller('GameCtrl', [
 			else
 				return 'move';
 		}
-
-		$scope.play = function() {
-			var playerToken;
-			if (!maxTokensPlaced())
-				placeToken();
-			else
-				moveToken();
-		}
 		
 		var maxTokensPlaced = function() {
 			return $scope.numberOfTokens == 10;
