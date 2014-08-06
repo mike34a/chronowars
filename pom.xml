@@ -114,6 +114,7 @@
                     </preloadSources>
                     <sourceIncludes>
                     </sourceIncludes>
+                    <haltOnFailure>false</haltOnFailure>
                 </configuration>
             </plugin>
             <plugin>
