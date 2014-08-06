@@ -59,14 +59,20 @@ public class Players {
     public String getGame(String playerIdentifier) throws UnknownPlayerException {
     	checkUserExists(playerIdentifier);
     	Board board = players.get(playerIdentifier).getBoard();
-    	String whiteScore = getByColor(Color.WHITE).getScore().toString();
-    	String blackScore = getByColor(Color.BLACK).getScore().toString();
+    	Player whitePlayer = getByColor(Color.WHITE);
+    	Player blackPlayer = getByColor(Color.BLACK);
+    	String whiteNick = whitePlayer.nickname;
+    	String blackNick = blackPlayer.nickname;
+    	String whiteScore = whitePlayer.getScore().toString();
+    	String blackScore = blackPlayer.getScore().toString();
     	Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     	JsonElement jsonElement = gson.toJsonTree(board);
     	jsonElement.getAsJsonObject().addProperty("status", "running");
     	jsonElement.getAsJsonObject().addProperty("lastRoundPoints", "0");
     	jsonElement.getAsJsonObject().addProperty("whiteScore", whiteScore);
     	jsonElement.getAsJsonObject().addProperty("blackScore", blackScore);
+    	jsonElement.getAsJsonObject().addProperty("whiteNick", whiteNick);
+    	jsonElement.getAsJsonObject().addProperty("blackNick", blackNick);
     	return gson.toJson(jsonElement);
     }
 }

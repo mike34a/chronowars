@@ -6,7 +6,7 @@ import com.miksinouf.chronowars.domain.board.*;
 
 public class Player {
 
-    private final String nickname;
+    public final String nickname;
     public final String identifier;
     private final Color color;
     private Integer timeBonus;

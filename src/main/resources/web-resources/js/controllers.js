@@ -47,6 +47,8 @@ chronoWarsControllers.controller('GameCtrl', [
 				$scope.score = gameHelper.getScore($scope.color, board);
 				for (var i = 0; i < cells.length; i++) {
 										
+					$scope.playerName = $scope.color == "WHITE" ? board.whiteNick : board.blackNick;
+					$scope.opponentName = $scope.color == "WHITE" ? board.blackNick : board.whiteNick;
 					$scope.playerScore = $scope.color == "WHITE" ? board.whiteScore : board.blackScore;
 					$scope.opponentScore = $scope.color == "WHITE" ? board.blackScore : board.whiteScore;
 					
