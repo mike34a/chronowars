@@ -107,13 +107,13 @@ chronoWarsServices.factory('gameHelper', function() {
 			if (newTile.childElementCount == 0)
 				return ((Math.abs(sRow - newRow) == 1 && Math.abs(sCol - newCol) == 1)
 				|| ((sRow - newRow == 0 && sCol - newCol == 2)
-					&& document.getElementById(parseInt(selectedTile.id) - 1).childElementCount > 0)
+					&& document.getElementById(parseInt(selectedTile.id) - 1) != null && document.getElementById(parseInt(selectedTile.id) - 1).childElementCount > 0)
 				|| ((sRow - newRow == 0 && sCol - newCol == -2)
-						&& document.getElementById(parseInt(selectedTile.id) + 1).childElementCount > 0)
+						&& document.getElementById(parseInt(selectedTile.id) + 1) != null && document.getElementById(parseInt(selectedTile.id) + 1).childElementCount > 0)
 				|| ((sRow - newRow == 2 && sCol - newCol == 0)
-						&& document.getElementById(parseInt(selectedTile.id) - 10).childElementCount > 0)
+						&& document.getElementById(parseInt(selectedTile.id) - 10) != null && document.getElementById(parseInt(selectedTile.id) - 10).childElementCount > 0)
 				|| ((sRow - newRow == -2 && sCol - newCol == 0)
-						&& document.getElementById(parseInt(selectedTile.id) + 10).childElementCount > 0));
+						&& document.getElementById(parseInt(selectedTile.id) + 10) != null && document.getElementById(parseInt(selectedTile.id) + 10).childElementCount > 0));
 			else
 				return false;
 		},
