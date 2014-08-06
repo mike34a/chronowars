@@ -106,7 +106,6 @@ chronoWarsServices.factory('gameHelper', function() {
 			var newCol = parseInt(newTile.id[1]);
 			if (newTile.childElementCount == 0)
 				return ((Math.abs(sRow - newRow) == 1 && Math.abs(sCol - newCol) == 1)
-				//|| (sRow - newRow == 0 && Math.abs(sCol - newCol) == 1)
 				|| ((sRow - newRow == 0 && sCol - newCol == 2)
 					&& document.getElementById(parseInt(selectedTile.id) - 1).childElementCount > 0)
 				|| ((sRow - newRow == 0 && sCol - newCol == -2)
