@@ -1,6 +1,8 @@
 <div class="container-fluid">
 	<input type="text" name="userName" ng-model="userName" class="nameBox">
-	<p class="whiteMessage">{{userName | userNameFilter}}</p>
+	<div class="bandeau">
+		<p class="whiteMessage">{{userName | userNameFilter}}</p>
+	</div>
 	
 	<button
 		ng-model="startButton"
