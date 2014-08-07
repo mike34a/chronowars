@@ -4,3 +4,4 @@ chronowars.iml
 .project
 .settings
 target
+node_modules/
