@@ -123,7 +123,15 @@
                 <groupId>com.kelveden</groupId>
                 <artifactId>maven-karma-plugin</artifactId>
                 <version>1.6</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>start</goal>
+						</goals>
+					</execution>
+				</executions>
                 <configuration>
+                	<karmaExecutable>${basedir}/node_modules/karma/bin/karma</karmaExecutable>
                     <configFile>src/main/resources/web-resources/test/karma.conf.js</configFile>
                     <autoWatch>false</autoWatch>
                     <singleRun>true</singleRun>
