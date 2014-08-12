@@ -1,8 +1,12 @@
-<div class="container-fluid">
-	
-	<div class="bandeau">
-		<p class="whiteMessage">{{userName | userNameFilter}}</p>
+
+	<div class="ribbon">
+		<div class="ribbon-stitches-top">
+		</div><strong class="ribbon-content">
+			<p>{{userName | userNameFilter}}</p>
+			</strong>
+		<div class="ribbon-stitches-bottom"></div>
 	</div>
+
 	
 	<div class="nameBox">
 		<input type="text" name="userName" ng-model="userName">
@@ -15,5 +19,4 @@
 			{{gameStatus | gameStatusFilter}}
 		</button>
 	</div>
-	
-</div>
+

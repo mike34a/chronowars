@@ -1,8 +1,10 @@
-html, body {min-height: 100%;}
+
 
 body {
 background: white;
-margin:0px 0px 80px 0px;padding:0px;
+margin:0px 0px 80px 0px;
+padding:0px;
+height: 800px;
 }
 
 div.nameBox {
@@ -10,22 +12,9 @@ div.nameBox {
 	margin-left: 30%;
 	}
 
-
-div.bandeau {
-	width: 100%;
-	padding: 0px;
-	height: 50px;
-	margin-top: 60px;
-	background-color: #9CF2A3;
-	color: grey;
-	text-align:center;
-	border: 1px solid #9F9F9F; border-left-width: 0; border-right-width: 0;
-	}
-
-
 table.damier {
 left: 100px;
- margin-top: 50px;
+ margin-top: 250px;
  position:absolute;
  border: 2px #A4A4A4 solid;
  border-collapse: separate;
@@ -82,8 +71,6 @@ display: block;
 margin-left: auto;
 margin-right: auto;
 }
-
-
 img.token:hover 
 {
 width: 37px;
@@ -96,15 +83,13 @@ margin-right: auto;
 .actionButton {
 background-color:#E0DADA;
 padding: 15px;
-margin-top: 100px;
+margin-top: 250px;
 margin-left: 50px ; 
 color:black;
 }
-
 .actionButton:hover {
 background-color:#A89C9C;
 }
-
 .actionButton:disabled {
 	background-color:#AAAAAA;
 	color:grey;
@@ -115,18 +100,16 @@ input {
     padding: 15px;
     background: #E0DADA;
     margin: 0 0 10px 0;
-	
 }
 
 .tscore {
 	margin-left: 800px;
-	width:300px;
+	width:400px;
 	box-shadow: 10px 10px 5px #888888;
 	border:1px solid #8D8E8D;
-	margin-top: 100px;
+	margin-top: 350px;
 	position:absolute;
 }
-
 .tscore img{
 	width: 35;
 	height: 35px;
@@ -145,7 +128,6 @@ input {
 .tscore tr:hover{
 background-color: #DFE0DF;
 }
-
 .tscore td{
 	vertical-align:middle;
 	border:1px solid #8D8E8D;
@@ -157,7 +139,6 @@ background-color: #DFE0DF;
 	font-weight:normal;
 	color:#000000;
 }
-
 .tscore tr:last-child td{
 	border-width:0px 1px 0px 0px;
 	background:-o-linear-gradient(bottom, #cccccc 5%, #b2b2b2 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #cccccc), color-stop(1, #b2b2b2) );
@@ -168,10 +149,7 @@ background-color: #DFE0DF;
 }
 .tscore tr:last-child td:last-child{
 	border-width:0px 0px 0px 0px;
-	
 }
-
-
 .tscore tr:first-child td{
 	background:-o-linear-gradient(bottom, #cccccc 5%, #b2b2b2 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #cccccc), color-stop(1, #b2b2b2) );
 	background:-moz-linear-gradient( center top, #cccccc 5%, #b2b2b2 100% );
@@ -199,5 +177,61 @@ background-color: #DFE0DF;
 .tscore tr:first-child td:last-child{
 	border-width:0px 0px 1px 1px;
 }
+
+.ribbon {
+	width: 90%;
+	margin-top: 60px;
+	margin-left: 60px;
+	position: absolute;
+	text-align: center;
+	font-size: 24px!important;
+	background: #4fe372;
+	background: -webkit-gradient(linear, left top, left bottom, from(#4fe372), to(#cae6d1));
+	background: -webkit-linear-gradient(top, #4fe372, #cae6d1);
+	background: -moz-linear-gradient(top, #4fe372, #cae6d1);
+	background: -ms-linear-gradient(top, #4fe372, #cae6d1);
+	background: -o-linear-gradient(top, #4fe372, #cae6d1);
+	background-image: -ms-linear-gradient(top, #4fe372 0%, #cae6d1 100%);
+	-webkit-box-shadow: rgba(000,000,000,0.3) 0 1px 1px;
+	-moz-box-shadow: rgba(000,000,000,0.3) 0 1px 1px;
+	box-shadow: rgba(000,000,000,0.3) 0 1px 1px;
+	font-family: 'Helvetica Neue',Helvetica, sans-serif;
+   }  
+.ribbon p {
+   font-size: 16px;
+   color: #313D32;
+   margin:0px;
+   padding: 15px 10px;
+   }
+.ribbon .ribbon-content:before, .ribbon .ribbon-content:after {
+   border-color: #578f5d transparent transparent transparent;
+   position: absolute;
+   display: block;
+   border-style: solid;
+   bottom: -1em;
+   content: '';
+   }
+.ribbon .ribbon-content:before {
+   left: 0;
+   border-width: 1em 0 0 1em;
+   }
+.ribbon .ribbon-content:after {
+   right: 0;
+   border-width: 1em 1em 0 0;
+   }
+.ribbon-stitches-top {
+   margin-top:2px;
+   border-top: 0px dashed rgba(0, 0, 0, 0.2);
+   -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+   -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+   box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5);
+   }
+.ribbon-stitches-bottom {
+   margin-bottom:2px;
+   border-top: 0px dashed rgba(0, 0, 0, 0.2);
+   -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+   -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+   box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.3);
+   }
 
 }
