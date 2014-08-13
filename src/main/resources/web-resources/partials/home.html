@@ -1,22 +1,31 @@
-
-	<div class="ribbon">
-		<div class="ribbon-stitches-top">
-		</div><strong class="ribbon-content">
-			<p>{{userName | userNameFilter}}</p>
-			</strong>
-		<div class="ribbon-stitches-bottom"></div>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ribbon">
+					<div class="ribbon-stitches-top"></div>
+					<strong class="ribbon-content"><p>{{userName | userNameFilter}}</p></strong>
+					<div class="ribbon-stitches-bottom"></div>
+			</div>
+		</div>
 	</div>
 
-	
-	<div class="nameBox">
-		<input type="text" name="userName" ng-model="userName">
-		<button
-			ng-model="startButton"
-			ng-click="registerPlayer(userName);gameStatus=1"
-			ng-init="playerId = 0;gameStatus=0"
-			ng-disabled="(!(userName.length > 3)) || gameStatus == 1" id="NewGameInput"
-			class="actionButton">
-			{{gameStatus | gameStatusFilter}}
-		</button>
-	</div>
+	<div class="row">
+		<div class="col-lg-4 col-lg-offset-4">
+			  <form class="form-inline well" style="margin-top:50px;width:400px;">
+			    <div class="form-group">
+			      <label class="sr-only" for="text">Saisie</label>
+			      <input id="text" type="text" name="userName" ng-model="userName" class="form-control" placeholder="tape your pseudo">
+			    </div>
+			    <button type="button" 
+			    		class="btn btn-primary pull-right"
+			    		ng-model="startButton"
+						ng-click="registerPlayer(userName);gameStatus=1"
+						ng-init="playerId = 0;gameStatus=0"
+						ng-disabled="(!(userName.length > 3)) || gameStatus == 1" id="NewGameInput">
+						{{gameStatus | gameStatusFilter}}
+			    </button>
+			   </form>
+			</div>
+		</div>			
+</div>
 

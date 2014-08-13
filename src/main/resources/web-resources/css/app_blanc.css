@@ -13,9 +13,7 @@ div.nameBox {
 	}
 
 table.damier {
-left: 100px;
- margin-top: 250px;
- position:absolute;
+margin-top: 100px; 
  border: 2px #A4A4A4 solid;
  border-collapse: separate;
  -moz-border-radius: 20px;
@@ -95,21 +93,13 @@ background-color:#A89C9C;
 	color:grey;
 }
 
-input {
-	border: 1px solid #A89C9C; 
-    padding: 15px;
-    background: #E0DADA;
-    margin: 0 0 10px 0;
-}
 
 .tscore {
-	margin-left: 800px;
+	margin-top: 150px; 
 	width:400px;
 	box-shadow: 10px 10px 5px #888888;
 	border:1px solid #8D8E8D;
-	margin-top: 350px;
-	position:absolute;
-}
+	}
 .tscore img{
 	width: 35;
 	height: 35px;
@@ -179,12 +169,9 @@ background-color: #DFE0DF;
 }
 
 .ribbon {
-	width: 90%;
+	width: 100%;
 	margin-top: 60px;
-	margin-left: 60px;
-	position: absolute;
 	text-align: center;
-	font-size: 24px!important;
 	background: #4fe372;
 	background: -webkit-gradient(linear, left top, left bottom, from(#4fe372), to(#cae6d1));
 	background: -webkit-linear-gradient(top, #4fe372, #cae6d1);
@@ -203,35 +190,6 @@ background-color: #DFE0DF;
    margin:0px;
    padding: 15px 10px;
    }
-.ribbon .ribbon-content:before, .ribbon .ribbon-content:after {
-   border-color: #578f5d transparent transparent transparent;
-   position: absolute;
-   display: block;
-   border-style: solid;
-   bottom: -1em;
-   content: '';
-   }
-.ribbon .ribbon-content:before {
-   left: 0;
-   border-width: 1em 0 0 1em;
-   }
-.ribbon .ribbon-content:after {
-   right: 0;
-   border-width: 1em 1em 0 0;
-   }
-.ribbon-stitches-top {
-   margin-top:2px;
-   border-top: 0px dashed rgba(0, 0, 0, 0.2);
-   -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
-   -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
-   box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5);
-   }
-.ribbon-stitches-bottom {
-   margin-bottom:2px;
-   border-top: 0px dashed rgba(0, 0, 0, 0.2);
-   -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
-   -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
-   box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.3);
-   }
+
 
 }
