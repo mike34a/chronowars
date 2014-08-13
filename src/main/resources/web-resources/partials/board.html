@@ -1,11 +1,11 @@
 <div class="container">
 	
 	<div class="row">
-		<div class="ribbon">
-			<div class="ribbon-stitches-top"></div>
-			<strong class="ribbon-content"><p>{{getActionText() | textActionFilter}}</p></strong>
-			<div class="ribbon-stitches-bottom"></div>
-		</div>
+		<div class="col-lg-offset-4 col-lg-4">
+			<form class="form-inline well" style="margin-top:50px;width:400px;">
+				<p class="text-center text-info">{{getActionText() | textActionFilter}}</p>
+			</form>
+		</div>	
 	</div>	
 		
 	<div class="row">
@@ -25,38 +25,46 @@
 
 	
 		<div class="col-lg-offset-1 col-lg-5">
-			<div class="table table-responsive table table-bordered tscore">
-                <table>
-                    <tr>
-                        <td>Shapes		</td>
-                        <td>{{playerName}} <img src="{{playerImage}}"></td>
-                        <td>{{opponentName}} <img src="{{opponentImage}}"></td>
-                    </tr>
-                    <tr>
-                        <td>i : 1 pt	</td>
-                        <td>			</td>
-                        <td>			</td>
-                    </tr>
-                    <tr>
-                        <td>C : 3 pts	</td>
-                        <td>			</td>
-                        <td>			</td>
-                    </tr>
-                    <tr>
-                        <td>I : 5 pts	</td>
-                        <td>			</td>
-                        <td>			</td>
-                    </tr>
-                    <tr>
-                        <td>O : 8 pts	</td>
-                        <td>			</td>
-                        <td>			</td>
-                    </tr>
-                    <tr>
-                        <td>Total		</td>
-                        <td>{{playerScore}}</td>
-                        <td>{{opponentScore}}</td>
-                    </tr>
+			<div>
+                <table class="table table-bordered table-hover tscore">
+                    <thead>
+                    	<tr>
+	                        <th>Shapes</th>
+	                        <th>{{playerName}}<img src="{{playerImage}}"></th>
+	                        <th>{{opponentName}}<img src="{{opponentImage}}"></th>
+                    	</tr>
+                    </thead>
+                    
+                    <tfoot>
+                    	<tr>
+	                        <th>Total</th>
+	                        <th>{{playerScore}}</th>
+	                        <th>{{opponentScore}}</th>
+	                    </tr>
+                    </tfoot>
+                    
+                    <tboddy>
+	                    <tr>
+	                        <td>i : 1 pt</td>
+	                        <td></td>
+	                        <td></td>
+	                    </tr>
+	                    <tr>
+	                        <td>C : 3 pts</td>
+	                        <td></td>
+	                        <td></td>
+	                    </tr>
+	                    <tr>
+	                        <td>I : 5 pts</td>
+	                        <td></td>
+	                        <td></td>
+	                    </tr>
+	                    <tr>
+	                        <td>O : 8 pts</td>
+	                        <td></td>
+	                        <td></td>
+	                    </tr>
+	               	</tboddy>
                 </table>
 	     	</div>
          </div>
