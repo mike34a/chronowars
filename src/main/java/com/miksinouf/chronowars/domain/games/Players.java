@@ -17,7 +17,7 @@ import com.miksinouf.chronowars.domain.player.TooManyTokensException;
 import com.miksinouf.chronowars.domain.player.UnknownPlayerException;
 
 public class Players {
-    private final Map<String, Player> players = new HashMap<>();
+    public final Map<String, Player> players = new HashMap<>();
 
     public void addPlayers(Player whitePlayer, Player blackPlayer) {
         players.put(whitePlayer.identifier, whitePlayer);
@@ -40,9 +40,9 @@ public class Players {
         return players.get(playerIdentifier).set(x, y);
     }
 
-    public MoveResult moveToken(String playerIdentifier, Integer oldX, Integer oldY, Move move) throws UnknownPlayerException, IllegalMoveException {
+    public MoveResult moveToken(String playerIdentifier, Integer oldX, Integer oldY, String move) throws UnknownPlayerException, IllegalMoveException {
         checkUserExists(playerIdentifier);
-        return players.get(playerIdentifier).move(oldX, oldY, move);
+        return players.get(playerIdentifier).move(oldX, oldY, Move.valueOf(move));
     }
 
     private void checkUserExists(String playerIdentifier) throws UnknownPlayerException {

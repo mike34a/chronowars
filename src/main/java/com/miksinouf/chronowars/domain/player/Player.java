@@ -46,7 +46,10 @@ public class Player {
 
     public MoveResult move(Integer oldX, Integer oldY, Move move) throws IllegalMoveException {
         checkPositionForPlayer(oldX, oldY);
-        return moveToken(oldX, oldY, move);
+        MoveResult moveResult = board.moveToken(oldX, oldY, move);
+        refreshPlayerScore(moveResult.position);
+
+        return moveResult;
     }
 
     public void setOpponent(Player opponent) {
@@ -68,13 +71,6 @@ public class Player {
     private void placeToken(Integer x, Integer y) throws IllegalMoveException, TooManyTokensException {
         board.placeToken(x, y);
         refreshPlayerScore(new Position(x, y));
-    }
-
-    private MoveResult moveToken(Integer oldX, Integer oldY, Move move) throws IllegalMoveException {
-        MoveResult moveResult = board.moveToken(oldX, oldY, move);
-        refreshPlayerScore(moveResult.position);
-
-        return moveResult;
     }
 
     private void checkPositionForPlayer(Integer oldX, Integer oldY) throws IllegalMoveException {

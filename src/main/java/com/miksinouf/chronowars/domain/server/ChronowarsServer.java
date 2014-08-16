@@ -29,6 +29,8 @@ public class ChronowarsServer {
         // boolean
         get("/have_i_running_game/:identifier",
                 (request, response) -> GamesQueueSingleton.INSTANCE
+                        .gamesQueue
+                        .players
                         .hasPlayerAGame(request.params("identifier")));
 
         /**
@@ -55,7 +57,10 @@ public class ChronowarsServer {
         get("/get_game/:playerIdentifier",
                 (request, response) -> {
                 	try {
-                		return GamesQueueSingleton.INSTANCE.getGame(
+                		return GamesQueueSingleton.INSTANCE
+                                .gamesQueue
+                                .players
+                                .getGame(
                 				request.params("playerIdentifier"));
                 	} catch (UnknownPlayerException e) {
                 		return badRequest(response,
@@ -72,7 +77,7 @@ public class ChronowarsServer {
                     final String x = request.params("x");
                     final String y = request.params("y");
                     try {
-                        return GamesQueueSingleton.INSTANCE.setToken(
+                        return GamesQueueSingleton.INSTANCE.gamesQueue.players.setToken(
                                 request.params("playerIdentifier"),
                                 parseInt(x), parseInt(y));
                     } catch (UnknownPlayerException | IllegalMoveException | TooManyTokensException | ChronowarsNumberFormatException e) {
@@ -90,7 +95,7 @@ public class ChronowarsServer {
                     final String x = request.params("x");
                     final String y = request.params("y");
                     try {
-                        return GamesQueueSingleton.INSTANCE.moveToken(
+                        return GamesQueueSingleton.INSTANCE.gamesQueue.players.moveToken(
                                 request.params("playerIdentifier"),
                                 parseInt(x), parseInt(y),
                                 request.params("moveDirection"));

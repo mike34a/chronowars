@@ -4,20 +4,17 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Optional;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.miksinouf.chronowars.domain.board.Board;
-import com.miksinouf.chronowars.domain.board.IllegalMoveException;
-import com.miksinouf.chronowars.domain.board.Move;
-import com.miksinouf.chronowars.domain.player.*;
+import com.miksinouf.chronowars.domain.player.Color;
+import com.miksinouf.chronowars.domain.player.Player;
+import com.miksinouf.chronowars.domain.player.WaitingPlayer;
 
 public class GamesQueue {
     public static final Integer MAX_NUMBER_OF_TOKENS = 5;
-    private Players players = new Players();
+    public Players players = new Players();
     private final SecureRandom secureRandom = new SecureRandom();
     private Optional<WaitingPlayer> waitingPlayer = Optional.empty();
-
-    public synchronized String hasPlayerAGame(String playerIdentifier) {
-        return players.hasPlayerAGame(playerIdentifier);
-    }
 
     public synchronized String register(String nickname) {
         final String playerIdentifier = nextRandomIdentifier();
@@ -43,25 +40,8 @@ public class GamesQueue {
         return new BigInteger(130, secureRandom).toString(32);
     }
 
-    public synchronized String getGame(String playerIdentifier)
-            throws UnknownPlayerException {
-        return players.getGame(playerIdentifier);
-    }
-
-    public String setToken(String playerIdentifier, int x, int y)
-            throws UnknownPlayerException, IllegalMoveException,
-            TooManyTokensException {
-        players.setToken(playerIdentifier, x, y);
-        return "success";
-    }
-
-    public String moveToken(String playerIdentifier, int x, int y, String move)
-            throws UnknownPlayerException, IllegalMoveException {
-        players.moveToken(playerIdentifier, x, y, Move.valueOf(move));
-        return "success";
-    }
-
-    public void setPlayers(Players players) {
+    @VisibleForTesting
+    void setPlayers(Players players) {
         this.players = players;
     }
 }
