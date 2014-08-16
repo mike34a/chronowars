@@ -1,3 +1,8 @@
+/* popup signin dans navbar */
+$(function (){
+   $("#pop").popover(); 
+});
+
 'use strict';
 
 /* Controllers */
