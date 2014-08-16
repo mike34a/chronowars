@@ -46,13 +46,6 @@ public class Players {
     public GameResponse getGame(String playerIdentifier) throws UnknownPlayerException {
     	checkUserExists(playerIdentifier);
     	Board board = players.get(playerIdentifier).getBoard();
-//    	Player whitePlayer = getByColor(Color.WHITE);
-//    	Player blackPlayer = getByColor(Color.BLACK);
-//    	String whiteNick = whitePlayer.nickname;
-//    	String blackNick = blackPlayer.nickname;
-//    	String whiteScore = whitePlayer.getScore().toString();
-//    	String blackScore = blackPlayer.getScore().toString();
-//
 //    	Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 //    	JsonElement jsonElement = gson.toJsonTree(board);
 //    	jsonElement.getAsJsonObject().addProperty("status", "running");
@@ -83,14 +76,4 @@ public class Players {
         return player.getColor() == color ? player : opponent;
     }
 
-//    @VisibleForTesting
-//    static class GameResponse {
-//        private Board board;
-//        private String status;
-//        private String lastRoundPoints;
-//        private String whiteScore;
-//        private String blackScore;
-//        private String whiteNick;
-//        private String blackNick;
-//    }
 }

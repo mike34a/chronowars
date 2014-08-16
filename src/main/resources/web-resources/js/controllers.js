@@ -38,18 +38,19 @@ chronoWarsControllers.controller('GameCtrl', [
 		});
 		
 		setInterval(function() {
-			gameApi.getBoard($routeParams.playerId).then(function(board) {
-				$scope.colorToPlay = board.colorToPlay;
+			gameApi.getBoard($routeParams.playerId).then(function(boardResponse) {
+				var board = boardResponse.board;
+                $scope.colorToPlay = board.colorToPlay;
 				var tile;
 				var numberOfTokens = 0;
 				var cells = document.getElementById("damier").querySelectorAll("td");
 				$scope.score = gameHelper.getScore($scope.color, board);
 				for (var i = 0; i < cells.length; i++) {
 										
-					$scope.playerName = $scope.color == "WHITE" ? board.whiteNick : board.blackNick;
-					$scope.opponentName = $scope.color == "WHITE" ? board.blackNick : board.whiteNick;
-					$scope.playerScore = $scope.color == "WHITE" ? board.whiteScore : board.blackScore;
-					$scope.opponentScore = $scope.color == "WHITE" ? board.blackScore : board.whiteScore;
+					$scope.playerName = $scope.color == "WHITE" ? boardResponse.whiteNick : boardResponse.blackNick;
+					$scope.opponentName = $scope.color == "WHITE" ? boardResponse.blackNick : boardResponse.whiteNick;
+					$scope.playerScore = $scope.color == "WHITE" ? boardResponse.whiteScore : boardResponse.blackScore;
+					$scope.opponentScore = $scope.color == "WHITE" ? boardResponse.blackScore : boardResponse.whiteScore;
 					$scope.playerImage = $scope.color == "WHITE" ? 'img/whitetoken.png' : 'img/blacktoken.png';
 					$scope.opponentImage = $scope.color == "WHITE" ? 'img/blacktoken.png' : 'img/whitetoken.png';
 					

@@ -18,6 +18,7 @@ public class ChronowarsServer {
     }
 
     public void startChronowarsServer() {
+        final ChronowarsAdapter chronowarsAdapter = new ChronowarsAdapter();
         staticFileLocation("/web-resources");
 
         // permet d'inscrire le joueur à la liste d'attente des parties et
@@ -57,11 +58,11 @@ public class ChronowarsServer {
         get("/get_game/:playerIdentifier",
                 (request, response) -> {
                 	try {
-                		return GamesQueueSingleton.INSTANCE
+                		return chronowarsAdapter.adaptGame(GamesQueueSingleton.INSTANCE
                                 .gamesQueue
                                 .players
                                 .getGame(
-                				request.params("playerIdentifier"));
+                                        request.params("playerIdentifier")));
                 	} catch (UnknownPlayerException e) {
                 		return badRequest(response,
                                 e.toString());
