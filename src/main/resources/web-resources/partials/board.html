@@ -2,7 +2,7 @@
 	
 	<div class="row">
 		<div class="col-lg-offset-4 col-lg-4">
-			<form class="form-inline well" style="margin-top:50px;width:400px;">
+			<form class="form-inline well" style="margin-top:50px;" ng-class="{place: 'bsuccess', move: 'bsuccess', wait: 'bwarning'}[getActionText()]">
 				<p class="text-center text-info">{{getActionText() | textActionFilter}}</p>
 			</form>
 		</div>	
