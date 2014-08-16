@@ -1,10 +1,10 @@
 <div class="container">
 	
 	<div class="row">
-		<div class="col-lg-offset-4 col-lg-4">
-			<form class="form-inline well" style="margin-top:50px;" ng-class="{place: 'bsuccess', move: 'bsuccess', wait: 'bwarning'}[getActionText()]">
-				<p class="text-center text-info">{{getActionText() | textActionFilter}}</p>
-			</form>
+		<div class="col-lg-offset-5 col-lg-2">
+			<button type="button" class="btn btn-lg" style="margin-top:50px;" ng-class="{place: 'btn-success', move: 'btn-success', wait: 'btn-warning'}[getActionText()]" ng-disabled="true">
+				{{getActionText() | textActionFilter}}
+			</button>
 		</div>	
 	</div>	
 		

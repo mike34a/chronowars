@@ -2,15 +2,16 @@
 
 
 	<div class="row">
-		<div class="col-lg-6 col-lg-offset-3">
-			  <form class="form-inline well" style="margin-top:50px;">
+		<div class="col-lg-5 col-lg-offset-3">
+			  <form class="form-inline well" style="margin-top:50px;height:120px;">
 				    <p class="text-center" ng-class="userName.length > 3 ? 'text-success' : 'text-warning'">{{userName | userNameFilter}}</p>
 				    <div class="form-group" style="margin-left: 40px;">
 					    <label class="sr-only" for="text">Saisie</label>
 					    <input id="text" type="text" name="userName" ng-model="userName" class="form-control" placeholder="enter your nickname">
 				    </div>
 				    <button type="submit" 
-				    		class="btn btn-primary"
+				    		class="btn"
+				    		ng-class="userName.length > 3 ? 'btn-success' : 'btn-default'"
 				    		ng-model="startButton"
 							ng-click="registerPlayer(userName);gameStatus=1"
 							ng-init="playerId = 0;gameStatus=0"
