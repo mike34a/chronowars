@@ -11,7 +11,7 @@ import com.miksinouf.chronowars.domain.player.*;
 
 public class GamesQueue {
     public static final Integer MAX_NUMBER_OF_TOKENS = 5;
-    private final Players players = new Players();
+    private Players players = new Players();
     private final SecureRandom secureRandom = new SecureRandom();
     private Optional<WaitingPlayer> waitingPlayer = Optional.empty();
 
@@ -59,5 +59,9 @@ public class GamesQueue {
             throws UnknownPlayerException, IllegalMoveException {
         players.moveToken(playerIdentifier, x, y, Move.valueOf(move));
         return "success";
+    }
+
+    public void setPlayers(Players players) {
+        this.players = players;
     }
 }
