@@ -100,22 +100,14 @@ chronoWarsControllers.controller('GameCtrl', [
 		var placeToken = function(tileId) {
 			gameApi.setToken($routeParams.playerId,
 							tileId[0],
-							tileId[1]).then(function(data) {
-				if (data == 'success') {
-				}
-			});
-		}
+							tileId[1])}
 
 		var moveToken = function(baseTile, directionTile) {
 			var direction = gameHelper.getDirection(baseTile.id, directionTile.id);
 			gameApi.moveToken($routeParams.playerId,
 					baseTile.id[0],
 					baseTile.id[1],
-					direction).then(function(data) {
-				if (data == 'success') {
-				}
-			});
-		}
+					direction)}
 
 		$scope.selectTile = function(tileId) {
 			var tile = document.getElementById(tileId);
