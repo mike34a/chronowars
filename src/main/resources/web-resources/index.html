@@ -21,9 +21,27 @@
 <link rel="stylesheet" href="style.css" />
 <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 <script src="js/services.js"></script>
+<script src="bower_components/bootstrap/dist/bootstrap.min.js"></script>
 </head>
 <body>
-
+	<div class="container">
+      <nav class="navbar navbar-default">
+        <ul class="nav navbar-nav">
+          <li> <a href="#">Accueil</a> </li>
+          <li> <a href="#">Ranking</a> </li>
+          <li class="dropdown"> 
+            <a data-toggle="dropdown" href="#">Play<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#"></a></li>
+              <li><a href="#">Normal game</a></li>
+              <li><a href="#">Ranked Game</a></li>
+            </ul>
+          </li>
+          <li> <a href="#">FAQ</a> </li>
+        </ul>
+      </nav>
+    </div>	
+    
 	<div class="view-container">
 		<div ng-view class="view-frame"></div>
 	</div>
