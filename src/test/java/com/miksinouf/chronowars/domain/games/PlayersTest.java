@@ -2,8 +2,7 @@ package com.miksinouf.chronowars.domain.games;
 
 import static com.miksinouf.chronowars.domain.board.MoveResultType.SUCCESS;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -73,4 +72,45 @@ public class PlayersTest {
         assertThat(players.setToken("invalidPlayerIdentifier", 1, 2))
                 .isEqualTo(new MoveResult(SUCCESS, 1, 2));
     }
+
+    @Test
+    public void should_fill_serialized_game_with_proper_fields() throws Exception {
+
+        // Given
+        final Board board = new Board();
+        final String whiteIdentifier = "whiteIdentifier";
+        final String whiteNick = "whiteNick";
+        final Player whitePlayer = mock(Player.class);
+        when(whitePlayer.getBoard()).thenReturn(board);
+        when(whitePlayer.getIdentifier()).thenReturn(whiteIdentifier);
+        when(whitePlayer.getNickname()).thenReturn(whiteNick);
+        when(whitePlayer.getScore()).thenReturn(10);
+        when(whitePlayer.getColor()).thenReturn(Color.WHITE);
+
+        final String blackIdentifier = "blackIdentifier";
+        final String blackNick = "blackNick";
+        final Player blackPlayer = mock(Player.class);
+        when(blackPlayer.getBoard()).thenReturn(board);
+        when(blackPlayer.getIdentifier()).thenReturn(blackIdentifier);
+        when(blackPlayer.getNickname()).thenReturn(blackNick);
+        when(blackPlayer.getScore()).thenReturn(20);
+        when(blackPlayer.getColor()).thenReturn(Color.BLACK);
+
+        when(whitePlayer.getOpponent()).thenReturn(blackPlayer);
+        when(blackPlayer.getOpponent()).thenReturn(whitePlayer);
+
+        players.addPlayers(whitePlayer, blackPlayer);
+
+        // When
+        final GameResponse playersGame = players.getGame("whiteIdentifier");
+
+        // Then
+        assertThat(playersGame.board).isEqualTo(board);
+        assertThat(playersGame.status).isEqualTo("running");
+        assertThat(playersGame.whiteScore).isEqualTo("10");
+        assertThat(playersGame.blackScore).isEqualTo("20");
+        assertThat(playersGame.whiteNick).isEqualTo(whiteNick);
+        assertThat(playersGame.blackNick).isEqualTo(blackNick);
+    }
+
 }

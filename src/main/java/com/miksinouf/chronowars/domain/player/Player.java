@@ -6,13 +6,12 @@ import com.miksinouf.chronowars.domain.board.*;
 
 public class Player {
 
-    public final String nickname;
-    public final String identifier;
+    private final String nickname;
+    private final String identifier;
     private final Color color;
     private Integer score;
     private final Board board;
     private Player opponent;
-
     public Player(String nickname, Color color,
                   String identifier, Board board) {
         this.nickname = nickname;
@@ -31,7 +30,7 @@ public class Player {
     }
 
     /**
-     * 
+     *
      * @param x
      *            x
      * @param y
@@ -52,8 +51,16 @@ public class Player {
         return moveResult;
     }
 
+    public String getIdentifier() {
+        return identifier;
+    }
+
     public void setOpponent(Player opponent) {
         this.opponent = opponent;
+    }
+
+    public Player getOpponent() {
+        return opponent;
     }
 
     public Board getBoard() {
@@ -86,5 +93,9 @@ public class Player {
                 .forEach(shape -> this.board.maxShape = shape.getScore() > this.board.maxShape.getScore() ? shape : this.board.maxShape);
 
         this.score += this.board.maxShape.getScore();
+    }
+
+    public String getNickname() {
+        return nickname;
     }
 }

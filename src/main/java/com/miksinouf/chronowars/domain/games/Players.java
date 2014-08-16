@@ -2,11 +2,7 @@ package com.miksinouf.chronowars.domain.games;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.miksinouf.chronowars.domain.board.Board;
 import com.miksinouf.chronowars.domain.board.IllegalMoveException;
 import com.miksinouf.chronowars.domain.board.Move;
@@ -20,21 +16,12 @@ public class Players {
     public final Map<String, Player> players = new HashMap<>();
 
     public void addPlayers(Player whitePlayer, Player blackPlayer) {
-        players.put(whitePlayer.identifier, whitePlayer);
-        players.put(blackPlayer.identifier, blackPlayer);
+        players.put(whitePlayer.getIdentifier(), whitePlayer);
+        players.put(blackPlayer.getIdentifier(), blackPlayer);
         whitePlayer.setOpponent(blackPlayer);
         blackPlayer.setOpponent(whitePlayer);
     }
     
-    private Player getByColor(Color c) {
-        for (Entry<String, Player> stringPlayerEntry : players.entrySet()) {
-            Player p = stringPlayerEntry.getValue();
-            if (p.getColor() == c)
-                return p;
-        }
-    	return null;
-    }
-
     public MoveResult setToken(String playerIdentifier, Integer x, Integer y) throws UnknownPlayerException, IllegalMoveException, TooManyTokensException {
         checkUserExists(playerIdentifier);
         return players.get(playerIdentifier).set(x, y);
@@ -56,23 +43,54 @@ public class Players {
         		players.get(playerIdentifier).getColor().toString() : "false";
     }
     
-    public String getGame(String playerIdentifier) throws UnknownPlayerException {
+    public GameResponse getGame(String playerIdentifier) throws UnknownPlayerException {
     	checkUserExists(playerIdentifier);
     	Board board = players.get(playerIdentifier).getBoard();
-    	Player whitePlayer = getByColor(Color.WHITE);
-    	Player blackPlayer = getByColor(Color.BLACK);
-    	String whiteNick = whitePlayer.nickname;
-    	String blackNick = blackPlayer.nickname;
-    	String whiteScore = whitePlayer.getScore().toString();
-    	String blackScore = blackPlayer.getScore().toString();
-    	Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-    	JsonElement jsonElement = gson.toJsonTree(board);
-    	jsonElement.getAsJsonObject().addProperty("status", "running");
-    	jsonElement.getAsJsonObject().addProperty("lastRoundPoints", "0");
-    	jsonElement.getAsJsonObject().addProperty("whiteScore", whiteScore);
-    	jsonElement.getAsJsonObject().addProperty("blackScore", blackScore);
-    	jsonElement.getAsJsonObject().addProperty("whiteNick", whiteNick);
-    	jsonElement.getAsJsonObject().addProperty("blackNick", blackNick);
-    	return gson.toJson(jsonElement);
+//    	Player whitePlayer = getByColor(Color.WHITE);
+//    	Player blackPlayer = getByColor(Color.BLACK);
+//    	String whiteNick = whitePlayer.nickname;
+//    	String blackNick = blackPlayer.nickname;
+//    	String whiteScore = whitePlayer.getScore().toString();
+//    	String blackScore = blackPlayer.getScore().toString();
+//
+//    	Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+//    	JsonElement jsonElement = gson.toJsonTree(board);
+//    	jsonElement.getAsJsonObject().addProperty("status", "running");
+//    	jsonElement.getAsJsonObject().addProperty("lastRoundPoints", "0");
+//    	jsonElement.getAsJsonObject().addProperty("whiteScore", whiteScore);
+//    	jsonElement.getAsJsonObject().addProperty("blackScore", blackScore);
+//    	jsonElement.getAsJsonObject().addProperty("whiteNick", whiteNick);
+//    	jsonElement.getAsJsonObject().addProperty("blackNick", blackNick);
+//    	return gson.toJson(jsonElement);
+
+
+        final Player player = players.get(playerIdentifier);
+        final Player opponent = player.getOpponent();
+
+        Player whitePlayer = getPlayerOfColor(Color.WHITE, player, opponent);
+        Player blackPlayer = getPlayerOfColor(Color.BLACK, player, opponent);
+
+        return new GameResponse(
+                board,
+                "running",
+                whitePlayer.getScore().toString(),
+                blackPlayer.getScore().toString(),
+                whitePlayer.getNickname(),
+                blackPlayer.getNickname());
     }
+
+    private Player getPlayerOfColor(Color color, Player player, Player opponent) {
+        return player.getColor() == color ? player : opponent;
+    }
+
+//    @VisibleForTesting
+//    static class GameResponse {
+//        private Board board;
+//        private String status;
+//        private String lastRoundPoints;
+//        private String whiteScore;
+//        private String blackScore;
+//        private String whiteNick;
+//        private String blackNick;
+//    }
 }
