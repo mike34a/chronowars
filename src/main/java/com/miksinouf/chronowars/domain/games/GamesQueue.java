@@ -26,7 +26,7 @@ public class GamesQueue {
 
             final Player whitePlayer = new Player(waitingPlayer.get(), board,
                     Color.WHITE);
-            final Player blackPlayer = new Player(nickname, Color.BLACK, 8,
+            final Player blackPlayer = new Player(nickname, Color.BLACK,
                     playerIdentifier, board);
             players.addPlayers(whitePlayer, blackPlayer);
 

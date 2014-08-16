@@ -14,7 +14,7 @@ public class PlayersQueue {
 
     public Player poll() {
         final WaitingPlayer whiteWaitingPlayer = playersQueue.poll();
-        return new Player(whiteWaitingPlayer.nickname, Color.WHITE, TOKENS_NUMBER, whiteWaitingPlayer.identifier, new Board());
+        return new Player(whiteWaitingPlayer.nickname, Color.WHITE, whiteWaitingPlayer.identifier, new Board());
     }
 
     public int size() {
