@@ -31,9 +31,9 @@ public class PlayersTest {
         players = new Players();
         final Board board = new Board();
 
-        whitePlayer = new Player("whitePlayerNick", Color.WHITE, 2,
+        whitePlayer = new Player("whitePlayerNick", Color.WHITE,
                 "whitePlayerIdentifier", board);
-        blackPlayer = new Player("blackPlayerNick", Color.WHITE, 2,
+        blackPlayer = new Player("blackPlayerNick", Color.WHITE,
                 "blackPlayerIdentifier", board);
 
         players.addPlayers(whitePlayer, blackPlayer);
