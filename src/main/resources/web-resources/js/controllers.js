@@ -1,7 +1,6 @@
 'use strict';
 
 /* Controllers */
-
 var chronoWarsControllers = angular.module('chronoWarsControllers', []);
 
 chronoWarsControllers.controller('HomeCtrl', [
@@ -10,7 +9,7 @@ chronoWarsControllers.controller('HomeCtrl', [
 	'$location',
 	function($scope, gameApi, $location) {
 		$scope.registerPlayer = function(name) {
-			gameApi.registerPlayer(name).then(function(pidres) {
+			gameApi.registerPlayer(encodeURI(name)).then(function(pidres) {
 				$scope.startgame = setInterval(function() {
 					gameApi.hasGameStarted(pidres).then(function(started) {
 						if (started != 'false') {
