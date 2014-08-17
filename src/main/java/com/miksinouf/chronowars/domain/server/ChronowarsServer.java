@@ -3,8 +3,13 @@ package com.miksinouf.chronowars.domain.server;
 import static spark.Spark.*;
 import static spark.SparkBase.staticFileLocation;
 
+import java.lang.management.ManagementFactory;
+
+import javax.management.*;
+
 import spark.Response;
 
+import com.miksinouf.chronowars.domain.administration.GamesAdminitrator;
 import com.miksinouf.chronowars.domain.board.IllegalMoveException;
 import com.miksinouf.chronowars.domain.games.GamesQueueSingleton;
 import com.miksinouf.chronowars.domain.player.TooManyTokensException;
@@ -15,6 +20,7 @@ public class ChronowarsServer {
     public static void main(String[] args) {
         final ChronowarsServer chronowarsServer = new ChronowarsServer();
         chronowarsServer.startChronowarsServer();
+        chronowarsServer.startJmxServer();
     }
 
     public void startChronowarsServer() {
@@ -108,6 +114,21 @@ public class ChronowarsServer {
                                 "One of the coordinates is not an integer.");
                     }
                 });
+    }
+
+    public void startJmxServer() {
+        final MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
+        try {
+            final ObjectName gamesAdministrator =
+                    new ObjectName("com.miksinouf.chronowars.domain.administration:type=GamesAdministratorMBean");
+            mBeanServer.registerMBean(new GamesAdminitrator(), gamesAdministrator);
+
+        } catch (MalformedObjectNameException
+                | NotCompliantMBeanException
+                | InstanceAlreadyExistsException
+                | MBeanRegistrationException e) {
+            e.printStackTrace();
+        }
     }
 
     private static String badRequest(Response response, String message) {
