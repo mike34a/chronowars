@@ -17,6 +17,9 @@ chronoWars.config(['$routeProvider',
         templateUrl: 'partials/board.html',
         controller: 'GameCtrl'
       }).
+      when('/faq', {
+          templateUrl: 'partials/faq.html',
+        }).
       otherwise({
         redirectTo: '/home'
       });
