@@ -1,74 +1,76 @@
 <div class="container">
 	
-	<div class="row">
-		<div class="col-lg-offset-3 col-lg-2">
-			<button type="button" class="btn btn-lg" style="margin-top:50px;" ng-class="{place: 'btn-success', move: 'btn-success', wait: 'btn-warning'}[getActionText()]" ng-disabled="true">
-				{{getActionText() | textActionFilter}}
-			</button>
+	<form class="form-inline well" style="margin-top:50px;">	
+		<div class="row">
+			<div class="col-lg-offset-3 col-lg-2">
+				<button type="button" class="btn btn-lg" style="margin-top:50px;" ng-class="{place: 'btn-success', move: 'btn-success', wait: 'btn-warning'}[getActionText()]" ng-disabled="true">
+					{{getActionText() | textActionFilter}}
+				</button>
+			</div>	
 		</div>	
-	</div>	
+			
+		<div class="row">
 		
-	<div class="row">
+			<div class="col-lg-offset-1 col-lg-6">
+				<table id="damier" class="damier">
+						<tr id ="{{'l' + row}}" ng-repeat="row in [0,1,2,3,4,5,6,7]">
+							<td id="{{row + '' + col}}"
+								ng-click="selectTile(row + '' + col)"
+								class="{{(row + col) % 2 ? 'WHITE' : 'BLACK'}}" 
+								ng-repeat="col in [0,1,2,3,4,5,6,7]">
+							</td>
+						</tr>
+				</table>
+			</div>
+		
 	
-		<div class="col-lg-offset-1 col-lg-6">
-			<table id="damier" class="damier">
-					<tr id ="{{'l' + row}}" ng-repeat="row in [0,1,2,3,4,5,6,7]">
-						<td id="{{row + '' + col}}"
-							ng-click="selectTile(row + '' + col)"
-							class="{{(row + col) % 2 ? 'WHITE' : 'BLACK'}}" 
-							ng-repeat="col in [0,1,2,3,4,5,6,7]">
-						</td>
-					</tr>
-			</table>
-		</div>
-	
-
-	
-		<div class="col-lg-offset-1 col-lg-4">
-			<div>
-                <table class="table table-bordered table-hover tscore">
-                    <thead>
-                    	<tr>
-	                        <th>Shapes</th>
-	                        <th>{{playerName}}<img src="{{playerImage}}"></th>
-	                        <th>{{opponentName}}<img src="{{opponentImage}}"></th>
-                    	</tr>
-                    </thead>
-                    
-                    <tfoot>
-                    	<tr>
-	                        <th>Total</th>
-	                        <th>{{playerScore}}</th>
-	                        <th>{{opponentScore}}</th>
-	                    </tr>
-                    </tfoot>
-                    
-                    <tboddy>
-	                    <tr>
-	                        <td>i : 1 pt</td>
-	                        <td></td>
-	                        <td></td>
-	                    </tr>
-	                    <tr>
-	                        <td>C : 3 pts</td>
-	                        <td></td>
-	                        <td></td>
-	                    </tr>
-	                    <tr>
-	                        <td>I : 5 pts</td>
-	                        <td></td>
-	                        <td></td>
-	                    </tr>
-	                    <tr>
-	                        <td>O : 8 pts</td>
-	                        <td></td>
-	                        <td></td>
-	                    </tr>
-	               	</tboddy>
-                </table>
-	     	</div>
-         </div>
-   	</div>
+		
+			<div class="col-lg-offset-1 col-lg-4">
+				<div>
+	                <table class="table table-bordered table-hover tscore">
+	                    <thead>
+	                    	<tr>
+		                        <th>Shapes</th>
+		                        <th><center>{{playerName}}</center><img src="{{opponentImage}}"></th>
+		                        <th><center>{{opponentName}}</center><img src="{{playerImage}}"></th>
+	                    	</tr>
+	                    </thead>
+	                    
+	                    <tfoot>
+	                    	<tr>
+		                        <th>Total</th>
+		                        <th><center>{{playerScore}}</center></th>
+		                        <th><center>{{opponentScore}}</center></th>
+		                    </tr>
+	                    </tfoot>
+	                    
+	                    <tboddy>
+		                    <tr>
+		                        <td>i : 1 pt</td>
+		                        <td></td>
+		                        <td></td>
+		                    </tr>
+		                    <tr>
+		                        <td>C : 3 pts</td>
+		                        <td></td>
+		                        <td></td>
+		                    </tr>
+		                    <tr>
+		                        <td>I : 5 pts</td>
+		                        <td></td>
+		                        <td></td>
+		                    </tr>
+		                    <tr>
+		                        <td>O : 8 pts</td>
+		                        <td></td>
+		                        <td></td>
+		                    </tr>
+		               	</tboddy>
+	                </table>
+		     	</div>
+	         </div>
+	   	</div>
+	</form>
 
 
 
