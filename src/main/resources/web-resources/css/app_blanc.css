@@ -1,5 +1,3 @@
-
-
 table.damier {
 margin-top: 60px; 
  border: 2px #A4A4A4 solid;
@@ -39,14 +37,7 @@ padding: 0px;
 }
 
 td.inShape {
-background-color: #9ED59E;
--moz-border-radius: 20px;
-border-radius: 20px;
--khtml-border-radius: 20px;
--webkit-border-radius: 20px;
-width: 55px;
-height: 55px;
-padding: 0px;
+border: 1px solid red;
 }
 
 img.token 

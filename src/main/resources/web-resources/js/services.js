@@ -96,7 +96,7 @@ chronoWarsServices.factory('gameHelper', function() {
 		},
 		
 		setInShape: function(tile) {
-			tile.setAttribute("class", "inShape");
+			tile.setAttribute("class", tile.className + " inShape");
 		},
 		
 		isMovable: function(selectedTile, newTile) {
