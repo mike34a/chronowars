@@ -3,6 +3,7 @@ package com.miksinouf.chronowars.domain.player;
 import static com.miksinouf.chronowars.domain.board.MoveResultType.SUCCESS;
 
 import com.miksinouf.chronowars.domain.board.*;
+import com.miksinouf.chronowars.domain.games.GamesQueue;
 
 public class Player {
 
@@ -93,6 +94,7 @@ public class Player {
                 .forEach(shape -> this.board.maxShape = shape.getScore() > this.board.maxShape.getScore() ? shape : this.board.maxShape);
 
         this.score += this.board.maxShape.getScore();
+        this.score = this.score > GamesQueue.MAX_SCORE ? GamesQueue.MAX_SCORE : this.score;
     }
 
     public String getNickname() {

@@ -65,7 +65,7 @@ public class Players {
                 whitePlayer.getNickname(),
                 blackPlayer.getNickname());
     }
-
+    
     private Player getPlayerOfColor(Color color, Player player, Player opponent) {
         return player.getColor() == color ? player : opponent;
     }
