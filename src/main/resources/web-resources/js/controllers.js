@@ -46,12 +46,12 @@ chronoWarsControllers.controller('GameCtrl', [
 			gameApi.getBoard($routeParams.playerId).then(function(boardResponse) {
 				var board = boardResponse.board;
                 $scope.colorToPlay = board.colorToPlay;
+                $scope.status = boardResponse.status
 				var tile;
 				var numberOfTokens = 0;
 				var cells = document.getElementById("damier").querySelectorAll("td");
 				$scope.score = gameHelper.getScore($scope.color, board);
 				for (var i = 0; i < cells.length; i++) {
-										
 					$scope.playerName = $scope.color == "WHITE" ? boardResponse.whiteNick : boardResponse.blackNick;
 					$scope.opponentName = $scope.color == "WHITE" ? boardResponse.blackNick : boardResponse.whiteNick;
 					$scope.playerScore = $scope.color == "WHITE" ? boardResponse.whiteScore : boardResponse.blackScore;
@@ -100,6 +100,8 @@ chronoWarsControllers.controller('GameCtrl', [
 					gameHelper.setInShape(document.getElementById(token.y + '' + token.x));
 				})
 				$scope.numberOfTokens = numberOfTokens;
+				if ($scope.status == "finished")
+					$scope.winner = gameHelper.getWinner(boardResponse);
 			});
 		}, 1000);
 
@@ -139,11 +141,15 @@ chronoWarsControllers.controller('GameCtrl', [
 		}
 		
 		var isDraggable = function(tile) {
-			return (maxTokensPlaced() && gameHelper.getTileColor(tile) == $scope.color && $scope.color == $scope.colorToPlay);
+			return ($scope.status == "running" &&
+					maxTokensPlaced() &&
+					gameHelper.getTileColor(tile) == $scope.color &&
+					$scope.color == $scope.colorToPlay);
 		}
 		
 		var isDroppable = function(tile, baseTile) {
-			return (gameHelper.getTileColor(tile) == $scope.color &&
+			return ($scope.status == "running" &&
+					gameHelper.getTileColor(tile) == $scope.color &&
 					$scope.color == $scope.colorToPlay &&
 					maxTokensPlaced() &&
 					gameHelper.isMovable(baseTile, tile));

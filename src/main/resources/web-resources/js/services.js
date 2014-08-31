@@ -120,6 +120,12 @@ chronoWarsServices.factory('gameHelper', function() {
 		
 		setDraggable: function(tile) {
 			$("#" + tile.firstElementChild.id).draggable({revert: true});
+		},
+		
+		getWinner: function(boardResponse) {
+			return (boardResponse.whiteScore > boardResponse.blackScore ? boardResponse.whiteNick :
+				boardResponse.whiteScore < boardResponse.blackScore ? boardResponse.blackNick :
+					'Tie')
 		}
 	}
 });
