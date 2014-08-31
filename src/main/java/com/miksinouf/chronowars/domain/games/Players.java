@@ -46,26 +46,20 @@ public class Players {
     public GameResponse getGame(String playerIdentifier) throws UnknownPlayerException {
     	checkUserExists(playerIdentifier);
     	Board board = players.get(playerIdentifier).getBoard();
-//    	Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-//    	JsonElement jsonElement = gson.toJsonTree(board);
-//    	jsonElement.getAsJsonObject().addProperty("status", "running");
-//    	jsonElement.getAsJsonObject().addProperty("lastRoundPoints", "0");
-//    	jsonElement.getAsJsonObject().addProperty("whiteScore", whiteScore);
-//    	jsonElement.getAsJsonObject().addProperty("blackScore", blackScore);
-//    	jsonElement.getAsJsonObject().addProperty("whiteNick", whiteNick);
-//    	jsonElement.getAsJsonObject().addProperty("blackNick", blackNick);
-//    	return gson.toJson(jsonElement);
-
 
         final Player player = players.get(playerIdentifier);
         final Player opponent = player.getOpponent();
 
+        Integer maxScore = Math.max(player.getScore(), opponent.getScore());
+        
         Player whitePlayer = getPlayerOfColor(Color.WHITE, player, opponent);
         Player blackPlayer = getPlayerOfColor(Color.BLACK, player, opponent);
+        
+        String gameStatus = maxScore >= GamesQueue.MAX_SCORE ? "finished" : "running";
 
         return new GameResponse(
                 board,
-                "running",
+                gameStatus,
                 whitePlayer.getScore().toString(),
                 blackPlayer.getScore().toString(),
                 whitePlayer.getNickname(),
@@ -75,5 +69,5 @@ public class Players {
     private Player getPlayerOfColor(Color color, Player player, Player opponent) {
         return player.getColor() == color ? player : opponent;
     }
-
+    
 }

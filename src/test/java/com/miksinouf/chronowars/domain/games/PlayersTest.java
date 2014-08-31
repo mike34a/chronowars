@@ -112,5 +112,59 @@ public class PlayersTest {
         assertThat(playersGame.whiteNick).isEqualTo(whiteNick);
         assertThat(playersGame.blackNick).isEqualTo(blackNick);
     }
+    
+    @Test
+    public void should_set_game_to_running_when_score_is_below_maximum() throws Exception {
 
+        // Given
+        final Board board = new Board();
+        final String whiteIdentifier = "whiteIdentifier";
+        final Player whitePlayer = mock(Player.class);
+        when(whitePlayer.getIdentifier()).thenReturn(whiteIdentifier);
+        when(whitePlayer.getScore()).thenReturn(10);
+
+        final String blackIdentifier = "blackIdentifier";
+        final Player blackPlayer = mock(Player.class);
+        when(blackPlayer.getScore()).thenReturn(20);
+
+        when(whitePlayer.getOpponent()).thenReturn(blackPlayer);
+        when(blackPlayer.getOpponent()).thenReturn(whitePlayer);
+
+        players.addPlayers(whitePlayer, blackPlayer);
+
+        // When
+        final GameResponse playersGame = players.getGame("whiteIdentifier");
+
+        // Then
+        assertThat(playersGame.status).isEqualTo("running");
+    }
+
+    @Test
+    public void should_set_game_to_finished_when_score_is_over_maximum() throws Exception {
+
+        // Given
+        final Board board = new Board();
+        final String whiteIdentifier = "whiteIdentifier";
+        final Player whitePlayer = mock(Player.class);
+        when(whitePlayer.getIdentifier()).thenReturn(whiteIdentifier);
+        when(whitePlayer.getScore()).thenReturn(10);
+
+        final String blackIdentifier = "blackIdentifier";
+        final Player blackPlayer = mock(Player.class);
+        when(blackPlayer.getScore()).thenReturn(40);
+
+        when(whitePlayer.getOpponent()).thenReturn(blackPlayer);
+        when(blackPlayer.getOpponent()).thenReturn(whitePlayer);
+
+        players.addPlayers(whitePlayer, blackPlayer);
+
+        // When
+        final GameResponse playersGame = players.getGame("whiteIdentifier");
+
+        // Then
+        assertThat(playersGame.status).isEqualTo("finished");
+        when(whitePlayer.getScore()).thenReturn(40);
+        when(blackPlayer.getScore()).thenReturn(10);
+        assertThat(playersGame.status).isEqualTo("finished");
+    }
 }

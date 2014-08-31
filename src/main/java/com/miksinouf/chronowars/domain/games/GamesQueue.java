@@ -12,6 +12,7 @@ import com.miksinouf.chronowars.domain.player.WaitingPlayer;
 
 public class GamesQueue {
     public static final Integer MAX_NUMBER_OF_TOKENS = 5;
+    public static final Integer MAX_SCORE = 30;
     public Players players = new Players();
     private final SecureRandom secureRandom = new SecureRandom();
     private Optional<WaitingPlayer> waitingPlayer = Optional.empty();
