@@ -7,7 +7,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import com.miksinouf.chronowars.domain.board.BadModelFormatException;
 import com.miksinouf.chronowars.domain.board.Board;
+import com.miksinouf.chronowars.domain.board.ShapeModels;
 import com.miksinouf.chronowars.domain.board.IllegalMoveException;
 import com.miksinouf.chronowars.domain.board.Position;
 
@@ -131,5 +133,10 @@ public class BoardTest {
 
         //WHEN
         Position.from(position).moving(DOWN_RIGHT);
+    }
+    
+    @Test
+    public void should_parse_file(){
+    	
     }
 }

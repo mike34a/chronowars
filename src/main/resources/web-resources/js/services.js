@@ -6,7 +6,6 @@ var chronoWarsServices = angular.module('chronoWarsServices', [ 'ngResource' ]);
 
 chronoWarsServices.factory('gameApi', function($http) {
 	return {
-		
 		registerPlayer: function(name) {
 			return $http.get('/register/' + name).then(function(result) {
 				return result.data;

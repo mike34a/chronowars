@@ -16,8 +16,8 @@ public class Board {
     @Expose private final Tokens whiteTokens;
     @Expose private final Tokens blackTokens;
     
-    private final Set<Shape> shapes;
-    @Expose public Shape maxShape;
+    private ShapeModels models;
+    @Expose public ShapeModel maxShape;
     
     @Expose public Color colorToPlay;
 
@@ -25,16 +25,17 @@ public class Board {
         this.whiteTokens = new Tokens(SIZE, GamesQueue.MAX_NUMBER_OF_TOKENS, Color.WHITE);
         this.blackTokens = new Tokens(SIZE, GamesQueue.MAX_NUMBER_OF_TOKENS, Color.BLACK);
         this.colorToPlay = Color.WHITE;
-        this.shapes = new HashSet<>();
-        this.maxShape = new Shape(ShapeType.NONE, Color.WHITE);
+        this.maxShape = new ShapeModel(0, 0, 0, new HashSet<Position>());
+        try {
+			this.models = new ShapeModels("models.txt");
+		} catch (BadModelFormatException e) {
+			this.models = null;
+			System.out.println(e.toString());
+		}
     }
 
     public Integer size() {
         return SIZE;
-    }
-    
-    public Set<Shape> getShapes() {
-    	return this.shapes;
     }
 
     public void placeToken(int x, int y) throws IllegalMoveException, TooManyTokensException {
@@ -42,7 +43,7 @@ public class Board {
     		placeWhiteToken(x, y);
     	else
     		placeBlackToken(x, y);
-    	findShapes();
+    	findShapes(x, y);
     	changePlayer();
     }
     
@@ -62,7 +63,7 @@ public class Board {
     		moveResult = moveWhiteToken(x, y, move);
     	else
     		moveResult = moveBlackToken(x, y, move);
-    	findShapes();
+    	findShapes(x + move.dx, y + move.dy);
     	changePlayer();
     	return (moveResult);
     }
@@ -109,9 +110,12 @@ public class Board {
     	return null;
     }
     
-    public void findShapes() {
-        this.shapes.clear();
-        this.maxShape = new Shape(ShapeType.NONE, Color.WHITE);
+    public void findShapes(Integer x, Integer y) {
+        this.maxShape = new ShapeModel(0, 0, 0, new HashSet<Position>());
+        for (ShapeModel shape : models.models) {
+        	findShape(shape, x, y);
+        }
+        /*
     	for(Position token : whiteTokens.tokensPositions()){
         	findLowerI(token, Color.WHITE);
         	findUpperC(token, Color.WHITE);
@@ -124,118 +128,53 @@ public class Board {
         	findUpperI(token, Color.BLACK);
         	findUpperO(token, Color.BLACK);
         }
+        */
     }
     
-    public void findLowerI(Position token, Color c) {
-    	Shape lowerI;
-    	Position t2;
-    	Position t3;
-
-		/* Example : * RIGHT * RIGHT */
-		for (Move m : Move.values()) {
-			if (m == Move.UP || m == Move.RIGHT) {
-				if ((t3 = hasTokenAt(t2 = hasTokenAt(token, m, c.getOpponentColor()), m, c)) != null) {
-					lowerI = new Shape(ShapeType.LOWER_I, colorToPlay);
-					lowerI.tokens.add(token);
-					lowerI.tokens.add(t2);
-					lowerI.tokens.add(t3);
-					this.shapes.add(lowerI);
-				} 				  
-			}
+    public void findShape(ShapeModel model, Integer posX, Integer posY) {
+    	ShapeModel shape;
+    	if (model.score > this.maxShape.score) {
+	    	for (Integer checkY = 0; checkY < model.height; checkY++) {
+	    		for (Integer checkX = 0; checkX < model.length; checkX++) {
+	    			shape = checkShape(model, posX, posY, checkX, checkY, "original");
+	    			shape = shape != null ? shape : checkShape(model, posX, posY, checkX, checkY, "left");
+	    			shape = shape != null ? shape : checkShape(model, posX, posY, checkX, checkY, "down");
+	    			shape = shape != null ? shape : checkShape(model, posX, posY, checkX, checkY, "right");
+	    			if (shape != null)
+	    				this.maxShape = shape;
+	    		}
+	    	}
     	}
     }
     
-    public void findUpperC(Position token, Color c) {
-    	Shape lowerC;
-    	Position t2;
-    	Position t3;
-    	Position t4;
-    	Position t5;
-
-		/* Example : * UP * RIGHT * RIGHT * DOWN */
-		for (Move m : Move.values()) {
-			if (m == Move.DOWN || m == Move.UP || m == Move.LEFT || m == Move.RIGHT) {
-				if ((t5 = hasTokenAt(t4 = hasTokenAt(t3 = hasTokenAt(t2 = hasTokenAt(
-						token, m, c.getOpponentColor()),
-						m.getNextDirection(), c), 
-						m.getNextDirection(), c.getOpponentColor()),
-						m.getOppositeDirection(), c)) != null) {
-					lowerC = new Shape(ShapeType.UPPER_C, colorToPlay);
-					lowerC.tokens.add(token);
-					lowerC.tokens.add(t2);
-					lowerC.tokens.add(t3);
-					lowerC.tokens.add(t4);
-					lowerC.tokens.add(t5);
-					this.shapes.add(lowerC); 					
-				}
+    private ShapeModel checkShape(ShapeModel model, Integer posX, Integer posY, Integer checkX, Integer checkY, String rotation) {
+    	Position actualPosition;
+    	Boolean found = true;
+    	ShapeModel shape = new ShapeModel(model.length, model.height, model.score, new HashSet<Position>());
+		for (Position p : model.tokens) {
+			switch (rotation) {
+			case "original":
+				actualPosition = new Position(posX - checkX + p.x , posY - checkY + p.y);
+				break;
+			case "down":
+				actualPosition = new Position(posX + checkX - p.x , posY + checkY - p.y);
+				break;
+			case "left":
+				actualPosition = new Position(posX - checkY + p.y , posY + checkX - p.x);
+				break;
+			case "right":
+				actualPosition = new Position(posX + checkY - p.y, posY - checkX + p.x);
+				break;
+			default:
+				actualPosition = new Position(posX, posY);	
 			}
+			shape.tokens.add(actualPosition);
+			if (!whiteTokens.tokensPositions().contains(actualPosition) && !blackTokens.tokensPositions().contains(actualPosition))
+				found = false;
 		}
-    }
-    
-    public void findUpperI(Position token, Color c) {
-    	Shape upperI;
-    	Position t2;
-    	Position t3;
-    	Position t4;
-    	Position t5;
-    	Position t6;
-    	Position t7;
-
-		/* Example : (1)UP * UP * (1)RIGHT * RIGHT * (2)UP * (2) DOWN */
-		for (Move m : Move.values()) {
-			if (m == Move.DOWN || m == Move.UP || m == Move.LEFT || m == Move.RIGHT) {
-				if ((t3 = hasTokenAt(t2 = hasTokenAt(token, m, c.getOpponentColor()), m, c)) != null) {
-					if ((t5 = hasTokenAt(t4 = hasTokenAt(t2, m.getNextDirection(), c), m.getNextDirection(), c.getOpponentColor())) != null) {
-						if ((t6 = hasTokenAt(t5, m, c)) != null && (t7 = hasTokenAt(t5, m.getOppositeDirection(), c)) != null) {
-							upperI = new Shape(ShapeType.UPPER_I, colorToPlay);
-							upperI.tokens.add(token);
-							upperI.tokens.add(t2);
-							upperI.tokens.add(t3);
-							upperI.tokens.add(t4);
-							upperI.tokens.add(t5);
-							upperI.tokens.add(t6);
-							upperI.tokens.add(t7);
-							this.shapes.add(upperI);
-						}
-					}		
-				}
-			}
-		}
-    }
-    
-    public void findUpperO(Position token, Color c) {
-    	Shape upperO;
-    	Position t2;
-    	Position t3;
-    	Position t4;
-    	Position t5;
-    	Position t6;
-    	Position t7;
-    	Position t8;
-
-		/* Example : * UP * UP * RIGHT * RIGHT * DOWN * DOWN * LEFT*/
-		for (Move m : Move.values()) {
-			if (m == Move.DOWN || m == Move.UP || m == Move.LEFT || m == Move.RIGHT) {
-				if ((t8 = hasTokenAt(t7 = hasTokenAt(t6 = hasTokenAt((t5 = hasTokenAt(t4 = hasTokenAt(t3 = hasTokenAt(t2 = hasTokenAt(
-						token, m, c.getOpponentColor()),
-						m, c), 
-						m.getNextDirection(), c.getOpponentColor()),
-						m.getNextDirection(), c)),
-						m.getOppositeDirection(), c.getOpponentColor()),
-						m.getOppositeDirection(), c),
-						m.getPreviousDirection(), c.getOpponentColor())) != null) {
-					upperO = new Shape(ShapeType.UPPER_O, colorToPlay);
-					upperO.tokens.add(token);
-					upperO.tokens.add(t2);
-					upperO.tokens.add(t3);
-					upperO.tokens.add(t4);
-					upperO.tokens.add(t5);
-					upperO.tokens.add(t6);
-					upperO.tokens.add(t7);
-					upperO.tokens.add(t8);
-					this.shapes.add(upperO); 					
-				}
-			}
-		}
+		if (found && shape.tokens.contains(new Position(posX, posY)))
+			return shape;
+		else
+			return null;
     }
 }

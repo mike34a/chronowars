@@ -88,12 +88,7 @@ public class Player {
     }
 
     private void refreshPlayerScore(Position p) {
-        this.board
-                .getShapes().stream()
-                .filter(shape -> shape.tokens.contains(p))
-                .forEach(shape -> this.board.maxShape = shape.getScore() > this.board.maxShape.getScore() ? shape : this.board.maxShape);
-
-        this.score += this.board.maxShape.getScore();
+        this.score += this.board.maxShape.score;
         this.score = this.score > GamesQueue.MAX_SCORE ? GamesQueue.MAX_SCORE : this.score;
     }
 
