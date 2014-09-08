@@ -7,6 +7,9 @@ import java.lang.management.ManagementFactory;
 
 import javax.management.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import spark.Response;
 
 import com.miksinouf.chronowars.domain.administration.GamesAdminitrator;
@@ -17,6 +20,8 @@ import com.miksinouf.chronowars.domain.player.UnknownPlayerException;
 
 public class ChronowarsServer {
 
+    private final Logger logger = LoggerFactory.getLogger(ChronowarsServer.class);
+
     public static void main(String[] args) {
         final ChronowarsServer chronowarsServer = new ChronowarsServer();
         chronowarsServer.startChronowarsServer();
@@ -24,6 +29,7 @@ public class ChronowarsServer {
     }
 
     public void startChronowarsServer() {
+        logger.info("Chronowars server startup !");
         final ChronowarsAdapter chronowarsAdapter = new ChronowarsAdapter();
         staticFileLocation("/web-resources");
 
