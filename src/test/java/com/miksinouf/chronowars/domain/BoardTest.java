@@ -135,8 +135,4 @@ public class BoardTest {
         Position.from(position).moving(DOWN_RIGHT);
     }
     
-    @Test
-    public void should_parse_file(){
-    	
-    }
 }

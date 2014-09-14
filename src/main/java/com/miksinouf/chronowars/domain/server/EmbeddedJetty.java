@@ -12,6 +12,7 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
+import org.eclipse.jetty.server.ServerConnector;
 
 public class EmbeddedJetty {
     private static final Logger logger = LoggerFactory
@@ -57,6 +58,8 @@ public class EmbeddedJetty {
         contextHandler.addEventListener(new ContextLoaderListener(context));
         contextHandler.setResourceBase(new ClassPathResource("resources").getURI()
                 .toString());
+        ServletHolder holderEvents = new ServletHolder("ws-events", EventServlet.class);
+		contextHandler.addServlet(holderEvents, "/events/*");
         return contextHandler;
     }
 
