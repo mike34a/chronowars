@@ -1,6 +1,9 @@
 package com.miksinouf.chronowars.domain.server;
 
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
+
+import javax.management.*;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -10,7 +13,8 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
-import org.eclipse.jetty.server.ServerConnector;
+
+import com.miksinouf.chronowars.domain.administration.GamesAdminitrator;
 
 public class EmbeddedJetty {
 //    private static final Logger logger = LoggerFactory
@@ -22,7 +26,9 @@ public class EmbeddedJetty {
     private static final String DEFAULT_PROFILE = "dev";
 
     public static void main(String[] args) throws Exception {
-        new EmbeddedJetty().startJetty(getPortFromArgs(args));
+        final EmbeddedJetty embeddedJetty = new EmbeddedJetty();
+        embeddedJetty.startJetty(getPortFromArgs(args));
+        embeddedJetty.startJmxServer();
     }
 
     private static int getPortFromArgs(String[] args) {
@@ -62,5 +68,19 @@ public class EmbeddedJetty {
         context.setConfigLocation(CONFIG_LOCATION);
         context.getEnvironment().setDefaultProfiles(DEFAULT_PROFILE);
         return context;
+    }
+
+    public void startJmxServer() {
+        final MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
+        try {
+            final ObjectName gamesAdministrator =
+                    new ObjectName("com.miksinouf.chronowars.domain.administration:type=GamesAdministratorMBean");
+            mBeanServer.registerMBean(new GamesAdminitrator(), gamesAdministrator);
+        } catch (MalformedObjectNameException
+                | NotCompliantMBeanException
+                | InstanceAlreadyExistsException
+                | MBeanRegistrationException e) {
+            e.printStackTrace();
+        }
     }
 }

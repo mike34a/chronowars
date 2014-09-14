@@ -1,6 +1,10 @@
 package com.miksinouf.chronowars.domain.board;
 
-public class IllegalMoveException extends Exception {
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Illegal move.")
+public class IllegalMoveException extends RuntimeException {
 
     private final static String MESSAGE_TEMPLATE =  "%s at Position{x=%d, y=%d}" ;
 
