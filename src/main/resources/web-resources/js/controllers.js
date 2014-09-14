@@ -13,7 +13,16 @@ chronoWarsControllers.controller('HomeCtrl', [
     'gameApi',
 	'$location',
 	function($scope, gameApi, $location) {
+        var ws = new WebSocket("ws://localhost:4567/events/");
+        ws.onopen = function(){  
+            console.log("Socket has been opened!");  
+        };
+        
+        ws.onmessage = function(message) {
+            console.log(message.data);
+        };
 		$scope.registerPlayer = function(name) {
+			ws.send("Register moi, yo");
 			gameApi.registerPlayer(encodeURI(name)).then(function(pidres) {
 				$scope.startgame = setInterval(function() {
 					gameApi.hasGameStarted(pidres).then(function(started) {

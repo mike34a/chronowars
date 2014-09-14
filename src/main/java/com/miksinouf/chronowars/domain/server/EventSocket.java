@@ -1,4 +1,6 @@
 package com.miksinouf.chronowars.domain.server;
+import java.io.IOException;
+
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.WebSocketAdapter;
 public class EventSocket extends WebSocketAdapter
@@ -8,6 +10,11 @@ public class EventSocket extends WebSocketAdapter
 	{
 		super.onWebSocketConnect(sess);
 		System.out.println("Socket Connected: " + sess);
+		try {
+			sess.getRemote().sendString("registering...");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	@Override
 	public void onWebSocketText(String message)
