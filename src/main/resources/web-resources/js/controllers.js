@@ -7,7 +7,7 @@ $(function (){
 
 /* Controllers */
 var chronoWarsControllers = angular.module('chronoWarsControllers', []);
-
+var ws;
 chronoWarsControllers.controller('HomeCtrl', [
     '$scope',
     'gameApi',
@@ -15,7 +15,7 @@ chronoWarsControllers.controller('HomeCtrl', [
 	function($scope, gameApi, $location) {
         
 		$scope.registerPlayer = function(name) {
-	        var ws = new WebSocket("ws://localhost:4567/events/");
+	        ws = new WebSocket("ws://localhost:4567/events/");
 	        ws.onopen = function(){
 	        	console.log("Socket opened");
 	        	gameApi.registerPlayer(encodeURI(name)).then(function(pidres) {
@@ -30,8 +30,8 @@ chronoWarsControllers.controller('HomeCtrl', [
 	        ws.onmessage = function(message) {
 	        	console.log("Received message " + message.data)
             	gameApi.hasGameStarted(message.data).then(function(started) {
-					if (started != 'false') {
-						$location.path('/game/' + $scope.pidres);
+					if ($location.path() == '/home') {
+						$location.path('/game/' + message.data);
 					}
 				});
 	        };
@@ -52,8 +52,8 @@ chronoWarsControllers.controller('GameCtrl', [
 				$scope.color = color;
 			}
 		});
-		
-		setInterval(function() {
+
+		refreshBoard = function() {
 			gameApi.getBoard($routeParams.playerId).then(function(boardResponse) {
 				var board = boardResponse.board;
                 $scope.colorToPlay = board.colorToPlay;
@@ -62,20 +62,19 @@ chronoWarsControllers.controller('GameCtrl', [
 				var numberOfTokens = 0;
 				var cells = document.getElementById("damier").querySelectorAll("td");
 				$scope.score = gameHelper.getScore($scope.color, board);
+				$scope.playerName = $scope.color == "WHITE" ? boardResponse.whiteNick : boardResponse.blackNick;
+				$scope.opponentName = $scope.color == "WHITE" ? boardResponse.blackNick : boardResponse.whiteNick;
+				$scope.playerScore = $scope.color == "WHITE" ? boardResponse.whiteScore : boardResponse.blackScore;
+				$scope.opponentScore = $scope.color == "WHITE" ? boardResponse.blackScore : boardResponse.whiteScore;
+				$scope.playerImage = $scope.color == "WHITE" ? 'img/whitetoken.png' : 'img/blacktoken.png';
+				$scope.opponentImage = $scope.color == "WHITE" ? 'img/blacktoken.png' : 'img/whitetoken.png';
+				$scope.numberOfTokens = board.whiteTokens.tokensPositions.length + board.blackTokens.tokensPositions.length;
 				for (var i = 0; i < cells.length; i++) {
-					$scope.playerName = $scope.color == "WHITE" ? boardResponse.whiteNick : boardResponse.blackNick;
-					$scope.opponentName = $scope.color == "WHITE" ? boardResponse.blackNick : boardResponse.whiteNick;
-					$scope.playerScore = $scope.color == "WHITE" ? boardResponse.whiteScore : boardResponse.blackScore;
-					$scope.opponentScore = $scope.color == "WHITE" ? boardResponse.blackScore : boardResponse.whiteScore;
-					$scope.playerImage = $scope.color == "WHITE" ? 'img/whitetoken.png' : 'img/blacktoken.png';
-					$scope.opponentImage = $scope.color == "WHITE" ? 'img/blacktoken.png' : 'img/whitetoken.png';
-					
 					tile = cells[i];
 					gameHelper.setClass(tile);
 					var found = 0;
 					board.whiteTokens.tokensPositions.forEach(function(token) {
 						if ((token.y == parseInt(tile.id[0])) && (token.x == parseInt(tile.id[1]))) {
-							numberOfTokens++;
 							found = 1;
 							gameHelper.addImg(tile, "img/blacktoken.png");
 							if (isDraggable(tile))
@@ -84,7 +83,6 @@ chronoWarsControllers.controller('GameCtrl', [
 					});
 					board.blackTokens.tokensPositions.forEach(function(token) {
 						if ((token.y == parseInt(tile.id[0])) && (token.x == parseInt(tile.id[1]))) {
-							numberOfTokens++;
 							found = 1;
 							gameHelper.addImg(tile, "img/whitetoken.png");
 							if (isDraggable(tile))
@@ -110,12 +108,17 @@ chronoWarsControllers.controller('GameCtrl', [
 				board.maxShape.tokens.forEach(function(token) {
 					gameHelper.setInShape(document.getElementById(token.y + '' + token.x));
 				})
-				$scope.numberOfTokens = numberOfTokens;
 				if ($scope.status == "finished")
 					$scope.winner = gameHelper.getWinner(boardResponse);
 			});
-		}, 1000);
-
+		}
+		
+		ws.onmessage = function(message) {
+			refreshBoard();
+		}
+		
+		refreshBoard();
+		
 		var placeToken = function(tileId) {
 			gameApi.setToken($routeParams.playerId,
 							tileId[0],

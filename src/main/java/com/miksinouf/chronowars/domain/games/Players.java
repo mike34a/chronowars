@@ -1,5 +1,6 @@
 package com.miksinouf.chronowars.domain.games;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import com.miksinouf.chronowars.domain.player.Color;
 import com.miksinouf.chronowars.domain.player.Player;
 import com.miksinouf.chronowars.domain.player.TooManyTokensException;
 import com.miksinouf.chronowars.domain.player.UnknownPlayerException;
+import com.miksinouf.chronowars.domain.server.ChronowarsAdapter;
 
 public class Players {
     public final Map<String, Player> players = new HashMap<>();
@@ -24,12 +26,28 @@ public class Players {
     
     public MoveResult setToken(String playerIdentifier, Integer x, Integer y) throws UnknownPlayerException, IllegalMoveException, TooManyTokensException {
         checkUserExists(playerIdentifier);
-        return players.get(playerIdentifier).set(x, y);
+        MoveResult result =  players.get(playerIdentifier).set(x, y);
+        try {
+        	final ChronowarsAdapter chronowarsAdapter = new ChronowarsAdapter();
+			players.get(playerIdentifier).session.getRemote().sendString(chronowarsAdapter.adaptGame(getGame(playerIdentifier)));
+			players.get(playerIdentifier).getOpponent().session.getRemote().sendString(chronowarsAdapter.adaptGame(getGame(playerIdentifier)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        return result;
     }
 
     public MoveResult moveToken(String playerIdentifier, Integer oldX, Integer oldY, String move) throws UnknownPlayerException, IllegalMoveException {
         checkUserExists(playerIdentifier);
-        return players.get(playerIdentifier).move(oldX, oldY, Move.valueOf(move));
+        MoveResult result = players.get(playerIdentifier).move(oldX, oldY, Move.valueOf(move));
+        try {
+        	final ChronowarsAdapter chronowarsAdapter = new ChronowarsAdapter();
+			players.get(playerIdentifier).session.getRemote().sendString(chronowarsAdapter.adaptGame(getGame(playerIdentifier)));
+			players.get(playerIdentifier).getOpponent().session.getRemote().sendString(chronowarsAdapter.adaptGame(getGame(playerIdentifier)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        return result;
     }
 
     private void checkUserExists(String playerIdentifier) throws UnknownPlayerException {
