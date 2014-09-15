@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
+import org.eclipse.jetty.websocket.api.Session;
+
 public enum GamesQueueSingleton {
 	INSTANCE;
 
@@ -13,10 +15,13 @@ public enum GamesQueueSingleton {
 		try {
 			return gamesQueue.register(URLDecoder.decode(nickname, StandardCharsets.UTF_8.name()));
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "";
 	}
+    
+    public void setSession(Session session) {
+    	gamesQueue.setSession(session);
+    }
 
 }

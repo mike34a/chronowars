@@ -17,7 +17,6 @@ public class ShapeModel {
 		this.height = height;
 		this.score = score;
 		this.tokens = model;
-		System.out.println(this.toString());
 	}
 	
 	@Override

@@ -13,26 +13,28 @@ chronoWarsControllers.controller('HomeCtrl', [
     'gameApi',
 	'$location',
 	function($scope, gameApi, $location) {
-        var ws = new WebSocket("ws://localhost:4567/events/");
-        ws.onopen = function(){  
-            console.log("Socket has been opened!");  
-        };
         
-        ws.onmessage = function(message) {
-            console.log(message.data);
-        };
 		$scope.registerPlayer = function(name) {
-			ws.send("Register moi, yo");
-			gameApi.registerPlayer(encodeURI(name)).then(function(pidres) {
-				$scope.startgame = setInterval(function() {
-					gameApi.hasGameStarted(pidres).then(function(started) {
-						if (started != 'false') {
-							clearInterval($scope.startgame);
-							$location.path('/game/' + pidres);
-						}
-					});
-				}, 1000);
-			});
+	        var ws = new WebSocket("ws://localhost:4567/events/");
+	        ws.onopen = function(){
+	        	console.log("Socket opened");
+	        	gameApi.registerPlayer(encodeURI(name)).then(function(pidres) {
+	        		console.log("registering pid : " + pidres);
+	        		$scope.pidres = pidres;
+				});
+	        };
+	        
+	        ws.onclose = function(message){
+	        	console.log("server closed connection, reason : " + message.data);
+	        }
+	        ws.onmessage = function(message) {
+	        	console.log("Received message " + message.data)
+            	gameApi.hasGameStarted(message.data).then(function(started) {
+					if (started != 'false') {
+						$location.path('/game/' + $scope.pidres);
+					}
+				});
+	        };
 		};
     } ]);
 

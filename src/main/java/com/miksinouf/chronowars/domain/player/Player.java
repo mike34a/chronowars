@@ -2,6 +2,8 @@ package com.miksinouf.chronowars.domain.player;
 
 import static com.miksinouf.chronowars.domain.board.MoveResultType.SUCCESS;
 
+import org.eclipse.jetty.websocket.api.Session;
+
 import com.miksinouf.chronowars.domain.board.*;
 import com.miksinouf.chronowars.domain.games.GamesQueue;
 
@@ -13,6 +15,7 @@ public class Player {
     private Integer score;
     private final Board board;
     private Player opponent;
+    public Session session;
     public Player(String nickname, Color color,
                   String identifier, Board board) {
         this.nickname = nickname;
@@ -25,6 +28,7 @@ public class Player {
     public Player(WaitingPlayer waitingPlayer, Board board, Color color) {
         this.nickname = waitingPlayer.nickname;
         this.color = color;
+        this.session = waitingPlayer.sess;
         this.identifier = waitingPlayer.identifier;
         this.board = board;
         this.score = 0;

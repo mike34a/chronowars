@@ -30,7 +30,7 @@ public class Board {
 			this.models = new ShapeModels("models.txt");
 		} catch (BadModelFormatException e) {
 			this.models = null;
-			System.out.println(e.toString());
+			e.printStackTrace();
 		}
     }
 
