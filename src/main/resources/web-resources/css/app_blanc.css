@@ -68,4 +68,24 @@ margin-right: auto;
 	margin-right:10px;
 	}
 
+button.bonus{
+	position: absolute;
+	height: 50px;
+	width: 50px;
+	transition-property: height, width;
+	transition-duration: 500ms;
+	}
+button.bonus:hover {
+	height: 55px;
+	width: 55px;
+	}
+div.dbonus {
+	position: relative;
+	float: left;
+	width: 60px;
+	height: 60px;
+	margin-left: 10px; 
+	}
 
+
+}
